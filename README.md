@@ -26,7 +26,7 @@ cd anvikshai-frontend
 3. **Install dependencies:**
 
 ```bash
-npm install
+npm install --force
 ```
 
 4. **Start the development server:**
