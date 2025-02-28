@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
-import RootNav from "../components/navbars/RootNav";
+import RootNav from "../components/RootNav";
+import Footer from "../components/footer"
 
 const RootLayout = () => {
   return (
@@ -7,6 +8,7 @@ const RootLayout = () => {
       <RootNav />
       <main className="">
         <Outlet />
+        <Footer />
       </main>
     </div>
   );
