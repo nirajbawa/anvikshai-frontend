@@ -1,4 +1,7 @@
-function Navbar() {
+
+
+function Navbar(){
+
   return (
     <div>
         <nav class="sticky bg-[#D2B0FD] h-18 w-full shadow-lg ">
@@ -18,4 +21,7 @@ function Navbar() {
   )
 }
 
+
 export default Navbar
+
+
