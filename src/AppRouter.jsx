@@ -7,8 +7,10 @@ import VideoPage from "./pages/dashboard/video/videopage";
 import Messages from "./pages/message/Messages";
 import MDashboard from "./pages/Mentor/dashboard";
 import ADashboard from "./pages/Admin/Dashboard";
-import Alogin from "./pages/Admin/Login"
-import Mlogin from "./pages/Mentor/Login"
+import Alogin from "./pages/Admin/Login";
+import Mlogin from "./pages/Mentor/Login";
+import Mlist from "./pages/Mentor/List";
+import Alist from "./pages/Admin/List";
 
 const AppRouter = () => {
   return (
@@ -23,6 +25,8 @@ const AppRouter = () => {
           <Route path="/adashboard" element={<ADashboard/>}/>
           <Route path="/alogin" element={<Alogin/>}/>
           <Route path="/mlogin" element={<Mlogin/>}/>
+          <Route path="/mlist" element={<Mlist/>}/>
+          <Route path="/alist" element={<Alist/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
