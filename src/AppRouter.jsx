@@ -1,13 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import React from "react";
-<<<<<<< HEAD
+import Homepage from "./pages/LandingPage/HomePage";
+import SignUp from "./pages/SignUp/signup";
+import Login from "./pages/LogIn/login";
 import DetailsPage from "./pages/home/Details";
 import PaymentPage from "./pages/home/PaymentPage";
 import Subscription from "./pages/home/Subscription";
 import RoadMap from "./pages/home/RoadMap";
-=======
 import HomePage from "./pages/home";
 import RootLayout from "./layouts/RootLayout";
+import Dashboard from "./pages/Dashboard/dashboard";
+import CreateTask from "./pages/Dashboard/createtask";
+import { useState } from "react";
+import './index.css'
 
 import Assignment from "./pages/AssignmentComp/Assignment";  // Import the new page
 import Article from "./pages/ArticleComp/Article";
@@ -24,19 +29,25 @@ import Mlist from "./pages/Mentor/List";
 import Alist from "./pages/Admin/List";
 
 
->>>>>>> 5a4724cddb32404721daebd1540aa7ee83557b95
+
 const AppRouter = () => {
+  const [tasks, setTasks] = useState([]);
   return (
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
+
         <Route path="/details" exact element={<DetailsPage />} />
         {/* Add more routes as needed */}
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/roadmap" element={<RoadMap />} />
-=======
+
         <Route element={<RootLayout />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard tasks={tasks}/>} />
+          <Route path="/create-task" element={<CreateTask setTasks={setTasks} />} />
           <Route path="/" element={<HomePage />} />
 
           <Route path="/assignment" element={<Assignment />} /> {/* New Route */}
@@ -54,7 +65,6 @@ const AppRouter = () => {
           <Route path="/alist" element={<Alist/>}/>
 
         </Route>
->>>>>>> 5a4724cddb32404721daebd1540aa7ee83557b95
       </Routes>
     </BrowserRouter>
   );
