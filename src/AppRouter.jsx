@@ -6,7 +6,9 @@ import RoadmapComponent from "./pages/dashboard/Roadmap/Roadmappage";
 import VideoPage from "./pages/dashboard/video/videopage";
 import Messages from "./pages/message/Messages";
 import MDashboard from "./pages/Mentor/dashboard";
-import ADashboard from "./pages/Admin/Dashboard"
+import ADashboard from "./pages/Admin/Dashboard";
+import Alogin from "./pages/Admin/Login"
+import Mlogin from "./pages/Mentor/Login"
 
 const AppRouter = () => {
   return (
@@ -19,6 +21,8 @@ const AppRouter = () => {
           <Route path="/message" element={<Messages />} />
           <Route path="/mdashboard" element={<MDashboard/>}/>
           <Route path="/adashboard" element={<ADashboard/>}/>
+          <Route path="/alogin" element={<Alogin/>}/>
+          <Route path="/mlogin" element={<Mlogin/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

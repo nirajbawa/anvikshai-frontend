@@ -1,6 +1,4 @@
-import login from './login.jpg'
-import React from "react"
-import { Link } from "react-router-dom"; 
+
 function Login(){
     return (
         <>
@@ -8,7 +6,7 @@ function Login(){
         <div class="text-center  grid grid-cols-2 pl-20 pr-20 ">
 
             <div class=" pt-12">
-                <img class="ml-20 h-[600px]" src={login}></img>
+                <img class="ml-20 h-[600px]" src="anvikshai-frontend\src\assets\login.jpg"></img>
             </div>
 
 
@@ -36,7 +34,7 @@ function Login(){
                 </div>
                 <div class="pt-6 flex justify-center items-center space-x-2">
                     <p class="text-gray-600">Dont have an account?</p>
-                    <Link to={'/signup'} class="cursor-pointer hover:underline">Sign up</Link>
+                    {/* <Link to={'/signup'} class="cursor-pointer hover:underline">Sign up</Link> */}
                 </div>
             </div>
         </div>
