@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import React from "react";
-<<<<<<< HEAD
+import HomePage from "./pages/home";
+import RootLayout from "./layouts/RootLayout";
+
 import DetailsPage from "./pages/home/Details";
 import PaymentPage from "./pages/home/PaymentPage";
 import Subscription from "./pages/home/Subscription";
 import RoadMap from "./pages/home/RoadMap";
-=======
-import HomePage from "./pages/home";
-import RootLayout from "./layouts/RootLayout";
+import ContactUs from "./pages/home/ContactUs";
 
-import Assignment from "./pages/AssignmentComp/Assignment";  // Import the new page
+import Assignment from "./pages/AssignmentComp/Assignment";
 import Article from "./pages/ArticleComp/Article";
 import Quiz from "./pages/QuizComp/Quiz";
 
@@ -23,38 +23,32 @@ import Mlogin from "./pages/Mentor/Login";
 import Mlist from "./pages/Mentor/List";
 import Alist from "./pages/Admin/List";
 
-
->>>>>>> 5a4724cddb32404721daebd1540aa7ee83557b95
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
-        <Route path="/details" exact element={<DetailsPage />} />
-        {/* Add more routes as needed */}
-        <Route path="/payment" element={<PaymentPage />} />
-        <Route path="/subscription" element={<Subscription />} />
-        <Route path="/roadmap" element={<RoadMap />} />
-=======
         <Route element={<RootLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/roadmap" element={<RoadMap />} />
+          <Route path="/contact" element={<ContactUs />} />
 
-          <Route path="/assignment" element={<Assignment />} /> {/* New Route */}
-          <Route path="/article" element={<Article />} /> {/* New Route */}
-          <Route path="/quiz" element={<Quiz />} /> {/* New Route */}
+          <Route path="/assignment" element={<Assignment />} />
+          <Route path="/article" element={<Article />} />
+          <Route path="/quiz" element={<Quiz />} />
 
-          <Route path="/roadmap" element={<RoadmapComponent />} />
-          <Route path="/video" element={<VideoPage />} />
+          <Route path="/dashboard/roadmap" element={<RoadmapComponent />} />
+          <Route path="/dashboard/video" element={<VideoPage />} />
           <Route path="/message" element={<Messages />} />
-          <Route path="/mdashboard" element={<MDashboard/>}/>
-          <Route path="/adashboard" element={<ADashboard/>}/>
-          <Route path="/alogin" element={<Alogin/>}/>
-          <Route path="/mlogin" element={<Mlogin/>}/>
-          <Route path="/mlist" element={<Mlist/>}/>
-          <Route path="/alist" element={<Alist/>}/>
-
+          <Route path="/mdashboard" element={<MDashboard />} />
+          <Route path="/adashboard" element={<ADashboard />} />
+          <Route path="/alogin" element={<Alogin />} />
+          <Route path="/mlogin" element={<Mlogin />} />
+          <Route path="/mlist" element={<Mlist />} />
+          <Route path="/alist" element={<Alist />} />
         </Route>
->>>>>>> 5a4724cddb32404721daebd1540aa7ee83557b95
       </Routes>
     </BrowserRouter>
   );

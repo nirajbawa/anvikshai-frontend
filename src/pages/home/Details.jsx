@@ -4,7 +4,7 @@ import { ProfileCircle, Calendar, Book, Translate, User } from "iconoir-react";
 
 export default function DetailsPage() {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-20">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6">
       <div className="w-full md:w-2/5 flex justify-center mb-6 md:mb-0">
         <img
           src="detail_image.png"

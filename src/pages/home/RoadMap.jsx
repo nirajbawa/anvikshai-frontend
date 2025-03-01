@@ -52,7 +52,7 @@ export default function RoadMap() {
   };
 
   return (
-    <div className="flex flex-col items-center px-4 sm:px-8 py-10 mx-auto max-w-[1400px] mt-20">
+    <div className="flex flex-col items-center px-4 sm:px-8 py-10 mx-auto max-w-[1400px] mt-5">
       <div className="flex flex-col lg:flex-row justify-between w-full gap-6">
         <div className="w-full lg:w-1/2 p-5  bg-white shadow-lg rounded-lg ">
           <h2 className="text-xl font-semibold mb-5">RoadMap View</h2>
