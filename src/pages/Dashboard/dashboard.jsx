@@ -41,28 +41,14 @@ function Dashboard({ tasks }){
 
                 </div>
 
-                <div class="flex-1 h-screen overflow-y-auto pl-16 pt-5 bg-gray-100">
+                <div class="flex-1 h-screen overflow-y-auto pl-16 pt-5 ">
                     <div class=" text-[30px] flex justify-start items-center space-x-2">
                         <img class="h-12 w-12" src={task}></img>
                         <h1>Your Tasks</h1>
                     </div>
-                    <div class="">
-                    
-                        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {tasks.map((task) => (
-                                <div key={task.id} className="bg-white p-4 rounded-lg shadow-md">
-                                        <h3 className="text-lg font-bold">{task.title}</h3>
-                                        <p className="text-gray-600 truncate">{task.description}</p>
-                                </div>
-                            ))}
-                        </div>
                     </div>
-                    
-
-                </div>
 
             </div>
-
         </div>
     )
 
