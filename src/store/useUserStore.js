@@ -8,7 +8,7 @@ const useUserStore = create(
       setUserData: (data) => set({ userData: data }),
     }),
     {
-      name: "auth-storage", // key for localStorage
+      name: "user-storage", // key for localStorage
     }
   )
 );

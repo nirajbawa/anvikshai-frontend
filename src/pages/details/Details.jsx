@@ -1,4 +1,4 @@
-import { Input, Select } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 import { ProfileCircle, Calendar, Book, Translate, User } from "iconoir-react";
 
 export default function DetailsPage() {

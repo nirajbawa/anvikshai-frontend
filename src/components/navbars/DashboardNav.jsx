@@ -129,7 +129,7 @@ export default function DashboardNav() {
 
   React.useEffect(() => {
     setUser();
-  });
+  }, []);
 
   return (
     <Navbar className="sticky top-0 w-full rounded-none mx-0 px-5 bg-[#D2B0FD] border-none">

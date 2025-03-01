@@ -18,14 +18,19 @@ function Dashboard() {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post();
-      console.log(response);
+      const response = await axiosInstance.post("");
+      print(response);
+      setTasks(response.data.data);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
+  useState(() => {
+    fetchTasks();
+  }, []);
 
   return (
     <div>
@@ -70,11 +75,18 @@ function Dashboard() {
                 </div>
                 <p className="font-bold text-xl">Add New Task</p>
               </div>
-
-              <div className="w-72 h-72 bg-[#EDEDED] rounded-xl shadow-sm flex justify-center gap-y-5 flex-col items-center">
-                <h1 className="font-bold text-2xl">Web Development</h1>
-                <Button>Start</Button>
-              </div>
+              {tasks ??
+                tasks.map((data, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="w-72 h-72 bg-[#EDEDED] rounded-xl shadow-sm flex justify-center gap-y-5 flex-col items-center"
+                    >
+                      <h1 className="font-bold text-2xl">Web Development</h1>
+                      <Button>Start</Button>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
