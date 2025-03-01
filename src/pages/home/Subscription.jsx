@@ -4,13 +4,13 @@ import { Card, Typography, Button } from "@material-tailwind/react";
 
 export default function SubscriptionPlans() {
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-100 p-8">
-      <h2 className="text-5xl font-bold mt-[100px] mb-6">Subscription Plans</h2>
+    <div className="min-h-screen flex flex-col items-center p-8">
+      <h2 className="text-5xl font-bold mt-10 mb-6">Subscription Plans</h2>
 
       <div className="flex flex-col md:flex-row gap-20 mt-10">
         <div
-          className="bg-white shadow-lg rounded-lg p-6 w-[350px] h-[400px] flex flex-col justify-between text-center 
-                        transition duration-300 transform hover:scale-105 hover:shadow-lg"
+          className="bg-white shadow-xl rounded-lg p-6 w-[350px] h-[400px] flex flex-col justify-between text-center 
+                        transition duration-300 transform hover:scale-105 hover:shadow-2xl"
         >
           <h3 className="text-2xl font-bold flex gap-2 mt-6">
             <svg
@@ -48,8 +48,8 @@ export default function SubscriptionPlans() {
         </div>
 
         <div
-          className="bg-white shadow-lg rounded-lg p-6 w-[350px] h-[400px] flex flex-col justify-between text-center 
-                        transition duration-300 transform hover:scale-105 hover:shadow-lg"
+          className="bg-white shadow-xl rounded-lg p-6 w-[350px] h-[400px] flex flex-col justify-between text-center 
+                        transition duration-300 transform hover:scale-105 hover:shadow-2xl"
         >
           <h3 className="text-2xl font-bold flex gap-2 mt-6">
             <svg

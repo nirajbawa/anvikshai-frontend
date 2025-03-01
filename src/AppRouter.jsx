@@ -1,11 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+<<<<<<< HEAD
+import React from "react";
+import HomePage from "./pages/home";
+import RootLayout from "./layouts/RootLayout";
+
+=======
 import Homepage from "./pages/LandingPage/HomePage";
 import SignUp from "./pages/SignUp/signup";
 import Login from "./pages/LogIn/login";
+>>>>>>> a6c8edb217451d21900d8620cceba13784460b7f
 import DetailsPage from "./pages/home/Details";
 import PaymentPage from "./pages/home/PaymentPage";
 import Subscription from "./pages/home/Subscription";
 import RoadMap from "./pages/home/RoadMap";
+<<<<<<< HEAD
+import ContactUs from "./pages/home/ContactUs";
+
+import Assignment from "./pages/AssignmentComp/Assignment";
+=======
 import RootLayout from "./layouts/RootLayout";
 import Dashboard from "./pages/Dashboard/dashboard";
 import CreateTask from "./pages/Dashboard/createtask";
@@ -13,6 +25,7 @@ import { useState } from "react";
 import "./index.css";
 
 import Assignment from "./pages/AssignmentComp/Assignment"; // Import the new page
+>>>>>>> a6c8edb217451d21900d8620cceba13784460b7f
 import Article from "./pages/ArticleComp/Article";
 import Quiz from "./pages/QuizComp/Quiz";
 
@@ -34,6 +47,21 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<RootLayout />}>
+<<<<<<< HEAD
+          <Route path="/" element={<HomePage />} />
+          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/roadmap" element={<RoadMap />} />
+          <Route path="/contact" element={<ContactUs />} />
+
+          <Route path="/assignment" element={<Assignment />} />
+          <Route path="/article" element={<Article />} />
+          <Route path="/quiz" element={<Quiz />} />
+
+          <Route path="/dashboard/roadmap" element={<RoadmapComponent />} />
+          <Route path="/dashboard/video" element={<VideoPage />} />
+=======
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/otp/:email" element={<OtpPage />} />
@@ -56,6 +84,7 @@ const AppRouter = () => {
           <Route path="/quiz" element={<Quiz />} /> {/* New Route */}
           <Route path="/roadmap" element={<RoadmapComponent />} />
           <Route path="/video" element={<VideoPage />} />
+>>>>>>> a6c8edb217451d21900d8620cceba13784460b7f
           <Route path="/message" element={<Messages />} />
           <Route path="/mdashboard" element={<MDashboard />} />
           <Route path="/adashboard" element={<ADashboard />} />

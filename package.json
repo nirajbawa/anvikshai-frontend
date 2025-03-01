@@ -18,9 +18,14 @@
     "axios": "^1.8.1",
     "iconoir-react": "^7.10.1",
     "icons": "^1.0.0",
+    "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+<<<<<<< HEAD
+    "react-icons": "^5.5.0",
+=======
     "react-hook-form": "^7.54.2",
+>>>>>>> a6c8edb217451d21900d8620cceba13784460b7f
     "react-router": "^7.2.0",
     "react-router-dom": "^7.2.0",
     "react-toastify": "^11.0.5",
