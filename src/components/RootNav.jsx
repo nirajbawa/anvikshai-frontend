@@ -17,7 +17,7 @@ function Navbar() {
                 {location.pathname === "/" && (
                   <>
                     <Link to="/" className="p-2 mx-2 transition-transform duration-300 ease-in-out hover:scale-110 inline-block">Home</Link>
-                    <Link to="/about" className="p-2 mx-2 transition-transform duration-300 ease-in-out hover:scale-110 inline-block">About us</Link>
+                    <Link to="/about-us" className="p-2 mx-2 transition-transform duration-300 ease-in-out hover:scale-110 inline-block">About us</Link>
                     <Link to="/contact" className="p-2 mx-2 transition-transform duration-300 ease-in-out hover:scale-110 inline-block">Contact us</Link>
                   </>
                 )}

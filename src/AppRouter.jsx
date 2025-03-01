@@ -27,6 +27,7 @@ import Alogin from "./pages/Admin/Login";
 import Mlogin from "./pages/Mentor/Login";
 import Mlist from "./pages/Mentor/List";
 import Alist from "./pages/Admin/List";
+import AboutUs from "./pages/AboutUs/aboutus";
 
 
 const AppRouter = () => {
@@ -40,14 +41,14 @@ const AppRouter = () => {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/roadmap" element={<RoadMap />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/create-task" element={<CreateTask setTasks={setTasks} />} />
 
         <Route element={<RootLayout />}>
           <Route path="/" element={<Homepage />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard tasks={tasks}/>} />
-          <Route path="/create-task" element={<CreateTask setTasks={setTasks} />} />
-          <Route path="/" element={<HomePage />} />
+          
           <Route path="/assignment" element={<Assignment />} />{" "}
           {/* New Route */}
           <Route path="/article" element={<Article />} /> {/* New Route */}
@@ -61,6 +62,7 @@ const AppRouter = () => {
           <Route path="/mlogin" element={<Mlogin />} />
           <Route path="/mlist" element={<Mlist />} />
           <Route path="/alist" element={<Alist />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Route>
       </Routes>
     </BrowserRouter>

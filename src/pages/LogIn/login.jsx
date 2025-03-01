@@ -12,10 +12,10 @@ function Login(){
             </div>
 
 
-            <div class="pt-20 ">
-                <div class=" pt-1 pb-1 rounded-full ml-60 mr-60 text-[30px]  shadow-lg">Log in </div>
+            <div class="pt-28 ">
+                <div class=" pt-1 pb-1 rounded-full ml-60 mr-60 text-[30px] bg-red-200 shadow-lg">Log in </div>
 
-                <div class="text-left ml-28 mt-6">
+                <div class="text-left ml-28 mt-10">
                     <h1>Your Email:</h1>
                     <div class="pt-1">
                         <input type="email" placeholder="abc@gmail.com" class="border-gray-400 border-2 rounded-lg p-[5px] w-[450px]"></input>

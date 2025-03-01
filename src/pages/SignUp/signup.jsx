@@ -8,7 +8,7 @@ function SignUp(){
 
         <div class="text-center h-screen  grid grid-cols-2 pl-20 pr-20 ">
             <div class="pt-20">
-                <div class=" pt-1 pb-1 rounded-full ml-60 mr-60 text-[30px]  shadow-lg">Sign Up</div>
+                <div class=" pt-1 pb-1 rounded-full ml-60 mr-60 text-[30px] bg-red-200 font-bold shadow-lg">Sign Up</div>
                 <div class="flex justify-center space-x-6 mt-10">
                     <div class="text-left">
                         <h1>First Name:</h1>
