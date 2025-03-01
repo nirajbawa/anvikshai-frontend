@@ -1,4 +1,3 @@
-import "tailwindcss/tailwind.css";
 import { Input, Select } from "@material-tailwind/react";
 import { ProfileCircle, Calendar, Book, Translate, User } from "iconoir-react";
 

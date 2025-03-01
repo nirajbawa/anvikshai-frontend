@@ -30,7 +30,7 @@ function VideoPage() {
           <div className="bg-purple-100 p-4 rounded-lg mt-6">
             <h2 className="text-lg font-bold">SUMMARY</h2>
             <p className="text-gray-600 mt-2">
-              "Summary of the Video"
+              Summary of the Video
             </p>
           </div>
         </div>
