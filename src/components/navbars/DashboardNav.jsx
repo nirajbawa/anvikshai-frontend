@@ -26,9 +26,10 @@ import {
   Xmark,
 } from "iconoir-react";
 import PropTypes from "prop-types";
-import axiosInstance from "../../middleware/axiosInstance";
+import useAxios from "../../hook/useAxios";
 import useUserStore from "../../store/useUserStore";
 import { Link } from "react-router";
+import useAuthStore from "../../store/useAuthStore";
 
 const LINKS = [
   {
@@ -64,6 +65,7 @@ function NavList() {
 }
 
 function ProfileMenu({ userData }) {
+  const { clearToken } = useAuthStore();
   return (
     <Menu>
       <Menu.Trigger
@@ -73,7 +75,7 @@ function ProfileMenu({ userData }) {
         size="sm"
         className="border border-primary p-0.5 lg:ml-auto cursor-pointer"
       />
-      <Menu.Content>
+      <Menu.Content className="z-[200]">
         <Menu.Item>
           <UserCircle className="mr-2 h-[18px] w-[18px]" /> My Profile
         </Menu.Item>
@@ -84,7 +86,10 @@ function ProfileMenu({ userData }) {
           <HeadsetHelp className="mr-2 h-[18px] w-[18px]" /> Support
         </Menu.Item>
         <hr className="!my-1 -mx-1 border-surface" />
-        <Menu.Item className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error">
+        <Menu.Item
+          onClick={clearToken}
+          className="text-error hover:bg-error/10 hover:text-error focus:bg-error/10 focus:text-error"
+        >
           <LogOut className="mr-2 h-[18px] w-[18px]" />
           Logout
         </Menu.Item>
@@ -114,6 +119,7 @@ MenuItem.propTypes = {
 export default function DashboardNav() {
   const [openNav, setOpenNav] = React.useState(false);
   const { userData, setUserData } = useUserStore();
+  const axiosInstance = useAxios(); 
 
   React.useEffect(() => {
     window.addEventListener(
@@ -132,7 +138,7 @@ export default function DashboardNav() {
   }, []);
 
   return (
-    <Navbar className="sticky top-0 w-full rounded-none mx-0 px-5 bg-[#D2B0FD] border-none">
+    <Navbar className="sticky top-0 w-full z-[100] rounded-none mx-0 px-5 bg-[#D2B0FD] border-none">
       <div className="flex items-center">
         <Link to="/dashboard">
           <Typography

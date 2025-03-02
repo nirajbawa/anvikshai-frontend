@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Typography, Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
-import axiosInstance from "../../middleware/axiosInstance";
+import useAxios from "../../hook/useAxios";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 
@@ -11,6 +11,7 @@ export default function OtpPage() {
   const [loading, setLoading] = React.useState(false);
   let { email } = useParams();
   let navigate = useNavigate();
+  let axiosInstance = useAxios();
 
   const handleChange = (index, value) => {
     const newOtp = [...otp];
@@ -43,6 +44,7 @@ export default function OtpPage() {
       } catch (error) {
         const errorMessage =
           error.response?.data?.detail || "Signup failed. Please try again.";
+        console.log(error);
         toast.error(errorMessage);
       } finally {
         setLoading(false); // Stop loading

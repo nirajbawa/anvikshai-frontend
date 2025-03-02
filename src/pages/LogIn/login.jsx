@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axiosInstance from "../../middleware/axiosInstance";
+import useAxios from "../../hook/useAxios";
 import login from "./login.jpg";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -17,6 +17,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   const { setToken } = useAuthStore();
+  const axiosInstance = useAxios();
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -38,7 +39,7 @@ function Login() {
       if (userData.data?.onboarding === true) {
         navigate(`/dashboard`);
       } else {
-        navigate(`/details`);
+        navigate(`/dashboard/details`);
       }
     } catch (error) {
       const errorMessage =

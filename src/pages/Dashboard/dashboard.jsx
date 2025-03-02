@@ -1,5 +1,5 @@
 import task from "./task.svg";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
@@ -7,19 +7,24 @@ import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOu
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useState } from "react";
-import axiosInstance from "../../middleware/axiosInstance";
+import useAxios from "../../hook/useAxios";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import { Button } from "@material-tailwind/react";
+import useAuthStore from "../../store/useAuthStore";
+import { useNavigate } from "react-router";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
+  const { clearToken } = useAuthStore();
   const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post("");
-      print(response);
+      const response = await axiosInstance.get("/task/");
+      console.log(response.data.data);
       setTasks(response.data.data);
     } catch (error) {
       console.log(error);
@@ -56,7 +61,10 @@ function Dashboard() {
             <SettingsOutlinedIcon />
             <Link>Settings</Link>
           </div>
-          <div className=" transition-transform duration-300 ease-in-out flex justify-start items-center mt-48 space-x-2 ml-2 text-lg p-2 text-black rounded-lg">
+          <div
+            onClick={clearToken}
+            className=" transition-transform duration-300 ease-in-out flex justify-start items-center mt-48 space-x-2 ml-2 text-lg p-2 text-black rounded-lg"
+          >
             <LogoutOutlinedIcon />
             <Link>Sign out</Link>
           </div>
@@ -70,20 +78,28 @@ function Dashboard() {
           <div className="">
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="w-72 h-72 bg-[#EDEDED] shadow-sm rounded-xl flex justify-center gap-y-5 flex-col items-center">
-                <div className="text-8xl cursor-pointer">
+                <div
+                  className="text-8xl cursor-pointer"
+                  onClick={() => navigate("/dashboard/create-task")}
+                >
                   <AddCircleOutlinedIcon fontSize="inherit" />
                 </div>
                 <p className="font-bold text-xl">Add New Task</p>
               </div>
-              {tasks ??
+              {Array.isArray(tasks) &&
                 tasks.map((data, index) => {
                   return (
                     <div
                       key={index}
                       className="w-72 h-72 bg-[#EDEDED] rounded-xl shadow-sm flex justify-center gap-y-5 flex-col items-center"
                     >
-                      <h1 className="font-bold text-2xl">Web Development</h1>
-                      <Button>Start</Button>
+                      <h1 className="font-bold text-xl capitalize text-center">
+                        {data.task_name}
+                      </h1>
+
+                      <Link to={`/dashboard/roadmap/${data.id}`}>
+                        <Button>Start</Button>
+                      </Link>
                     </div>
                   );
                 })}

@@ -1,49 +1,115 @@
-import React from "react";
-import { IconButton } from "@material-tailwind/react";
-import { useNavigate } from "react-router"; // For navigation
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import useAxios from "../../hook/useAxios";
+import { toast } from "react-toastify";
 
 const Assignment = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+  let { dayId } = useParams();
+  const axiosInstance = useAxios();
+
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [assignment, setAssignment] = useState(null);
+  const [file, setFile] = useState(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get(`/content/assignment/${dayId}`);
+      setAssignment(response.data?.data || []);
+    } catch (error) {
+      console.error("Error fetching day:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    if (!file) {
+      toast.warning("Please upload a file before submitting.");
+      return;
+    }
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("dayId", dayId);
+
+    try {
+      const response = await axiosInstance.post(
+        `/content/assignment/${dayId}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      toast.success(
+        "Assignment uploaded successfully! Your Assigment Score is : " +
+          response?.data?.data?.marks +
+          "/10"
+      );
+      navigate(-1);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      toast.error("Failed to upload assignment.");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   return (
-    <>
-      {/* Back Button - Top Left Corner */}
-      <IconButton
-        className="absolute top-20 left-4 bg-gray-200 text-black hover:bg-gray-300 transition"
-        onClick={() => navigate(-1)} // Goes back to the previous page
-      >
-        <i className="fas fa-chevron-left text-lg" /> {/* Left arrow icon */}
-      </IconButton>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-2xl font-bold text-gray-700 mb-6">Assignment</h1>
 
-      {/* Assignment Text */}
-      <h1 className="absolute top-[15%] left-1/2 transform -translate-x-1/2 text-2xl font-bold text-gray-700">
-        Assignment
-      </h1>
+      {loading ? (
+        <div className="text-gray-700">Loading assignment...</div>
+      ) : (
+        <>
+          <div className="w-full max-w-3xl p-7 h-[30vh] bg-gray-300 rounded-2xl mb-6">
+            {assignment?.assinments_question}
+          </div>
 
-      {/* Big Rectangle */}
-      <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30vh] bg-gray-300 rounded-2xl"></div>
+          <div className="w-full max-w-3xl h-[10vh] bg-gray-300 rounded-2xl flex items-center justify-center mb-6">
+            <input
+              type="file"
+              onChange={handleFileChange}
+              accept="application/pdf"
+              className="w-full max-w-2xl h-[4vh] bg-white rounded-2xl shadow-md text-gray-700 font-medium hover:bg-gray-200 transition"
+            />
+          </div>
 
-      {/* Small Rectangle */}
-      <div className="absolute top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[10vh] bg-gray-300 rounded-2xl"></div>
+          <div className="flex gap-4">
+            <button
+              onClick={handleSubmit}
+              disabled={uploading}
+              className={`px-4 py-2 font-medium rounded-lg shadow-md transition ${
+                uploading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
+              }`}
+            >
+              {uploading ? "Uploading..." : "Submit"}
+            </button>
 
-      {/* Upload Button Styled as Inside Rectangle */}
-      <button className="absolute top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[45vw] h-[7vh] bg-white rounded-2xl shadow-md text-gray-700 font-medium hover:bg-gray-200 transition">
-        Upload Files
-      </button>
-
-      {/* Buttons Container - Aligned to the Right */}
-      <div className="absolute top-[80%] right-[25%] flex gap-4">
-        {/* Submit Button */}
-        <button className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 transition">
-          Submit
-        </button>
-
-        {/* Cancel Button */}
-        <button className="px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 transition">
-          Cancel
-        </button>
-      </div>
-    </>
+            <button
+              onClick={() => navigate(-1)}
+              className="px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 

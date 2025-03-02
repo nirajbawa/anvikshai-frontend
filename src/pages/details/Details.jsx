@@ -1,80 +1,101 @@
 import { Input } from "@material-tailwind/react";
-import { ProfileCircle, Calendar, Book, Translate, User } from "iconoir-react";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import useAxios from "../../hook/useAxios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import DetailsImage from "../../assets/details.png";
 
 export default function DetailsPage() {
+  const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
+
+  const axiosInstance = useAxios();
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post("/auth/onboarding", data);
+      console.log("Form submitted successfully:", response.data);
+
+      toast.success("On boarding successful!");
+      navigate("/dashboard/subscription");
+    } catch (error) {
+      console.error("Form submission failed:", error);
+      const errorMessage =
+        error.response?.data?.detail || "Error in on onboarding.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="h-screen flex flex-col md:flex-row items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-0 pb-96">
       <div className="w-full md:w-2/5 flex justify-center mb-6 md:mb-0">
         <img
-          src="detail_image.png"
+          src={DetailsImage}
           alt="Illustration"
           className="w-[500px] h-[500px] object-cover"
         />
       </div>
 
-      <div className="w-full md:w-2/5 p-8 rounded-xl  max-w-3xl mx-auto overflow-y-auto">
+      <div className="w-full md:w-2/5 p-8 rounded-xl max-w-3xl mx-auto overflow-y-auto">
         <h2 className="text-center text-xl font-semibold mb-6 border-2 border-black rounded-2xl p-5">
           Enter your Details
         </h2>
 
-        <form className="flex flex-col space-y-10 mt-20">
-          <div>
-            <Input
-              placeholder="Enter your Name"
-              className="rounded-none border-0 border-b border-gray-400 pr-0.5 shadow-none ring-0 hover:border-gray-900 focus:border-gray-900 data-[icon-placement=start]:!pl-[26px] dark:border-gray-600 dark:hover:border-gray-50 dark:focus:border-gray-50"
-            >
-              <Input.Icon className="data-[placement=start]:left-px">
-                <ProfileCircle className="h-full w-full" />
-              </Input.Icon>
-            </Input>
-          </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col space-y-10 mt-20"
+        >
+          <Input placeholder="First Name" {...register("first_name")} />
+          <Input placeholder="Last Name" {...register("last_name")} />
 
           <div>
-            <Input
-              placeholder="Username"
-              className="rounded-none border-0 border-b border-gray-400 pr-0.5 shadow-none ring-0 hover:border-gray-900 focus:border-gray-900 data-[icon-placement=start]:!pl-[26px] dark:border-gray-600 dark:hover:border-gray-50 dark:focus:border-gray-50"
-            >
-              <Input.Icon className="data-[placement=start]:left-px">
-                <Calendar className="h-full w-full" />
-              </Input.Icon>
-            </Input>
+            <label className="block text-gray-700 mb-2">Date of Birth</label>
+            <input
+              type="date"
+              {...register("dob")}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+            />
           </div>
+
+          <Input placeholder="Bio" {...register("bio")} />
+          <select
+            {...register("education")}
+            className="w-full p-3 border rounded-md"
+          >
+            <option value="High School">High School</option>
+            <option value="Bachelors">Bachelors</option>
+            <option value="Masters">Masters</option>
+            <option value="PHD">PHD</option>
+          </select>
+          <Input
+            placeholder="Stream of Education"
+            {...register("stream_of_education")}
+          />
 
           <div>
-            <Input
-              placeholder="Academic Records"
-              className="rounded-none border-0 border-b border-gray-400 pr-0.5 shadow-none ring-0 hover:border-gray-900 focus:border-gray-900 data-[icon-placement=start]:!pl-[26px] dark:border-gray-600 dark:hover:border-gray-50 dark:focus:border-gray-50"
+            <label className="block text-gray-700 mb-2">
+              Language Preference
+            </label>
+            <select
+              {...register("language_preference")}
+              className="w-full p-3 border border-gray-300 rounded-lg"
             >
-              <Input.Icon className="data-[placement=start]:left-px">
-                <Book className="h-full w-full" />
-              </Input.Icon>
-            </Input>
+              <option value="English">English</option>
+              {/* <option value="Hindi">Hindi</option> */}
+            </select>
           </div>
 
-          <div>
-            <Input
-              placeholder="About Yourself(Recent Achievements)"
-              className="rounded-none border-0 border-b border-gray-400 pr-0.5 shadow-none ring-0 hover:border-gray-900 focus:border-gray-900 data-[icon-placement=start]:!pl-[26px] dark:border-gray-600 dark:hover:border-gray-50 dark:focus:border-gray-50"
-            >
-              <Input.Icon className="data-[placement=start]:left-px">
-                <User className="h-full w-full" />
-              </Input.Icon>
-            </Input>
-          </div>
-
-          <div>
-            <Input
-              placeholder="Enter your language"
-              className="rounded-none border-0 border-b border-gray-400 pr-0.5 shadow-none ring-0 hover:border-gray-900 focus:border-gray-900 data-[icon-placement=start]:!pl-[26px] dark:border-gray-600 dark:hover:border-gray-50 dark:focus:border-gray-50"
-            >
-              <Input.Icon className="data-[placement=start]:left-px">
-                <Translate className="h-full w-full" />
-              </Input.Icon>
-            </Input>
-          </div>
-
-          <button className="w-full bg-purple-300 hover:bg-purple-400 text-black py-3 rounded-md shadow-md transition transform hover:scale-105">
-            SUBMIT
+          <button
+            type="submit"
+            className="w-full bg-purple-300 hover:bg-purple-400 text-black py-3 rounded-md shadow-md transition transform hover:scale-105"
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "SUBMIT"}
           </button>
         </form>
       </div>

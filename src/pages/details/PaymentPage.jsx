@@ -8,7 +8,7 @@ export default function PaymentPage() {
       <img
         src="payment.png"
         alt="Illustration"
-        className="w-1/5 h-1/5 mt-24 mx-auto"
+        className="w-1/5 h-1/5 mt-[70px] mx-auto"
       />
       <h2 class="font-bold text-xl">Your payment was successful</h2>
       <p>Thank you for your payment.</p>
@@ -17,13 +17,13 @@ export default function PaymentPage() {
       <div className="flex flex-wrap justify-center gap-6 mt-10">
         <Button
           color="success"
-          className="px-24 py-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg active:scale-95"
+          className="px-24 py-3 font-semibold transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg active:scale-95"
         >
           Request Mentor
         </Button>
         <Button
           color="info"
-          className="px-28 py-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg active:scale-95"
+          className="px-28 py-3 font-semibold transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg active:scale-95"
         >
           Skip
         </Button>

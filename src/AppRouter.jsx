@@ -9,12 +9,10 @@ import RoadMap from "./pages/details/RoadMap";
 import RootLayout from "./layouts/RootLayout";
 import Dashboard from "./pages/Dashboard/dashboard";
 import CreateTask from "./pages/Dashboard/createtask";
-import { useState } from "react";
-import "./index.css";
 import Assignment from "./pages/AssignmentComp/Assignment"; // Import the new page
 import Article from "./pages/ArticleComp/Article";
 import Quiz from "./pages/QuizComp/Quiz";
-import RoadmapComponent from "./pages/dashboard/Roadmap/Roadmappage";
+import Chat from "./pages/dashboard/chat/chat";
 import VideoPage from "./pages/dashboard/video/VideoPage";
 import Messages from "./pages/message/Messages";
 import MDashboard from "./pages/Mentor/dashboard";
@@ -26,9 +24,10 @@ import Alist from "./pages/Admin/List";
 import OtpPage from "./pages/otp";
 import DashboardLayout from "./layouts/DashboardLayout";
 import AboutUs from "./pages/aboutUs/AboutUs";
+import ContactUs from "./pages/details/ContactUs";
+import TaskPage from "./pages/task";
 
 const AppRouter = () => {
-  const [tasks, setTasks] = useState([]);
   return (
     <BrowserRouter>
       <Routes>
@@ -38,31 +37,27 @@ const AppRouter = () => {
           <Route path="/otp/:email" element={<OtpPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
         </Route>
-        <Route element={<DashboardLayout />}>
-          <Route path="/details" element={<DetailsPage />} />
-          {/* Add more routes as needed */}
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/subscription" element={<Subscription />} />
-          <Route path="/roadmap" element={<RoadMap />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route
-            path="/create-task"
-            element={<CreateTask setTasks={setTasks} />}
-          />
-          <Route path="/assignment" element={<Assignment />} />{" "}
-          {/* New Route */}
-          <Route path="/article" element={<Article />} /> {/* New Route */}
-          <Route path="/quiz" element={<Quiz />} /> {/* New Route */}
-          <Route path="/roadmap" element={<RoadmapComponent />} />
-          <Route path="/video" element={<VideoPage />} />
-          <Route path="/message" element={<Messages />} />
-          <Route path="/mdashboard" element={<MDashboard />} />
-          <Route path="/adashboard" element={<ADashboard />} />
-          <Route path="/alogin" element={<Alogin />} />
-          <Route path="/mlogin" element={<Mlogin />} />
-          <Route path="/mlist" element={<Mlist />} />
-          <Route path="/alist" element={<Alist />} />
+        <Route path="dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="details" element={<DetailsPage />} />
+          <Route path="payment" element={<PaymentPage />} />
+          <Route path="subscription" element={<Subscription />} />
+          <Route path="roadmap/:id" element={<RoadMap />} />
+          <Route path="create-task" element={<CreateTask />} />
+          <Route path="chat" element={<Chat />} />
+          <Route path="task/:taskId/:dayId" element={<TaskPage />} />
+          <Route path="assignment/:dayId" element={<Assignment />} />
+          <Route path="article/:taskId/:dayId/" element={<Article />} />
+          <Route path="quiz/:dayId" element={<Quiz />} />
+          <Route path="video/:taskId/:dayId" element={<VideoPage />} />
+          <Route path="message" element={<Messages />} />
+          <Route path="mdashboard" element={<MDashboard />} />
+          <Route path="adashboard" element={<ADashboard />} />
+          <Route path="alogin" element={<Alogin />} />
+          <Route path="mlogin" element={<Mlogin />} />
+          <Route path="mlist" element={<Mlist />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axiosInstance from "../../middleware/axiosInstance";
+import useAxios from "../../hook/useAxios";
 import signup from "./signup.svg";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -15,6 +15,7 @@ function SignUp() {
 
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   const onSubmit = async (data) => {
     setLoading(true);
