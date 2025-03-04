@@ -44,7 +44,7 @@ const Calendar = ({ taskId, createdat }) => {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 mt-10">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 mt-10 w-full">
         {[...Array(30)].map((_, i) => (
           <div
             key={i}

@@ -26,6 +26,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import AboutUs from "./pages/aboutUs/AboutUs";
 import ContactUs from "./pages/details/ContactUs";
 import TaskPage from "./pages/task";
+import SubscriptionPlans from "./pages/subscription/Subscription";
 
 const AppRouter = () => {
   return (
@@ -58,6 +59,7 @@ const AppRouter = () => {
           <Route path="alogin" element={<Alogin />} />
           <Route path="mlogin" element={<Mlogin />} />
           <Route path="mlist" element={<Mlist />} />
+          <Route path="subscription-single" element={<SubscriptionPlans />} />
         </Route>
       </Routes>
     </BrowserRouter>

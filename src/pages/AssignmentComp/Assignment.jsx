@@ -53,7 +53,7 @@ const Assignment = () => {
         }
       );
       toast.success(
-        "Assignment uploaded successfully! Your Assigment Score is : " +
+        "Assignment uploaded successfully! Your Assignment Score is : " +
           response?.data?.data?.marks +
           "/10"
       );
@@ -71,7 +71,10 @@ const Assignment = () => {
       <h1 className="text-2xl font-bold text-gray-700 mb-6">Assignment</h1>
 
       {loading ? (
-        <div className="text-gray-700">Loading assignment...</div>
+        <div className="w-full max-w-3xl space-y-6">
+          <div className="w-full h-[30vh] bg-gray-300 animate-pulse rounded-2xl" />
+          <div className="w-full h-[10vh] bg-gray-300 animate-pulse rounded-2xl" />
+        </div>
       ) : (
         <>
           <div className="w-full max-w-3xl p-7 h-[30vh] bg-gray-300 rounded-2xl mb-6">

@@ -30,17 +30,6 @@ export default function RoadMap() {
     28: "Client Demo 🎤",
   };
 
-  // const data = [
-  //   { name: "A", value1: 50, value2: 10 },
-  //   { name: "B", value1: 60, value2: 12 },
-  //   { name: "C", value1: 45, value2: 8 },
-  //   { name: "D", value1: 55, value2: 14 },
-  //   { name: "E", value1: 35, value2: 6 },
-  //   { name: "F", value1: 50, value2: 10 },
-  //   { name: "G", value1: 40, value2: 9 },
-  //   { name: "H", value1: 60, value2: 12 },
-  // ];
-
   const [data, setData] = useState([]);
 
   const axiosInstance = useAxios();
@@ -130,8 +119,6 @@ export default function RoadMap() {
     }
   };
 
-  
-
   useEffect(() => {
     fetchTask(id);
     fetchTaskProgess();
@@ -180,16 +167,6 @@ export default function RoadMap() {
                 <a href="">🚀 New feature added to the roadmap.</a>
               </li>
             </div>
-            <div className="shadow-md rounded-sm bg-white p-3 hover:scale-105 transition-transform duration-300">
-              <li>
-                <a href="">⚠️ Maintenance scheduled for 12 AM.</a>
-              </li>
-            </div>
-            <div className="shadow-md rounded-sm bg-white p-3 hover:scale-105 transition-transform duration-300">
-              <li>
-                <a href="">📅 Your next review is due next week.</a>
-              </li>
-            </div>
           </ul>
         </div>
       </div>
@@ -197,9 +174,7 @@ export default function RoadMap() {
       <Calendar taskId={id} createdat={createdAt} />
 
       <div className="flex flex-col items-center w-full p-6 bg-white rounded-lg shadow-lg mt-20">
-        <h2 className="text-2xl font-semibold mb-6">
-          Overall Progress Details
-        </h2>
+        <h2 className="text-2xl font-semibold mb-20">Course Analytics</h2>
         <div className="w-full max-w-5xl h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>

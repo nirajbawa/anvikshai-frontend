@@ -65,7 +65,31 @@ const Article = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-10">Loading articles...</div>;
+    return (
+      <>
+        <h1 className="text-2xl font-bold text-gray-700 text-center mt-10">
+          Articles
+        </h1>
+        <div className="text-center mt-4">
+          <Typography variant="h6">Marks: {score} / 10</Typography>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-12 mt-10">
+          {[...Array(3)].map((_, index) => (
+            <Card key={index} className="w-80 shadow-lg p-4 animate-pulse">
+              <div className="h-6 bg-gray-300 rounded mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded mb-6"></div>
+              <CardFooter className="flex justify-between pt-0">
+                <div className="w-24 h-10 bg-gray-300 rounded"></div>
+                <div className="w-24 h-10 bg-gray-300 rounded"></div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </>
+    );
   }
 
   return (

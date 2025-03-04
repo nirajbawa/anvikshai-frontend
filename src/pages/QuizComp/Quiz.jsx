@@ -59,7 +59,32 @@ const Quiz = () => {
     }
   };
 
-  if (loading) return <p>Loading questions...</p>;
+  if (loading) {
+    return (
+      <div className="container mx-auto p-6 px-40">
+        <h1 className="text-2xl font-bold text-gray-700 text-center mb-6">
+          Quiz
+        </h1>
+        <div className="flex flex-col gap-6">
+          {[...Array(3)].map((_, index) => (
+            <Card
+              key={index}
+              className="p-6 bg-gray-200 rounded-xl shadow-lg animate-pulse"
+            >
+              <div className="h-6 bg-gray-300 rounded mb-4"></div>
+              <div className="h-4 bg-gray-300 rounded mb-2"></div>
+              <div className="h-4 bg-gray-300 rounded mb-2"></div>
+              <div className="h-4 bg-gray-300 rounded mb-6"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="h-10 bg-gray-300 rounded"></div>
+                <div className="h-10 bg-gray-300 rounded"></div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-6 px-40">

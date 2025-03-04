@@ -86,7 +86,7 @@ export default function DetailsPage() {
               className="w-full p-3 border border-gray-300 rounded-lg"
             >
               <option value="English">English</option>
-              {/* <option value="Hindi">Hindi</option> */}
+              <option value="Hindi">Hindi</option>
             </select>
           </div>
 

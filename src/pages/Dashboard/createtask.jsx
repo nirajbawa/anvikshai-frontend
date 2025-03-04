@@ -18,7 +18,21 @@ export default function CreateTask() {
   const onSubmit = async (data) => {
     try {
       clearTask();
-      const response = await axiosInstance.post("/task/create-task", data);
+      console.log(data);
+      const uploadData = {
+        task_name: data.task_name,
+        description: data.description,
+        expected_duration_months:
+          data.expected_duration_months === ""
+            ? parseInt(0)
+            : parseInt(data.expected_duration_months),
+        daily_hours: parseFloat(data.daily_hours),
+        language: data.language,
+      };
+      const response = await axiosInstance.post(
+        "/task/create-task",
+        uploadData
+      );
       console.log({
         chat: response.data.roadmap,
         taskId: response.data.task_id,
@@ -50,7 +64,7 @@ export default function CreateTask() {
         />
 
         <textarea
-          placeholder="Task Description"
+          placeholder="Write the things you want to learn."
           className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           {...register("description", { required: true })}
         ></textarea>
@@ -58,10 +72,10 @@ export default function CreateTask() {
         <input
           type="number"
           placeholder="Expected duration (In Months)"
-          max={12}
-          min={1}
+          max={7}
+          min={0}
           className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          {...register("expected_duration_months", { required: true })}
+          {...register("expected_duration_months", { required: false })}
         />
 
         <input
@@ -78,7 +92,7 @@ export default function CreateTask() {
           {...register("language", { required: true })}
         >
           <option value="English">English</option>
-          {/* <option value="Hindi">Hindi</option> */}
+          <option value="Hindi">Hindi</option>
         </select>
 
         <div className="w-full flex justify-center items-center">

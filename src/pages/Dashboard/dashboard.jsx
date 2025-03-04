@@ -49,7 +49,10 @@ function Dashboard() {
             <AccountCircleOutlinedIcon />
             <Link>Profile</Link>
           </div>
-          <div className="flex justify-start items-center space-x-2 mt-4 ml-2 text-lg p-3 rounded-lg">
+          <div
+            onClick={() => navigate("subscription-single")}
+            className="flex justify-start items-center space-x-2 mt-4 ml-2 text-lg p-3 rounded-lg"
+          >
             <SubscriptionsOutlinedIcon />
             <Link>Subscriptions</Link>
           </div>
@@ -76,7 +79,7 @@ function Dashboard() {
             <h1>Your Tasks</h1>
           </div>
           <div className="">
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="mt-6 w-full px-10 flex flex-wrap justify-start items-center gap-x-20 gap-y-14">
               <div className="w-72 h-72 bg-[#EDEDED] shadow-sm rounded-xl flex justify-center gap-y-5 flex-col items-center">
                 <div
                   className="text-8xl cursor-pointer"

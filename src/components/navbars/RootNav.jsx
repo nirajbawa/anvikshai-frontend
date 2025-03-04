@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/useAuthStore";
 
 function RootNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { token } = useAuthStore();
 
   return (
     <div>
-      <nav className="sticky bg-[#D2B0FD] h-18 w-full shadow-lg">
+      <nav className="sticky bg-[#D2B0FD] h-18 w-full shadow-lg px-10">
         <div className="flex justify-between items-center p-3">
-          <div className="font-bold ml-8 text-[30px]">AnvikshAI</div>
-
+          <Link to="/">
+            <div className="font-bold ml-8 text-[30px]">AnvikshAI</div>
+          </Link>
           <div className="text-[20px] space-x-20 hidden md:flex">
             <Link
               to="/"
@@ -32,21 +35,29 @@ function RootNav() {
               Contact us
             </Link>
           </div>
-
-          <div className="space-x-10 mr-7 hidden md:flex">
-            <button
-              className="cursor-pointer rounded-md hover:active border-2 border-black p-2.5 px-6 active:bg-black active:text-white active:border-black"
-              onClick={() => navigate("/login")}
+          {token == null ? (
+            <div className="space-x-10 mr-7 hidden md:flex">
+              <button
+                className="cursor-pointer rounded-md hover:active border-2 border-black p-2.5 px-6 active:bg-black active:text-white active:border-black"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </button>
+              <button
+                className="cursor-pointer mr-10 bg-black text-white p-3 rounded-md px-5 hover:active active:bg-[#3b3939]"
+                onClick={() => navigate("/signup")}
+              >
+                Signup
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/dashboard"
+              className="p-2 mx-2 transition-transform duration-300 ease-in-out hover:scale-110 inline-block"
             >
-              Login
-            </button>
-            <button
-              className="cursor-pointer mr-10 bg-black text-white p-3 rounded-md px-5 hover:active active:bg-[#3b3939]"
-              onClick={() => navigate("/signup")}
-            >
-              Signup
-            </button>
-          </div>
+              Dashboard
+            </Link>
+          )}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">

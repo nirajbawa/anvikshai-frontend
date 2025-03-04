@@ -30,6 +30,7 @@ import useAxios from "../../hook/useAxios";
 import useUserStore from "../../store/useUserStore";
 import { Link } from "react-router";
 import useAuthStore from "../../store/useAuthStore";
+import { useNavigate } from "react-router";
 
 const LINKS = [
   {
@@ -66,6 +67,7 @@ function NavList() {
 
 function ProfileMenu({ userData }) {
   const { clearToken } = useAuthStore();
+  const navigate = useNavigate();
   return (
     <Menu>
       <Menu.Trigger
@@ -79,8 +81,9 @@ function ProfileMenu({ userData }) {
         <Menu.Item>
           <UserCircle className="mr-2 h-[18px] w-[18px]" /> My Profile
         </Menu.Item>
-        <Menu.Item>
-          <Settings className="mr-2 h-[18px] w-[18px]" /> Edit Profile
+        <Menu.Item onClick={() => navigate("/")}>
+          <Settings className="mr-2 h-[18px] w-[18px]" />
+          Home
         </Menu.Item>
         <Menu.Item>
           <HeadsetHelp className="mr-2 h-[18px] w-[18px]" /> Support
@@ -119,7 +122,7 @@ MenuItem.propTypes = {
 export default function DashboardNav() {
   const [openNav, setOpenNav] = React.useState(false);
   const { userData, setUserData } = useUserStore();
-  const axiosInstance = useAxios(); 
+  const axiosInstance = useAxios();
 
   React.useEffect(() => {
     window.addEventListener(
