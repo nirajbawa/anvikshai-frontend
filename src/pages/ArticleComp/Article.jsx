@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router";
-
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import useAxios from "../../hook/useAxios";
 
 const Article = () => {
@@ -94,12 +94,25 @@ const Article = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-gray-700 text-center mt-10">
-        Articles
-      </h1>
-      <div className="text-center mt-4">
-        <Typography variant="h6">Marks: {score} / 10</Typography>
+      <div className="flex">
+        <div className="px-5 py-3 pl-10 pt-7">
+          <button
+            className="bg-purple-200 flex justify-center items-center pl-4 py-3 pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
+            onClick={() => navigate(`/dashboard/task/${taskId}/${dayId}`)}
+          >
+            <ArrowBackIosIcon />
+          </button>
+        </div>
+        <div className="w-full">
+          <h1 className=" text-2xl font-bold text-gray-700 text-center mt-10">
+            Articles
+          </h1>
+          <div className="text-center mt-4">
+            <Typography variant="h6">Marks: {score} / 10</Typography>
+          </div>
+        </div>
       </div>
+
       <div className="flex flex-wrap justify-center gap-12 mt-10">
         {articles.length > 0 ? (
           articles.map((article, index) => (

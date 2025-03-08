@@ -5,6 +5,7 @@ import useAxios from "../../hook/useAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import DetailsImage from "../../assets/details.png";
+import { Textarea } from "@material-tailwind/react";
 
 export default function DetailsPage() {
   const { register, handleSubmit } = useForm();
@@ -62,7 +63,7 @@ export default function DetailsPage() {
             />
           </div>
 
-          <Input placeholder="Bio" {...register("bio")} />
+          <Textarea placeholder="Enter About Your Self" {...register("bio")} />
           <select
             {...register("education")}
             className="w-full p-3 border rounded-md"

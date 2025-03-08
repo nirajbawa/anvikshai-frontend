@@ -3,6 +3,7 @@ import { Button, Card, Typography } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router";
 import useAxios from "../../hook/useAxios";
 import { toast } from "react-toastify";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -88,9 +89,19 @@ const Quiz = () => {
 
   return (
     <div className="container mx-auto p-6 px-40">
-      <h1 className="text-2xl font-bold text-gray-700 text-center mb-6">
-        Quiz
-      </h1>
+      <div className="flex">
+        <div className="px-5 py-3 flex justify-center items-center">
+          <button
+            className="bg-purple-200 flex justify-center items-center pl-4 py-3 pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowBackIosIcon />
+          </button>
+        </div>
+        <h1 className=" w-full text-2xl mt-10 font-bold text-gray-700 text-center mb-6">
+          Quiz
+        </h1>
+      </div>
 
       {!result ? (
         <div className="flex flex-col gap-6">

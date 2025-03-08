@@ -34,7 +34,7 @@ function SignUp() {
 
   return (
     <>
-      <div className="text-center h-screen grid grid-cols-2 pl-20 pr-20">
+      <div className="text-center h-screen mt-10 grid grid-cols-2 pl-20 pr-20">
         <div className="pt-20">
           <div className="pt-1 pb-1 rounded-full ml-60 mr-60 text-[30px] shadow-lg">
             Sign Up

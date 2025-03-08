@@ -1,51 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@keyframes typing {
-    0%, 20% { content: "Physics"; }
-    21%, 40% { content: "Chemistry"; }
-    41%, 60% { content: "Maths"; }
-    61%, 80% { content: "Coding"; }
-    81%, 100% { content: "Engineering"; }
-  }
-  
-  .changing-text::after {
-    content: "Physics";
-    animation: typing 8s infinite;
-  }
 
-  @keyframes fadeRight {
-    0% {
-      opacity: 0;
-      transform: translateX(100px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  .fade-right {
-    animation: fadeRight 0.5s ease-out forwards;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  @keyframes fadeLeft {
-    0% {
-      opacity: 0;
-      transform: translateX(-100px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  .fade-left {
-    animation: fadeLeft 0.5s ease-out forwards;
-  }
+:root {
+  --primary: #722ae6;
+  --primary-light: #d2b0fd;
+  --secondary: #e4b5cb;
+  --accent: #ff6801;
+}
 
-  .transition-opacity {
-    transition: opacity 0.3s ease-in-out;
+body {
+  font-family: "Poppins", sans-serif;
+  @apply text-gray-800;
+}
+
+.hero-gradient {
+  @apply bg-gradient-to-r from-purple-700 to-pink-500 text-transparent bg-clip-text;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+}
+
+.btn-primary {
+  @apply px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-lg 
+  hover:from-purple-700 hover:to-purple-900 transition-all duration-300 shadow-md 
+  hover:shadow-purple-300/50 font-medium flex items-center justify-center;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg 
+  hover:from-pink-600 hover:to-orange-600 transition-all duration-300 shadow-md 
+  hover:shadow-orange-300/50 font-medium flex items-center justify-center;
+}
+
+.section-title {
+  @apply text-4xl font-bold text-center mb-12;
+}
+
+.section-title span {
+  @apply text-purple-700;
+}
+
+.feature-card {
+  @apply bg-white p-8 rounded-2xl shadow-md transition-all duration-300 
+  hover:shadow-xl hover:-translate-y-2 border border-gray-100;
+}
+
+.pricing-card {
+  @apply bg-white p-8 rounded-2xl shadow-md transition-all duration-300 
+  hover:shadow-xl hover:-translate-y-2 border border-gray-100 flex flex-col;
+}
+
+.pricing-card-header {
+  @apply text-2xl font-bold mb-4;
+}
+
+.pricing-card-price {
+  @apply text-4xl font-bold mb-1;
+}
+
+.pricing-card-period {
+  @apply text-gray-500 mb-6;
+}
+
+.pricing-feature {
+  @apply flex items-center space-x-3 py-2;
+}
+
+.changing-text::before {
+  content: "NEET";
+  animation: change 10s infinite;
+  @apply text-purple-700 font-bold;
+}
+
+@keyframes change {
+  0% {
+    content: "DSA";
   }
-  
-  
+  20% {
+    content: "Web Dev";
+  }
+  40% {
+    content: "Python";
+  }
+  60% {
+    content: "Cybersecurity";
+  }
+  80% {
+    content: "Programming";
+  }
+  100% {
+    content: "Engineering";
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 1s ease-in-out;
+}
+
+.fade-in-right {
+  animation: fadeInRight 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -54,7 +54,7 @@ export default function CreateTask() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg space-y-6"
       >
-        <h1 className="text-3xl font-bold mb-6 text-center">Create Task</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">Create Course</h1>
 
         <input
           type="text"

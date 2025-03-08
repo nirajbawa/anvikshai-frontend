@@ -1,52 +1,81 @@
-import heading from "./heading.png"
+import React from 'react';
+import { LineChart, Clock, Zap, DollarSign } from 'lucide-react';
 
-function Choose() {
+function WhyChooseUs() {
+  const features = [
+    {
+      icon: <LineChart className="h-8 w-8 text-white" />,
+      title: "Real-Time Progress Tracking",
+      description: "Stay on track with instant updates and performance metrics."
+    },
+    {
+      icon: <Zap className="h-8 w-8 text-white" />,
+      title: "Interactive Content",
+      description: "Engaging quizzes, flashcards, and videos make learning fun and effective."
+    },
+    {
+      icon: <Clock className="h-8 w-8 text-white" />,
+      title: "24/7 AI Support",
+      description: "Instant help whenever you need it, no matter the time of day."
+    },
+    {
+      icon: <DollarSign className="h-8 w-8 text-white" />,
+      title: "Affordable Pricing",
+      description: "Premium features at an accessible price point for all students."
+    }
+  ];
+
   return (
-    <div class="pb-24">
-        <div class="flex items-center space-x-6 justify-center pt-20">
-                    <img class="h-20" src={heading}></img>
-                    <h1 class="text-[40px] ">Why Choose <span class="text-red-700">us</span> ?</h1>
-                    <img  class="h-20" src={heading}></img>
-        </div>
-
-        <div class="mr-28 ml-28 mt-28">
-            <div class=" text-[17px] grid grid-cols-4 border-none gap-10 ">
-
-                <div class=" transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-2xl text-center col-span-2 p-10 rounded-[50px] border-2 bg-gradient-to-r from-[#722AE6] to-[#E4B5CB] ">
-                    <div>
-                        <h1 class="font-bold text-[20px]" >Real-Time Progress Tracking:</h1>
-                        <h2>Stay on track with instant updates and performance.</h2>
-                    </div>
-                </div>
-
-                <div class=" transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-2xl  text-center col-span-2 p-10 rounded-[50px] border-2 bg-gradient-to-r from-[#722AE6] to-[#E4B5CB] ">
-                    <div>
-                        <h1 class="  font-bold text-[20px]" >Interactive Content</h1>
-                        <h2>Engaging quizzes, flashcards, and videos make learning fun.</h2>
-                    </div>
-                </div>
-
-                <div class="transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-2xl  text-center col-span-2 p-10 rounded-[50px] border-2 bg-gradient-to-r from-[#722AE6] to-[#E4B5CB]">
-                    <div>
-                        <h1 class="font-bold text-[20px]">24/7 AI Support</h1>
-                        <h2>Instant help whenever you need  it.</h2>
-                    </div>
-                </div>
-
-                <div class="transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-2xl  text-center col-span-2 p-10 rounded-[50px] border-2 bg-gradient-to-r from-[#722AE6] to-[#E4B5CB] ">
-                    <div>
-                        <h1 class="font-bold text-[20px]">Affordable Pricing</h1>
-                        <h2>Premium features at an accessible price</h2>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
+    <section id="why-choose-us" className="ml-20 mr-20 py-20 bg-gray-50">
+      <div className="container mx-auto px-6">
+        <h2 className="section-title">
+          Why Choose <span>Us</span>
+        </h2>
         
-      
-    </div>
-  )
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {features.map((feature, index) => (
+            <div 
+              key={index} 
+              className="rounded-2xl overflow-hidden shadow-lg card-hover fade-in"
+            >
+              <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-6">
+                <div className="bg-white/20 p-3 rounded-full w-fit mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-white/90">{feature.description}</p>
+              </div>
+              <div className="bg-white p-6">
+                <ul className="space-y-2">
+                  {[1, 2].map((item) => (
+                    <li key={item} className="flex items-center space-x-2">
+                      <div className="h-2 w-2 rounded-full bg-purple-600"></div>
+                      <span className="text-gray-700">
+                        {index === 0 && item === 1 && "Goal achievement tracking"}
+                        {index === 0 && item === 2 && "Daily performance reports"}
+                        
+                        {index === 1 && item === 1 && "Adaptive learning materials"}
+                        {index === 1 && item === 2 && "Multimedia content library"}
+                        
+                        
+                        {index === 2 && item === 1 && "AI-driven learning suggestions"}
+                        {index === 2 && item === 2 && "Smart study recommendations"}
+                        
+                        
+                        {index === 3 && item === 1 && "Flexible subscription plans"}
+                        {index === 3 && item === 2 && "No hidden charges"}
+                        
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default Choose
-
+export default WhyChooseUs;

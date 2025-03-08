@@ -3,6 +3,9 @@ import useAxios from "../../../hook/useAxios";
 import { useParams, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
+import { Breadcrumb } from "@material-tailwind/react";
+import { HomeSimple } from "iconoir-react";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 function VideoPage() {
   const [videos, setVideos] = useState([]);
@@ -97,7 +100,7 @@ function VideoPage() {
               </div>
 
               <div className="flex justify-between mt-4">
-                <div className="px-4 py-2 bg-gray-300 rounded-lg w-24"></div>
+                <div className="px-4 py-2 bg-purple-100rounded-lg w-24"></div>
                 <div className="px-4 py-2 bg-gray-300 rounded-lg w-24"></div>
               </div>
 
@@ -123,6 +126,14 @@ function VideoPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
+      <div className="w-full px-5 py-3 ">
+        <button
+          className="bg-purple-200 flex justify-center items-center pl-4 py-3 pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
+          onClick={() => navigate(`/dashboard/task/${taskId}/${dayId}`)}
+        >
+          <ArrowBackIosIcon />
+        </button>
+      </div>
       <div className="flex mt-3 gap-4">
         <div className="flex-1 bg-white p-4 rounded-lg shadow-lg">
           <div className="border-2 border-purple-400 rounded-lg overflow-hidden">
@@ -138,14 +149,14 @@ function VideoPage() {
 
           <div className="flex justify-between mt-4">
             <button
-              className="px-4 py-2 bg-gray-200 rounded-lg"
+              className="px-4 py-2 bg-purple-100 rounded-lg"
               onClick={previousVideo}
               disabled={videoPointer === 0}
             >
               ← Previous
             </button>
             <button
-              className="px-4 py-2 bg-gray-200 rounded-lg"
+              className="px-4 py-2 bg-purple-100 rounded-lg"
               onClick={nextVideo}
               disabled={videoPointer === videos.length - 1}
             >

@@ -1,22 +1,19 @@
-
-import Hero from './hero'
-import Work from './howitworks'
-import Choose from './whychooseus'
-import Premium from './premium'
+import React from 'react';
+import Hero from './hero';
+import HowItWorks from './howitworks';
+import WhyChooseUs from './whychooseus';
+import Pricing from './pricing';
 
 
 function Homepage() {
-  
-
   return (
     <>
-      <Hero></Hero>
-      <Work></Work>
-      <Choose></Choose>
-      <Premium></Premium>
-      
+      <Hero />
+      <HowItWorks />
+      <WhyChooseUs />
+      <Pricing />
     </>
-  )
+  );
 }
 
-export default Homepage
+export default Homepage;

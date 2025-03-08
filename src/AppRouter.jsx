@@ -27,6 +27,7 @@ import AboutUs from "./pages/aboutUs/AboutUs";
 import ContactUs from "./pages/details/ContactUs";
 import TaskPage from "./pages/task";
 import SubscriptionPlans from "./pages/subscription/Subscription";
+import CertificatePage from "./pages/certificate";
 
 const AppRouter = () => {
   return (
@@ -60,6 +61,7 @@ const AppRouter = () => {
           <Route path="mlogin" element={<Mlogin />} />
           <Route path="mlist" element={<Mlist />} />
           <Route path="subscription-single" element={<SubscriptionPlans />} />
+          <Route path="certificates" element={<CertificatePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

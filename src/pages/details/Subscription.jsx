@@ -111,7 +111,7 @@ export default function SubscriptionPlans() {
           <div className="mt-8 ml-10 flex flex-col justify-center space-y-3 text-left">
             <p className="font-semibold text-lg">Features : </p>
             <ul className="text-md text-black-700 font-bold">
-              <li className="mt-4">• First 3 tasks are free</li>
+              <li className="mt-4">• First 4 tasks are free</li>
             </ul>
           </div>
 
@@ -155,7 +155,7 @@ export default function SubscriptionPlans() {
           <div className="mt-8 ml-10 flex flex-col justify-center space-y-3 text-left">
             <p className="font-semibold text-lg">Features:</p>
             <ul className="text-md text-black-700 font-bold">
-              <li className="mt-4">• Free 20 tasks per month</li>
+              <li className="mt-4">• Free 10 tasks per month</li>
               <li>• No Ads</li>
             </ul>
           </div>

@@ -52,7 +52,7 @@ function Login() {
 
   return (
     <>
-      <div className="text-center grid grid-cols-2 pl-20 pr-20">
+      <div className="text-center grid grid-cols-2 pl-20 pr-20 mt-20">
         <div className="pt-12">
           <img className="ml-20 h-[600px]" src={login} alt="Login" />
         </div>

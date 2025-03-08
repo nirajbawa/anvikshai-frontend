@@ -1,53 +1,87 @@
-import heading from "./heading.png" 
-import img1 from "./img1.jpg"
-import img2 from "./img2.jpg"
-import img3 from "./img3.jpg"
-import img4 from "./img4.jpg"
-import img5 from "./img5.jpg"
-function Work() {
+import React from 'react';
+import { UserPlus, ListTodo, Route, BookOpen, CheckCircle } from 'lucide-react';
+
+function HowItWorks() {
+  const steps = [
+    {
+      icon: <UserPlus className="h-10 w-10 text-purple-700" />,
+      title: "Sign Up",
+      description: "Create your profile with details like qualifications and preferred learning topics.",
+      image: "https://images.unsplash.com/photo-1484807352052-23338990c6c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+    },
+    {
+      icon: <ListTodo className="h-10 w-10 text-purple-700" />,
+      title: "Add Task",
+      description: "Input study topics or tasks you want to complete.",
+      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80"
+    },
+    {
+      icon: <Route className="h-10 w-10 text-purple-700" />,
+      title: "AI-Generated Roadmap",
+      description: "The system creates a personalized study plan tailored to your goals.",
+      image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+    },
+    {
+      icon: <BookOpen className="h-10 w-10 text-purple-700" />,
+      title: "Generate Content & Learn",
+      description: "The AI provides recommended study materials and quizzes to assess your understanding.",
+      image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+    },
+    {
+      icon: <CheckCircle className="h-10 w-10 text-purple-700" />,
+      title: "Track Progress",
+      description: "Your progress is tracked, and you move to the next step in the roadmap.",
+      image: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+    }
+  ];
 
   return (
-    <div class=" pb-24">
-       <div class="flex items-center space-x-6 justify-center">
-            <img class="h-20" src={heading}></img>
-            <h1 class="text-[40px] ">How does it works?</h1>
-            <img  class="h-20" src={heading}></img>
+    <section id="how-it-works" className="ml-20 mr-20 py-20 bg-white">
+      <div className="container mx-auto px-6">
+        <h2 className="section-title">
+          How <span>It Works</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.slice(0, 3).map((step, index) => (
+            <div key={index} className="feature-card fade-in">
+              <div className="bg-purple-100 p-4 rounded-full w-fit mb-6">
+                {step.icon}
+              </div>
+              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+              <p className="text-gray-600 mb-6">{step.description}</p>
+              <div className="rounded-xl overflow-hidden h-48">
+                <img 
+                  src={step.image} 
+                  alt={step.title} 
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
+            </div>
+          ))}
         </div>
-         
-        <div class="grid grid-cols-3 border-none h-100 ml-40 mr-40 mt-20 gap-10 ">
-            <div class="text-center border-none hover:border-2 hover:bg-gray-300 hover:shadow-black hover:shadow-lg">
-                <img class=" mt-5 mx-auto rounded-full h-40" src={img1}></img>
-                <h2 class="text-lg mt-5 ">Signup</h2>
-                <p class="bg-[#D2B0FD] text-black mt-5 p-8">Users sign up and create their profile with details like qualifications and preferred learning topics.</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          {steps.slice(3, 5).map((step, index) => (
+            <div key={index} className="feature-card fade-in">
+              <div className="bg-purple-100 p-4 rounded-full w-fit mb-6">
+                {step.icon}
+              </div>
+              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+              <p className="text-gray-600 mb-6">{step.description}</p>
+              <div className="rounded-xl overflow-hidden h-48">
+                <img 
+                  src={step.image} 
+                  alt={step.title} 
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
             </div>
-            <div class="text-center border-none hover:border-2 hover:bg-gray-300  hover:shadow-black hover:shadow-lg">
-                <img class=" mt-5 mx-auto rounded-full w-40 h-40" src={img2}></img>
-                <h2 class="text-lg mt-5">Add Task</h2>
-                <p class="bg-[#D2B0FD] text-black mt-5 p-11"> Users input study topics or tasks they want to complete.</p>
-            </div>
-            <div class=" text-center border-none hover:border-2 hover:bg-gray-300  hover:shadow-black hover:shadow-lg">
-                <img class=" mt-5 mx-auto rounded-full w-40 h-40" src={img3}></img>
-                <h2 class=" text-lg mt-5">AI-Generated Roadmap</h2>
-                <p class="bg-[#D2B0FD] text-black mt-5 p-11" >The system creates a personalized study plan.</p>
-            </div>
+          ))}
         </div>
-        <div class="grid grid-cols-2 border-none ml-80 mr-80 mt-10 h-100 gap-10">
-            <div class="text-center border-none hover:border-2 hover:bg-gray-300 hover:shadow-black hover:shadow-lg">
-                <img class="mt-5 mx-auto rounded-full h-40" src={img4}></img>
-                <h2 class="text-lg mt-5">Generate Content / Learn
-                Take Quiz</h2>
-                <p class="bg-[#D2B0FD] text-black mt-5 p-6"> The AI provides recommended study materials (articles, videos, etc.) and  Users complete quizzes to assess their understanding</p>
-            </div>
-            <div class=" text-center border-none hover:border-2 hover:bg-gray-300 hover:shadow-black hover:shadow-lg">
-                <img class="mt-5 mx-auto rounded-full h-40" src={img5}></img>
-                <h2 class="text-lg mt-5">Task Completed for Today</h2>
-                <p class="bg-[#D2B0FD] text-black mt-5 p-12">The progress is tracked, and the user moves to the next step in the roadmap.</p>
-            </div>
-            
-        </div>
-      
       </div>
-  )
+    </section>
+  );
 }
 
-export default Work
+export default HowItWorks;
