@@ -1,134 +1,134 @@
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import useAxios from "../../hook/useAxios";
-import login from "./login.jpg";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
-import useAuthStore from "../../store/useAuthStore";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 
-function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const [loading, setLoading] = useState(false);
-  let navigate = useNavigate();
-  const { setToken } = useAuthStore();
-  const axiosInstance = useAxios();
+function Login(){
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onSubmit = async (data) => {
-    setLoading(true);
-    try {
-      const formData = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-
-      const response = await axiosInstance.post("/auth/sign-in", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      toast.success("Signin successful!");
-      setToken(response.data?.access_token);
-      const userData = await axiosInstance.get("/auth/get-current-user");
-      console.log(userData);
-      if (userData.data?.onboarding === true) {
-        navigate(`/dashboard`);
-      } else {
-        navigate(`/dashboard/details`);
-      }
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.detail || "Signup failed. Please try again.";
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
+  const handleSubmit = async (e) => { 
+    e.preventDefault();
+    setIsLoading(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsLoading(false);
   };
 
   return (
-    <>
-      <div className="text-center grid grid-cols-2 pl-20 pr-20 mt-20">
-        <div className="pt-12">
-          <img className="ml-20 h-[600px]" src={login} alt="Login" />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden flex"
+      >
+        {/* Left side - Image */}
+        <motion.div 
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="w-1/2 bg-cover bg-center hidden md:block"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2264&auto=format&fit=crop')`
+          }}
+        />
 
-        <div className="pt-20">
-          <div className="pt-1 pb-1 rounded-full ml-60 mr-60 text-[30px] shadow-lg">
-            Log in
-          </div>
+        {/* Right side - Form */}
+        <div className="w-full md:w-1/2 p-8">
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Welcome Back</h2>
+          </motion.div>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="text-left ml-28 mt-6">
-              <h1>Your Email:</h1>
-              <div className="pt-1">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="space-y-2"
+            >
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
                   type="email"
-                  placeholder="abc@gmail.com"
-                  className="border-gray-400 border-2 rounded-lg p-[5px] w-[450px]"
-                  {...register("username", { required: "Email is required" })}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  placeholder="Enter your email"
                 />
-                {errors.username && (
-                  <p className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </p>
-                )}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="text-left ml-28 mt-6">
-              <h1>Password:</h1>
-              <div className="pt-1">
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="space-y-2"
+            >
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <input
                   type="password"
-                  placeholder="password"
-                  className="border-gray-400 border-2 rounded-lg p-[5px] w-[450px]"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  placeholder="Enter your password"
                 />
-                {errors.password && (
-                  <p className="text-red-500 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
               </div>
-            </div>
+            </motion.div>
 
-            {errors.terms && (
-              <p className="text-red-500 text-sm ml-28">
-                {errors.terms.message}
-              </p>
-            )}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="flex items-center justify-between"
+            >
+              <label className="flex items-center">
+                <input type="checkbox" className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" />
+                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+              </label>
+              <a href="#" className="text-sm text-purple-600 hover:text-purple-500">Forgot password?</a>
+            </motion.div>
 
-            <div className="mt-10">
-              <button
-                type="submit"
-                disabled={loading}
-                className={`text-lg ${
-                  loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "hover:bg-black active:bg-black hover:text-white active:text-white bg-[#D2B0FD]"
-                } pl-20 pr-20 pt-3 pb-3 rounded-[20px]`}
-              >
-                {loading ? "Logging in..." : "Login"}
-              </button>
-            </div>
+            <motion.button
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-purple-600 text-white p-3 rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-purple-700 transition-colors disabled:bg-purple-400"
+            >
+              {isLoading ? (
+                <Loader2 className="animate-spin h-5 w-5" />
+              ) : (
+                <>
+                  <span>Sign In</span>
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
+            </motion.button>
           </form>
 
-          <div className="pt-6 flex justify-center items-center space-x-2">
-            <p className="text-gray-600">Don’t have an account?</p>
-            <Link to="/signup" className="cursor-pointer hover:underline">
-              Sign up
-            </Link>
-          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            className="mt-8 text-center text-sm text-gray-600"
+          >
+            Don't have an account?{' '}
+            <a href="/signup" className="text-purple-600 hover:text-purple-500 font-medium">Sign up</a>
+          </motion.p>
         </div>
-      </div>
-    </>
+      </motion.div>
+    </div>
   );
 }
 
