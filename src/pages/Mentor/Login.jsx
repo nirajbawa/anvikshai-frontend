@@ -1,8 +1,10 @@
 
+
+
+
 function Login(){
     return (
         <>
-
         <div class="text-center  grid grid-cols-2 pl-20 pr-20 ">
 
             <div class=" pt-12">
