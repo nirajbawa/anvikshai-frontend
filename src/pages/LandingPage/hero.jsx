@@ -4,11 +4,11 @@ import { Link } from "react-router";
 
 function Hero() {
   return (
-    <section className=" ml-20 mr-20 pt-28 pb-20 px-6 md:px-0">
+    <section className="md:ml-20 md:mr-20 pt-28 pb-20 px-6 md:px-0">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="fade-in-left">
-            <div className="flex items-center space-x-3 mb-4">
+            <div className="hidden md:flex items-center space-x-3 mb-4">
               <div className="bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-sm font-medium">
                 AI-Powered Learning
               </div>
@@ -44,7 +44,7 @@ function Hero() {
               </Link>
             </div>
 
-            <div className="mt-12 grid grid-cols-3 gap-4">
+            <div className="mt-12 flex flex-wrap gap-5">
               <div className="flex items-center space-x-2">
                 <div className="bg-purple-100 p-2 rounded-full">
                   <Brain className="h-5 w-5 text-purple-700" />

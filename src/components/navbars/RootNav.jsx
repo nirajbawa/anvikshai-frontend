@@ -122,13 +122,15 @@
 
 // export default RootNav;
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrainCog, Menu, X } from "lucide-react";
 import { Link } from "react-router";
+import useAuthStore from "../../store/useAuthStore";
 
 const RootNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { token } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,12 +152,14 @@ const RootNav = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <BrainCog className="h-8 w-8 text-purple-700" />
-          <span className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-500 text-transparent bg-clip-text">
-            AnvikshAI
-          </span>
-        </div>
+        <Link to="/">
+          <div className="flex items-center space-x-2">
+            <BrainCog className="h-8 w-8 text-purple-700" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-500 text-transparent bg-clip-text">
+              AnvikshAI
+            </span>
+          </div>
+        </Link>
 
         <div className="hidden md:flex items-center space-x-8">
           <Link
@@ -176,15 +180,23 @@ const RootNav = () => {
           >
             Contact Us
           </Link>
-          <Link
-            to="/login"
-            className="font-medium hover:text-purple-700 transition-colors"
-          >
-            Sign In
-          </Link>
-          <Link to="/signup">
-            <button className="btn-primary">Sign Up</button>
-          </Link>
+          {token == null ? (
+            <>
+              <Link
+                to="/login"
+                className="font-medium hover:text-purple-700 transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link to="/signup">
+                <button className="btn-primary">Sign Up</button>
+              </Link>
+            </>
+          ) : (
+            <Link to="/dashboard">
+              <button className="btn-primary">Dashboard</button>
+            </Link>
+          )}
         </div>
 
         <div className="md:hidden">
@@ -201,31 +213,46 @@ const RootNav = () => {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg absolute top-full left-0 w-full py-4 px-6 flex flex-col space-y-4">
-          <a
-            href="#"
+          <Link
+            to="/"
+            onClick={() => setMobileMenuOpen(false)}
             className="font-medium hover:text-purple-700 transition-colors"
           >
             Home
-          </a>
-          <a
-            href="#how-it-works"
+          </Link>
+          <Link
+            to="/about"
+            onClick={() => setMobileMenuOpen(false)}
             className="font-medium hover:text-purple-700 transition-colors"
           >
-            How It Works
-          </a>
-          <a
-            href="#why-choose-us"
+            About
+          </Link>
+          <Link
+            to="/contact-us"
+            onClick={() => setMobileMenuOpen(false)}
             className="font-medium hover:text-purple-700 transition-colors"
           >
-            Why Choose Us
-          </a>
-          <a
-            href="#pricing"
-            className="font-medium hover:text-purple-700 transition-colors"
-          >
-            Pricing
-          </a>
-          <button className="btn-primary">Sign In</button>
+            Contact Us
+          </Link>
+          {token == null ? (
+            <>
+              <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                <button className="btn-primary">Sign Up</button>
+              </Link>
+              <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                <button className="btn-primary">Sign In</button>
+              </Link>
+            </>
+          ) : (
+            <Link to="/dashboard">
+              <button
+                className="btn-primary"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Dashboard
+              </button>
+            </Link>
+          )}
         </div>
       )}
     </nav>
