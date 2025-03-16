@@ -28,6 +28,10 @@ import ContactUs from "./pages/details/ContactUs";
 import TaskPage from "./pages/task";
 import SubscriptionPlans from "./pages/subscription/Subscription";
 import CertificatePage from "./pages/certificate";
+import Exp_Login from "./pages/Expert/Exp_Login";
+import Exp_Req from "./pages/Expert/Exp_Req";
+import Exp_List from "./pages/Expert/Exp_List";
+import Exp_SignUp from "./pages/Expert/Exp_Signup";
 
 const AppRouter = () => {
   return (
@@ -62,6 +66,10 @@ const AppRouter = () => {
           <Route path="mlist" element={<Mlist />} />
           <Route path="subscription-single" element={<SubscriptionPlans />} />
           <Route path="certificates" element={<CertificatePage />} />
+          <Route path="expertlogin" element={<Exp_Login />} />
+          <Route path="expertrequest" element={<Exp_Req />} />
+          <Route path="expertlist" element={<Exp_List />} />
+          <Route path="expertsignup" element={<Exp_SignUp />} />
         </Route>
       </Routes>
     </BrowserRouter>
