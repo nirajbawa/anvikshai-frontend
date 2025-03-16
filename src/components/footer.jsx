@@ -1,4 +1,6 @@
 import logo from "../pages/LandingPage/logo.webp";
+import { Link } from "react-router";
+
 function Footer() {
   return (
     <div>
@@ -37,9 +39,9 @@ function Footer() {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
-                    <a href="#" className="hover:underline">
+                    <Link to="/admin-sign-in" className="hover:underline">
                       Admin Login
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#" className="hover:underline">

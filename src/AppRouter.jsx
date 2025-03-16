@@ -29,6 +29,8 @@ import TaskPage from "./pages/task";
 import SubscriptionPlans from "./pages/subscription/Subscription";
 import CertificatePage from "./pages/certificate";
 import Questionnaire from "./pages/Dashboard/Questionnaire";
+import AdminLayout from "../src/layouts/AdminLayout";
+import AdminOtpLogin from "./pages/Admin/AdminOtpLogin";
 
 const AppRouter = () => {
   return (
@@ -41,6 +43,8 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/admin-sign-in" element={<Alogin />} />
+          <Route path="/admin-otp/:email" element={<AdminOtpLogin />} />
         </Route>
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
@@ -55,15 +59,20 @@ const AppRouter = () => {
           <Route path="article/:taskId/:dayId/" element={<Article />} />
           <Route path="quiz/:dayId" element={<Quiz />} />
           <Route path="video/:taskId/:dayId" element={<VideoPage />} />
-          <Route path="message" element={<Messages />} />
+
+          <Route path="subscription-single" element={<SubscriptionPlans />} />
+          <Route path="certificates" element={<CertificatePage />} />
+          <Route path="questionnaire/:taskId" element={<Questionnaire />} />
+
+          {/* <Route path="message" element={<Messages />} />
           <Route path="mdashboard" element={<MDashboard />} />
           <Route path="adashboard" element={<ADashboard />} />
           <Route path="alogin" element={<Alogin />} />
           <Route path="mlogin" element={<Mlogin />} />
-          <Route path="mlist" element={<Mlist />} />
-          <Route path="subscription-single" element={<SubscriptionPlans />} />
-          <Route path="certificates" element={<CertificatePage />} />
-          <Route path="questionnaire/:taskId" element={<Questionnaire />} />
+          <Route path="mlist" element={<Mlist />} /> */}
+        </Route>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<ADashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
