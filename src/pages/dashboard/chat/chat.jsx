@@ -24,7 +24,7 @@ function Chat() {
   const createRoadmap = async () => {
     setLoading(true);
     try {
-      await axiosInstance.post(`/task/accept-task/${task.taskId}`, {
+      await axiosInstance.post(`/task/create-course/${task.taskId}`, {
         accept: true,
       });
       navigate(`/dashboard/roadmap/${task.taskId}`);
@@ -42,7 +42,7 @@ function Chat() {
     setLoading(true);
     try {
       const response = await axiosInstance.post(
-        `/task/accept-task-modify/${task.taskId}`,
+        `/task/accept-roadmap-modify/${task.taskId}`,
         { text: inputText }
       );
       setModifiedResponse(response.data.roadmap);

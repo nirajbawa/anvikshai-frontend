@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useAxios from "../../hook/useAxios";
 import { toast } from "react-toastify";
-import useTaskStore from "../../store/useTaskStore";
+import useDetailsQuestionnaireStore from "../../store/useDetailsQuestionnaireStore";
 
 export default function CreateTask() {
   const {
@@ -13,12 +13,10 @@ export default function CreateTask() {
   } = useForm();
   const navigate = useNavigate();
   const axiosInstance = useAxios();
-  const { setTask, clearTask } = useTaskStore();
+  const { setQuestions } = useDetailsQuestionnaireStore();
 
   const onSubmit = async (data) => {
     try {
-      clearTask();
-      console.log(data);
       const uploadData = {
         task_name: data.task_name,
         description: data.description,
@@ -33,13 +31,14 @@ export default function CreateTask() {
         "/task/create-task",
         uploadData
       );
-      console.log({
-        chat: response.data.roadmap,
+
+ 
+      setQuestions({
+        questions: response.data.questionnaire,
         taskId: response.data.task_id,
       });
-      setTask({ chat: response.data.roadmap, taskId: response.data.task_id });
       toast.success("Task created successfully!");
-      navigate("/dashboard/chat");
+      navigate(`/dashboard/Questionnaire/${response.data.task_id}`);
     } catch (error) {
       console.error("Form submission failed:", error);
       const errorMessage =
@@ -101,7 +100,7 @@ export default function CreateTask() {
             className={`${isSubmitting ? "opacity-50" : ""}`}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Submitting..." : "Submit Task"}
+            {isSubmitting ? "Submitting..." : "Next"}
           </Button>
         </div>
       </form>

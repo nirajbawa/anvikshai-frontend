@@ -1,23 +1,36 @@
 import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import useAxios from "../../hook/useAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import DetailsImage from "../../assets/details.png";
 import { Textarea } from "@material-tailwind/react";
+import { FileText } from "lucide-react";
+import useUserStore from "../../store/useUserStore";
 
 export default function DetailsPage() {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [bio, setBio] = useState("");
   let navigate = useNavigate();
+  const { userData } = useUserStore();
 
   const axiosInstance = useAxios();
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post("/auth/onboarding", data);
+      const response = await axiosInstance.post("/auth/onboarding", {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        dob: data.dob,
+        bio: data.bio + "\n\n\n resulme : \n" + bio,
+        education: data.education,
+        stream_of_education: data.stream_of_education,
+        language_preference: data.language_preference,
+      });
       console.log("Form submitted successfully:", response.data);
 
       toast.success("On boarding successful!");
@@ -31,6 +44,47 @@ export default function DetailsPage() {
       setLoading(false);
     }
   };
+
+  const uploadFile = async () => {
+    setLoading(true);
+    try {
+      if (!file) {
+        toast.warning("Please upload a file before submitting.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await axiosInstance.post(`/task/readpdf`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setBio(response.data.text);
+      console.log("file submitted successfully:", response.data);
+
+      toast.success("File uploaded!");
+      // navigate("/dashboard/subscription");
+    } catch (error) {
+      console.error("file submission failed:", error);
+      const errorMessage =
+        error.response?.data?.detail || "Error in uploading file.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (file !== null) {
+      uploadFile();
+    }
+  }, [file]);
+
+  useEffect(() => {
+    if (userData.onboarding) {
+      navigate("/");
+    }
+  }, [userData]);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-0 pb-96">
@@ -89,6 +143,31 @@ export default function DetailsPage() {
               <option value="English">English</option>
               <option value="Hindi">Hindi</option>
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Resume
+            </label>
+            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+              <div className="space-y-1 text-center">
+                <FileText className="mx-auto h-12 w-12 text-gray-400" />
+                <div className="flex text-sm text-gray-600">
+                  <label className="relative cursor-pointer bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500">
+                    <span>Upload a file</span>
+                    <input
+                      {...register("resume")}
+                      type="file"
+                      className="sr-only"
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
+                  </label>
+                  <p className="pl-1">or drag and drop</p>
+                </div>
+                <p className="text-xs text-gray-500">PDF, DOC up to 10MB</p>
+              </div>
+            </div>
           </div>
 
           <button
