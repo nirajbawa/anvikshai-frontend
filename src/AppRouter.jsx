@@ -33,6 +33,7 @@ import AdminLayout from "../src/layouts/AdminLayout";
 import AdminOtpLogin from "./pages/Admin/AdminOtpLogin";
 import OnboardingPage from "./pages/expert/auth/onboarding";
 import ExpertInvitationPage from "./pages/Admin/expert-invitation";
+import Select from "./pages/Expert/Select";
 
 const AppRouter = () => {
   return (
@@ -75,7 +76,13 @@ const AppRouter = () => {
           <Route path="adashboard" element={<ADashboard />} />
           <Route path="alogin" element={<Alogin />} />
           <Route path="mlogin" element={<Mlogin />} />
+
           <Route path="mlist" element={<Mlist />} /> */}
+
+          <Route path="mlist" element={<Mlist />} />
+          <Route path="subscription-single" element={<SubscriptionPlans />} />
+          <Route path="certificates" element={<CertificatePage />} />
+          <Route path="selectexpert" element={<Select />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<ADashboard />} />
