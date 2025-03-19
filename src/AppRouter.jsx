@@ -31,6 +31,8 @@ import CertificatePage from "./pages/certificate";
 import Questionnaire from "./pages/Dashboard/Questionnaire";
 import AdminLayout from "../src/layouts/AdminLayout";
 import AdminOtpLogin from "./pages/Admin/AdminOtpLogin";
+import OnboardingPage from "./pages/expert/auth/onboarding";
+import ExpertInvitationPage from "./pages/Admin/expert-invitation";
 
 const AppRouter = () => {
   return (
@@ -45,6 +47,10 @@ const AppRouter = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-sign-in" element={<Alogin />} />
           <Route path="/admin-otp/:email" element={<AdminOtpLogin />} />
+          <Route
+            path="/expert-onboarding/:token"
+            element={<OnboardingPage />}
+          />
         </Route>
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
@@ -73,7 +79,11 @@ const AppRouter = () => {
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<ADashboard />} />
+          <Route path="students" element={<Alist />} />
+          <Route path="expert-invitation" element={<ExpertInvitationPage />} />
         </Route>
+
+        
       </Routes>
     </BrowserRouter>
   );

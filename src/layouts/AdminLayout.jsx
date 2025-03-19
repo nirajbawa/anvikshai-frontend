@@ -1,10 +1,10 @@
 import { Outlet, Navigate } from "react-router";
 import { ToastContainer } from "react-toastify";
 import useAuthStore from "../store/useAuthStore";
-import DashboardNav from "../components/navbars/DashboardNav";
 import useAxios from "../hook/useAxios";
 import useUserStore from "../store/useUserStore";
 import { useEffect } from "react";
+import AdminNav from "../components/navbars/AdminNav";
 
 const AdminLayout = () => {
   const { token } = useAuthStore();
@@ -22,7 +22,7 @@ const AdminLayout = () => {
 
   return (
     <div className="w-full h-full">
-      {/* <DashboardNav /> */}
+      <AdminNav />
       <main>
         {token != null ? <Outlet /> : <Navigate to="/admin-in" />}
         <ToastContainer position="bottom-left" />
