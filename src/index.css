@@ -158,3 +158,16 @@ body {
     transform: translateX(0);
   }
 }
+
+
+.markdown-content p {
+  margin: 1rem 0rem; /* Adjust spacing */
+}
+
+.markdown-content ul {
+  margin: 1rem 0rem; /* Adjust spacing */
+}
+
+.markdown-content li {
+  margin: 0.5rem 0rem; /* Adjust spacing */
+}

@@ -24,6 +24,7 @@ import {
   Settings,
   UserCircle,
   Xmark,
+  BitcoinCircle,
 } from "iconoir-react";
 import PropTypes from "prop-types";
 import useAxios from "../../hook/useAxios";
@@ -72,21 +73,22 @@ function ProfileMenu({ userData }) {
     <Menu>
       <Menu.Trigger
         as={Avatar}
-        src={`https://ui-avatars.com/api/?name=${userData?.first_name}+${userData?.last_name}?background=random`}
+        src={`https://ui-avatars.com/api/?name=${userData?.role}?background=random`}
         alt="profile-picture"
         size="sm"
         className="border border-primary p-0.5 lg:ml-auto cursor-pointer"
       />
       <Menu.Content className="z-[200]">
-        <Menu.Item>
+        {/* <Menu.Item>
           <UserCircle className="mr-2 h-[18px] w-[18px]" /> My Profile
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item onClick={() => navigate("/")}>
           <Settings className="mr-2 h-[18px] w-[18px]" />
           Home
         </Menu.Item>
         <Menu.Item>
-          <HeadsetHelp className="mr-2 h-[18px] w-[18px]" /> Support
+          <BitcoinCircle className="mr-2 h-[18px] w-[18px]" /> points :{" "}
+          {userData?.review_points}
         </Menu.Item>
         <hr className="!my-1 -mx-1 border-surface" />
         <Menu.Item
@@ -119,41 +121,24 @@ MenuItem.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-export default function DashboardNav() {
+export default function ExpertNav() {
   const [openNav, setOpenNav] = React.useState(false);
-  const { userData, setUserData } = useUserStore();
-  const axiosInstance = useAxios();
-  const navigate = useNavigate();
+  const { userData } = useUserStore();
 
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
-  }, []);
-
-  const setUser = async () => {
-    const response = await axiosInstance.get("/auth/get-current-user");
-    setUserData(response.data);
-    if (response.data?.onboarding == false) {
-      navigate("/details");
-    }
-  };
-
-  React.useEffect(() => {
-    setUser();
-  }, []);
+    console.log(userData);
+  });
 
   return (
     <Navbar className="sticky top-0 w-full z-[100] rounded-none mx-0 px-5 bg-[#D2B0FD] border-none">
       <div className="flex items-center">
-        <Link to="/dashboard">
+        <Link to="/expert/dashboard">
           <Typography
             as="h1"
             type="small"
             className="ml-2 mr-2 text-xl block py-1 font-bold"
           >
-            AnvikshAI
+            Admin Dashboard
           </Typography>
         </Link>
         <IconButton

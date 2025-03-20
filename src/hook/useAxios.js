@@ -34,7 +34,7 @@ const useAxios = () => {
       if (error.response && error.response.status === 401) {
         toast.error("Session expired. Please log in again.");
         clearToken(); // Clear token and user data
-        navigate("/login"); // Redirect to login page
+        navigate("/"); // Redirect to login page
       }
       return Promise.reject(error);
     }

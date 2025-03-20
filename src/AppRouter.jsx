@@ -20,7 +20,7 @@ import ADashboard from "./pages/Admin/Dashboard";
 import Alogin from "./pages/Admin/Login";
 import Mlogin from "./pages/Mentor/Login";
 import Mlist from "./pages/Mentor/List";
-import Alist from "./pages/Admin/List";
+import StudnetsList from "./pages/Admin/StudnetsList";
 import OtpPage from "./pages/otp";
 import DashboardLayout from "./layouts/DashboardLayout";
 import AboutUs from "./pages/aboutUs/AboutUs";
@@ -31,9 +31,15 @@ import CertificatePage from "./pages/certificate";
 import Questionnaire from "./pages/Dashboard/Questionnaire";
 import AdminLayout from "../src/layouts/AdminLayout";
 import AdminOtpLogin from "./pages/Admin/AdminOtpLogin";
-import OnboardingPage from "./pages/expert/auth/onboarding";
+import OnboardingPage from "./pages/expert/onboarding";
 import ExpertInvitationPage from "./pages/Admin/expert-invitation";
-import Select from "./pages/Expert/Select";
+import ExpertLogin from "./pages/expert/auth/ExpertLogin";
+import ExpertDashboardPage from "./pages/expert/dashboard";
+import ExpertLayout from "./layouts/ExpertLayout";
+import CoursePage from "./pages/expert/courses";
+import FeedbackPage from "./pages/expert/courses/feedback";
+import ExpertList from "./pages/Admin/expert/ExpertsList";
+import FeedbackList from "./pages/Admin/feedback/FeedbackList";
 
 const AppRouter = () => {
   return (
@@ -52,10 +58,12 @@ const AppRouter = () => {
             path="/expert-onboarding/:token"
             element={<OnboardingPage />}
           />
+          <Route path="/expert-login" element={<ExpertLogin />} />
+          <Route path="details" element={<DetailsPage />} />
         </Route>
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="details" element={<DetailsPage />} />
+
           <Route path="payment" element={<PaymentPage />} />
           <Route path="subscription" element={<Subscription />} />
           <Route path="roadmap/:id" element={<RoadMap />} />
@@ -79,18 +87,24 @@ const AppRouter = () => {
 
           <Route path="mlist" element={<Mlist />} /> */}
 
-          <Route path="mlist" element={<Mlist />} />
+          {/* <Route path="mlist" element={<Mlist />} /> */}
           <Route path="subscription-single" element={<SubscriptionPlans />} />
           <Route path="certificates" element={<CertificatePage />} />
-          <Route path="selectexpert" element={<Select />} />
-        </Route>
-        <Route path="admin" element={<AdminLayout />}>
-          <Route path="dashboard" element={<ADashboard />} />
-          <Route path="students" element={<Alist />} />
-          <Route path="expert-invitation" element={<ExpertInvitationPage />} />
         </Route>
 
-        
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<ADashboard />} />
+          <Route path="students" element={<StudnetsList />} />
+          <Route path="expert-invitation" element={<ExpertInvitationPage />} />
+          <Route path="expert" element={<ExpertList />} />
+          <Route path="feedbacks" element={<FeedbackList />} />
+        </Route>
+
+        <Route path="expert" element={<ExpertLayout />}>
+          <Route path="dashboard" element={<ExpertDashboardPage />} />
+          <Route path="courses" element={<CoursePage />} />
+          <Route path="feedback/:courseId" element={<FeedbackPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

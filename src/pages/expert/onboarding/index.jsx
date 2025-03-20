@@ -1,14 +1,15 @@
 import { Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import useAxios from "../../../../hook/useAxios";
+import useAxios from "../../../hook/useAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import DetailsImage from "../../../../assets/details.png";
+import DetailsImage from "../../../assets/details.png";
 import { Textarea } from "@material-tailwind/react";
 import { FileText } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
 import { useParams } from "react-router";
+import useAuthStore from "../../../store/useAuthStore";
 
 export default function OnboardingPage() {
   const { register, handleSubmit, setValue } = useForm();
@@ -18,12 +19,17 @@ export default function OnboardingPage() {
   let navigate = useNavigate();
   const [email, setEmail] = useState("");
   let { token } = useParams();
+  const { setToken } = useAuthStore();
 
   const axiosInstance = useAxios();
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
+      if (!file) {
+        toast.warning("Please upload a file before submitting.");
+        return;
+      }
       const response = await axiosInstance.post("/expert/auth/onboarding", {
         first_name: data.first_name,
         last_name: data.last_name,
@@ -34,10 +40,12 @@ export default function OnboardingPage() {
         resume: resume,
         token: decodeURI(token),
       });
+
+      setToken(response.data?.access_token);
       console.log("Form submitted successfully:", response.data);
 
-      toast.success("Onboarding successful!");
-      // navigate("/dashboard/subscription");
+      toast.success("Onboarding successfully!");
+      navigate("/expert/dashboard");
     } catch (error) {
       console.error("Form submission failed:", error);
       const errorMessage =
@@ -112,23 +120,42 @@ export default function OnboardingPage() {
           className="flex flex-col space-y-5 mt-20"
         >
           <label>Email</label>
-          <Input placeholder="Email" disabled {...register("email")} />
+          <Input
+            placeholder="Email"
+            disabled
+            {...register("email", { required: true })}
+          />
 
           <label>Password</label>
-          <Input placeholder="Password" {...register("password")} />
+          <Input
+            placeholder="Password"
+            {...register("password", { required: true })}
+          />
 
           <label>First Name</label>
-          <Input placeholder="First Name" {...register("first_name")} />
+          <Input
+            placeholder="First Name"
+            className="capitalize"
+            {...register("first_name", { required: true })}
+          />
 
           <label>Last Name</label>
-          <Input placeholder="Last Name" {...register("last_name")} />
+          <Input
+            placeholder="Last Name"
+            className="capitalize"
+            {...register("last_name", { required: true })}
+          />
 
           <label>About Yourself</label>
-          <Textarea placeholder="Enter About Yourself" {...register("bio")} />
+          <Textarea
+            placeholder="Enter About Yourself"
+            className="capitalize"
+            {...register("bio", { required: true })}
+          />
 
           <label>Education</label>
           <select
-            {...register("education")}
+            {...register("education", { required: true })}
             className="w-full p-3 border rounded-md"
           >
             <option value="High School">High School</option>
@@ -140,7 +167,8 @@ export default function OnboardingPage() {
           <label>Stream of Education</label>
           <Input
             placeholder="Stream of Education"
-            {...register("stream_of_education")}
+            className="capitalize"
+            {...register("stream_of_education", { required: true })}
           />
 
           <label>Resume</label>

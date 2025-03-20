@@ -4,15 +4,16 @@ import useAuthStore from "../store/useAuthStore";
 import useAxios from "../hook/useAxios";
 import useUserStore from "../store/useUserStore";
 import { useEffect } from "react";
-import AdminNav from "../components/navbars/AdminNav";
+import ExpertNav from "../components/navbars/ExpertNav";
 
-const AdminLayout = () => {
+const ExpertLayout = () => {
   const { token } = useAuthStore();
+
   const { setUserData } = useUserStore();
   const axiosInstance = useAxios();
 
   const setUser = async () => {
-    const response = await axiosInstance.get("/admin/get-current-user");
+    const response = await axiosInstance.get("/expert/auth/get-current-expert");
     setUserData(response.data);
   };
 
@@ -22,13 +23,13 @@ const AdminLayout = () => {
 
   return (
     <div className="w-full h-full">
-      <AdminNav />
+      <ExpertNav />
       <main>
-        {token != null ? <Outlet /> : <Navigate to="/admin-sign-in" />}
+        {token != null ? <Outlet /> : <Navigate to="/expert-login" />}
         <ToastContainer position="bottom-left" />
       </main>
     </div>
   );
 };
 
-export default AdminLayout;
+export default ExpertLayout;

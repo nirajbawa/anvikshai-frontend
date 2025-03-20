@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useAxios from "../../hook/useAxios";
+import useAxios from "../../../hook/useAxios";
 import { toast } from "react-toastify";
-import useAuthStore from "../../store/useAuthStore";
+import useAuthStore from "../../../store/useAuthStore";
 
-function Login() {
+function ExpertLogin() {
   const {
     register,
     handleSubmit,
@@ -16,8 +16,8 @@ function Login() {
 
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useNavigate();
-  const { setToken } = useAuthStore();
   const axiosInstance = useAxios();
+  const { setToken } = useAuthStore();
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -27,20 +27,21 @@ function Login() {
         formData.append(key, value);
       });
 
-      const response = await axiosInstance.post("/auth/sign-in", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axiosInstance.post("/expert/auth/sign-in", {
+        email: data.username,
+        password: data.password,
       });
 
-      toast.success("Signin successful!");
       setToken(response.data?.access_token);
-
-      const userData = await axiosInstance.get("/auth/get-current-user");
+      toast.success("User login successfully");
+      const userData = await axiosInstance.get(
+        "/expert/auth/get-current-expert"
+      );
       if (userData?.data?.onboarding === true) {
-        navigate(`/dashboard`);
+        navigate(`/expert/dashboard`);
       } else {
-        navigate(`/details`);
+        navigate(`/`);
+        toast.error("Please complete Your Onboarding");
       }
     } catch (error) {
       const errorMessage =
@@ -74,7 +75,7 @@ function Login() {
             animate={{ y: 0, opacity: 1 }}
           >
             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              Welcome Back
+              Expert Login
             </h2>
           </motion.div>
 
@@ -151,25 +152,10 @@ function Login() {
               )}
             </motion.button>
           </form>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-8 text-center text-sm text-gray-600"
-          >
-            Don’t have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-purple-600 hover:text-purple-500 font-medium"
-            >
-              Sign up
-            </Link>
-          </motion.p>
         </div>
       </motion.div>
     </div>
   );
 }
 
-export default Login;
+export default ExpertLogin;

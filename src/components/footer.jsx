@@ -17,9 +17,7 @@ function Footer() {
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                <h2 className="mb-6 text-sm text-gray-900 uppercase text-white">
-                  Resources
-                </h2>
+                <h2 className="mb-6 text-sm uppercase text-white">Resources</h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
                     <a href="#" className="hover:underline">
@@ -34,7 +32,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h2 className="mb-6 text-sm  text-gray-900 uppercase text-white">
+                <h2 className="mb-6 text-sm  uppercase text-white">
                   Follow us
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
@@ -44,16 +42,14 @@ function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <a href="#" className="hover:underline">
-                      Mentor Login
-                    </a>
+                    <Link to="/expert-login" className="hover:underline">
+                      Expert Login
+                    </Link>
                   </li>
                 </ul>
               </div>
               <div>
-                <h2 className="mb-6 text-sm  text-gray-900 uppercase text-white">
-                  Legal
-                </h2>
+                <h2 className="mb-6 text-sm uppercase text-white">Legal</h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
                     <a href="#" className="hover:underline">

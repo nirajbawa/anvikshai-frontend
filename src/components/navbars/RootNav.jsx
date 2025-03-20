@@ -2,13 +2,25 @@ import { useState, useEffect } from "react";
 import { BrainCog, Menu, X } from "lucide-react";
 import { Link } from "react-router";
 import useAuthStore from "../../store/useAuthStore";
+import { jwtDecode } from "jwt-decode";
 
 const RootNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { token } = useAuthStore();
+  const [decodedToken, setDecodedToken] = useState(null);
+
+  const decode = () => {
+    try {
+      const dt = jwtDecode(token);
+      setDecodedToken(dt);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
+    decode();
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsScrolled(true);
@@ -56,7 +68,7 @@ const RootNav = () => {
           >
             Contact Us
           </Link>
-          {token == null ? (
+          {decodedToken == null ? (
             <>
               <Link
                 to="/login"
@@ -69,7 +81,15 @@ const RootNav = () => {
               </Link>
             </>
           ) : (
-            <Link to="/dashboard">
+            <Link
+              to={
+                decodedToken?.role === "admin"
+                  ? "/admin/dashboard"
+                  : decodedToken?.role === "expert"
+                  ? "/expert/dashboard"
+                  : "/dashboard"
+              }
+            >
               <button className="btn-primary">Dashboard</button>
             </Link>
           )}

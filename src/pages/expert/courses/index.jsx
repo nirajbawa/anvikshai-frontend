@@ -8,10 +8,11 @@ import {
 import { LoadingSpinner } from "./LoadingSpinner";
 import { Tooltip } from "./Tooltip";
 import { useState, useEffect } from "react";
-import useAxios from "../../hook/useAxios";
+import useAxios from "../../../hook/useAxios";
 import BioModel from "./BioModel";
+import { useNavigate } from "react-router";
 
-const List = () => {
+const CoursePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortField, setSortField] = useState("fullName");
@@ -23,6 +24,8 @@ const List = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [model, setModel] = useState(false);
   const [currentBio, setCurrentBio] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
+  let navigate = useNavigate();
 
   const handleModel = () => {
     setModel((state) => !state);
@@ -30,51 +33,27 @@ const List = () => {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const response = await axiosInstance.get(
-        `/admin/users?page=${currentPage}&limit=${itemsPerPage}`
+        `/expert/courses?page=${currentPage}&limit=${itemsPerPage}`
       );
-      setStudents(response.data?.users);
+      setStudents(response.data?.data);
       setTotalPages(response.data?.total_pages);
       console.log(response);
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    // Simulate loading
-    fetchData();
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     fetchData();
   }, [currentPage]);
 
-  const filteredStudents = students.filter(
-    (student) =>
-      student.first_name ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.id.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredStudents = students.filter((student) =>
+    student.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const sortedStudents = [...filteredStudents].sort((a, b) => {
-    if (sortField === "employmentDate") {
-      return sortDirection === "asc"
-        ? new Date(a[sortField]).getTime() - new Date(b[sortField]).getTime()
-        : new Date(b[sortField]).getTime() - new Date(a[sortField]).getTime();
-    }
-    return sortDirection === "asc"
-      ? String(a[sortField]).localeCompare(String(b[sortField]))
-      : String(b[sortField]).localeCompare(String(a[sortField]));
-  });
-
-  // const totalPages = Math.ceil(totalPages / itemsPerPage);
-  // const paginatedStudents = sortedStudents.slice(
-  //   (currentPage - 1) * itemsPerPage,
-  //   currentPage * itemsPerPage
-  // );
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -94,13 +73,15 @@ const List = () => {
     );
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
+  const skeletonRows = Array.from({ length: itemsPerPage }).map((_, index) => (
+    <tr key={index} className="animate-pulse bg-gray-200">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <td key={i} className="px-6 py-4">
+          <div className="h-4 w-full bg-gray-300 rounded"></div>
+        </td>
+      ))}
+    </tr>
+  ));
 
   return (
     <>
@@ -109,60 +90,61 @@ const List = () => {
           <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">
               <h1 className="text-2xl font-semibold text-black my-5">
-                Student Management
+                Generated Courses
               </h1>
-
-              {/* Search Bar */}
-              <div className="relative mb-6">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search students..."
-                  className="w-full pl-10 pr-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
 
               {/* Table */}
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="sticky top-0 bg-white/90 backdrop-blur-sm">
-                    <tr className="border-b border-purple-100">
-                      <th
-                        className="px-6 py-3 text-left text-sm font-semibold text-purple-900 cursor-pointer group"
-                        onClick={() => handleSort("fullName")}
-                      >
-                        <div className="flex items-center gap-2">
-                          Sr.No.
-                          <SortIcon field="srno" />
-                        </div>
-                      </th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
-                        ID
-                      </th>
-                      <th
-                        className="px-6 py-3 text-left text-sm font-semibold text-purple-900 cursor-pointer group"
-                        onClick={() => handleSort("fullName")}
-                      >
-                        <div className="flex items-center gap-2">
-                          Full Name
-                          <SortIcon field="fullName" />
-                        </div>
-                      </th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
-                        Last Name
-                      </th>
-                      <th
-                        className="px-6 py-3 text-left text-sm font-semibold text-purple-900 cursor-pointer"
-                        onClick={() => handleSort("status")}
-                      >
-                        <div className="flex items-center gap-2">
-                          DOB
-                          <SortIcon field="status" />
-                        </div>
-                      </th>
-                      <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                    {isLoading ? (
+                      skeletonRows
+                    ) : (
+                      <tr className="border-b border-purple-100">
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900 cursor-pointer group">
+                          <div className="flex items-center gap-2">
+                            Sr.No.
+                            <SortIcon field="srno" />
+                          </div>
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          ID
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900 cursor-pointer group">
+                          <div className="flex items-center gap-2">
+                            Course Name
+                            <SortIcon field="fullName" />
+                          </div>
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          User Id
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900 cursor-pointer">
+                          <div className="flex items-center gap-2">
+                            Generation Prompt
+                            <SortIcon field="status" />
+                          </div>
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          Course Description
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          Expected Months
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          Daily Hours
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          Progress
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          Language
+                        </th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
+                          Review
+                        </th>
+
+                        {/* <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
                         Email
                       </th>
                       <th
@@ -201,56 +183,77 @@ const List = () => {
                       </th>
                       <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
                         Created At
-                      </th>
-                    </tr>
+                      </th> */}
+                      </tr>
+                    )}
                   </thead>
                   <tbody className="divide-y divide-purple-100">
-                    {students.map((student, index) => (
-                      <tr
-                        key={student.id}
-                        className="hover:bg-purple-50 transition-colors duration-200"
-                      >
-                        <td className="px-6 py-4">
-                          {(currentPage - 1) * itemsPerPage + index + 1}
-                        </td>
+                    {isLoading
+                      ? skeletonRows
+                      : students.map((student, index) => (
+                          <tr
+                            key={student.id}
+                            className="hover:bg-purple-50 transition-colors duration-200"
+                          >
+                            <td className="px-6 py-4">
+                              {(currentPage - 1) * itemsPerPage + index + 1}
+                            </td>
 
-                        <td className="px-6 py-4 text-gray-600">
-                          {student.id}
-                        </td>
+                            <td className="px-6 py-4 text-gray-600">
+                              {student.id}
+                            </td>
 
-                        <td className="px-6 py-4">
-                          <Tooltip content={student.first_name}>
-                            <span className="font-medium text-gray-900">
-                              {student.first_name}
-                            </span>
-                          </Tooltip>
-                        </td>
-                        <td className="px-6 py-4 text-gray-600">
-                          {student.last_name}
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-3 py-1`}>
-                            {new Date(student.dob).toLocaleDateString()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <Tooltip content={student.email}>
-                            <span className="text-gray-600">
-                              {student.email}
-                            </span>
-                          </Tooltip>
-                        </td>
-                        <td
-                          className="px-6 py-4 text-gray-600 cursor-pointer"
-                          onClick={() => {
-                            handleModel();
-                            setCurrentBio(student.bio);
-                          }}
-                        >
-                          view
-                        </td>
+                            <td className="px-6 py-4 text-gray-600 ">
+                              {student.task_name_gen}
+                            </td>
+                            <td className="px-6 py-4 text-gray-600">
+                              {student.user}
+                            </td>
+                            <td
+                              onClick={() => {
+                                handleModel();
+                                setCurrentBio(student.description);
+                                setCurrentTitle("Description");
+                              }}
+                              className="px-6 py-4 text-gray-600  cursor-pointer"
+                            >
+                              view
+                            </td>
+                            <td
+                              className="px-6 py-4 text-gray-600 cursor-pointer"
+                              onClick={() => {
+                                handleModel();
+                                setCurrentBio(student.generated_roadmap_text);
+                                setCurrentTitle("Description");
+                              }}
+                            >
+                              view
+                            </td>
 
-                        <td className="px-6 py-4 text-gray-600">
+                            <td className="px-6 py-4 text-gray-600">
+                              {student.expected_duration_months}
+                            </td>
+                            <td className="px-6 py-4 text-gray-600">
+                              {student.daily_hours}
+                            </td>
+                            <td className="px-6 py-4 text-gray-600">
+                              {student.completed == true
+                                ? "completed"
+                                : "In Progress"}
+                            </td>
+                            <td className="px-6 py-4 text-gray-600">
+                              {student.language}
+                            </td>
+                            <td
+                              className="px-6 py-4 text-gray-600 cursor-pointer"
+                              onClick={() => {
+                                navigate(`/expert/feedback/${student.id}`);
+                              }}
+                            >
+                              open
+                            </td>
+
+                            {/* <td className="px-6 py-4 text-gray-600">
                           {student.education}
                         </td>
                         <td className="px-6 py-4 text-gray-600">
@@ -276,9 +279,9 @@ const List = () => {
                         </td>
                         <td className="px-6 py-4 text-gray-600">
                           {new Date(student.created_at).toLocaleString()}
-                        </td>
-                      </tr>
-                    ))}
+                        </td> */}
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               </div>
@@ -322,11 +325,11 @@ const List = () => {
       <BioModel
         model={model}
         handler={handleModel}
-        title={"User Bio"}
+        title={currentTitle}
         bio={currentBio}
       />
     </>
   );
 };
 
-export default List;
+export default CoursePage;

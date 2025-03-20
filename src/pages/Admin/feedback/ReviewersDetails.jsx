@@ -10,7 +10,7 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
 
-export default function BioModel({ model, handler, title, bio }) {
+export default function ReviewersDetails({ model, handler, title, details }) {
   return (
     <Dialog open={model} handler={handler}>
       <Dialog.Overlay>
@@ -30,12 +30,24 @@ export default function BioModel({ model, handler, title, bio }) {
           </div>
           <div className="mb-6 mt-2 text-foreground">
             <div className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
-              >
-                {bio}
-              </ReactMarkdown>
+              <p>
+                <b>name :</b> {details?.first_name} {details?.last_name}
+              </p>
+              <p>
+                <b>Email :</b> {details?.email}
+              </p>
+              <p>
+                <b>Bio :</b> {details?.bio}
+              </p>
+              <p>
+                <b>Domains :</b> {details?.domains.join(", ")}
+              </p>
+              <p>
+                <b>Education :</b> {details?.education}
+              </p>
+              <p>
+                <b>Stream :</b> {details?.stream_of_education}
+              </p>
             </div>
           </div>
           <div className="mb-1 flex items-center justify-end gap-2">

@@ -43,7 +43,7 @@ function Dashboard() {
       const response = await axiosInstance.get("/task/");
       const tasksWithImages = await Promise.all(
         response.data.data.map(async (task) => {
-          const imageUrl = await fetchImage(task.task_name);
+          const imageUrl = await fetchImage(task.domains[0]);
           return { ...task, image: imageUrl || "/default-placeholder.jpg" };
         })
       );

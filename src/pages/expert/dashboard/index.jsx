@@ -13,11 +13,10 @@ import {
   Network,
   UserCheck,
   UserPlus,
-  Newspaper,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import useAxios from "../../hook/useAxios";
-import useAuthStore from "../../store/useAuthStore";
+import useAxios from "../../../hook/useAxios";
+import useAuthStore from "../../../store/useAuthStore";
 import {
   BarChart,
   Bar,
@@ -32,6 +31,7 @@ import {
   Cell,
 } from "recharts";
 import { Users, UserCog, Menu as Mentor } from "lucide-react";
+import { Link } from "react-router";
 
 // Mock data
 const stats = {
@@ -70,7 +70,7 @@ function StatCard({ title, value, icon: Icon, color }) {
   );
 }
 
-function Dashboard() {
+function ExpertDashboardPage() {
   const { clearToken } = useAuthStore();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -93,59 +93,24 @@ function Dashboard() {
       >
         <div className="w-72 min-h-screen  px-6 py-8 flex flex-col justify-between">
           <nav className="flex flex-col">
-            {[
-              { icon: Home, label: "Home", path: "/admin/dashboard" },
-              {
-                icon: BookOpen,
-                label: "Students",
-                path: "/admin/students",
-              },
-              // {
-              //   icon: ShieldUser,
-              //   label: "Mentors",
-              //   path: "",
-              // },
-              // {
-              //   icon: BadgePlus,
-              //   label: "Add Mentor",
-              //   path: "",
-              // },
-              // {
-              //   icon: Network,
-              //   label: "Allocate Mentor",
-              //   path: "",
-              // },
-              {
-                icon: UserCheck,
-                label: "Experts",
-                path: "/admin/expert",
-              },
-              {
-                icon: UserPlus,
-                label: "Add Expert",
-                path: "/admin/expert-invitation",
-              },
-              {
-                icon: Newspaper,
-                label: "Feedbacks",
-                path: "/admin/feedbacks",
-              },
-            ].map((item) => (
-              <button
-                key={item.label}
-                onClick={() => navigate(item.path)}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl w-full transition-all duration-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-              >
-                <item.icon className="h-5 w-5 text-gray-400" />
-                <span className="font-medium">{item.label}</span>
-                <ChevronRight className="h-5 w-5 ml-auto text-gray-400" />
-              </button>
-            ))}
+            {[{ icon: Home, label: "Home", path: "/expert/dashboard" }].map(
+              (item) => (
+                <button
+                  key={item.label}
+                  onClick={() => navigate(item.path)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl w-full transition-all duration-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  <item.icon className="h-5 w-5 text-gray-400" />
+                  <span className="font-medium">{item.label}</span>
+                  <ChevronRight className="h-5 w-5 ml-auto text-gray-400" />
+                </button>
+              )
+            )}
           </nav>
 
           <button
             onClick={clearToken}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl w-full hover:bg-red-50 text-gray-600 hover:text-red-600 transition-colors group"
+            className="flex items-center gap-3 px-4 mb-20 py-3 rounded-xl w-full hover:bg-red-50 text-gray-600 hover:text-red-600 transition-colors group"
           >
             <LogOut className="h-5 w-5 text-gray-400 group-hover:text-red-600" />
             <span className="font-medium">Sign Out</span>
@@ -161,8 +126,18 @@ function Dashboard() {
                 <h1 className="text-3xl font-bold text-gray-800 mb-8">
                   Dashboard Overview
                 </h1>
+                <div className="w-full p-10 h-full">
+                  <Link to={"/expert/courses"}>
+                    <div className="w-72 h-64 bg-white shadow-md cursor-pointer rounded-lg flex justify-center items-center">
+                      <h1 className="text-2xl text-center font-bold">
+                        View Courses
+                      </h1>
+                    </div>
+                  </Link>
+                </div>
 
-                {/* Stats Cards */}
+                {/* 
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <StatCard
                     title="Total Users"
@@ -184,9 +159,7 @@ function Dashboard() {
                   />
                 </div>
 
-                {/* Charts */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {/* Bar Chart */}
                   <div className="bg-white p-6 rounded-xl shadow-lg">
                     <h2 className="text-xl font-semibold mb-4">
                       Distribution Overview
@@ -209,7 +182,7 @@ function Dashboard() {
                     </div>
                   </div>
 
-                  {/* Pie Chart */}
+      
                   <div className="bg-white p-6 rounded-xl shadow-lg">
                     <h2 className="text-xl font-semibold mb-4">
                       Composition Ratio
@@ -242,7 +215,7 @@ function Dashboard() {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -252,4 +225,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default ExpertDashboardPage;

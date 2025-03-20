@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import useAxios from "../../../hook/useAxios";
 import ReactMarkdown from "react-markdown";
 import SendIcon from "@mui/icons-material/Send";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css"; // Import a syntax highlighting theme
 
 function Chat() {
   const { task } = useTaskStore();
@@ -61,14 +64,24 @@ function Chat() {
     <div className="flex justify-center items-center min-h-screen bg-white-200 p-7">
       <div className="bg-purple-100 p-7 rounded-2xl shadow-2xl w-[70%] max-w-3xl">
         <div className="bg-white p-8 rounded-lg shadow-lg h-full">
-          <p className="text-black">
-            <ReactMarkdown>{task?.chat}</ReactMarkdown>
+          <p className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeHighlight]}
+            >
+              {task?.chat}
+            </ReactMarkdown>
           </p>
         </div>
         {modifiedResponse != null ? (
           <div className="bg-white p-8 rounded-lg shadow-lg h-full mt-10">
-            <p className="text-black">
-              <ReactMarkdown>{modifiedResponse}</ReactMarkdown>
+            <p className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+              >
+                {modifiedResponse}
+              </ReactMarkdown>
             </p>
           </div>
         ) : (

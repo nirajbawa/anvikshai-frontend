@@ -8,6 +8,7 @@ import DetailsImage from "../../assets/details.png";
 import { Textarea } from "@material-tailwind/react";
 import { FileText } from "lucide-react";
 import useUserStore from "../../store/useUserStore";
+import useAuthStore from "../../store/useAuthStore";
 
 export default function DetailsPage() {
   const { register, handleSubmit } = useForm();
@@ -16,6 +17,7 @@ export default function DetailsPage() {
   const [bio, setBio] = useState("");
   let navigate = useNavigate();
   const { userData } = useUserStore();
+  const { token } = useAuthStore();
 
   const axiosInstance = useAxios();
 
@@ -81,13 +83,16 @@ export default function DetailsPage() {
   }, [file]);
 
   useEffect(() => {
-    if (userData.onboarding) {
+    if (userData?.onboarding == true) {
+      navigate("/");
+    }
+    if (token == null) {
       navigate("/");
     }
   }, [userData]);
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-0 pb-96">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-0 pb-96 mt-16">
       <div className="w-full md:w-2/5 flex justify-center mb-6 md:mb-0">
         <img
           src={DetailsImage}
@@ -105,39 +110,69 @@ export default function DetailsPage() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-10 mt-20"
         >
-          <Input placeholder="First Name" {...register("first_name")} />
-          <Input placeholder="Last Name" {...register("last_name")} />
+          <div>
+            <label className="block text-gray-700 mb-2">First Name</label>
+            <Input
+              placeholder="First Name"
+              className="capitalize"
+              {...register("first_name", { required: true })}
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Last Name</label>
+            <Input
+              placeholder="Last Name"
+              className="capitalize"
+              {...register("last_name", { required: true })}
+            />
+          </div>
 
           <div>
             <label className="block text-gray-700 mb-2">Date of Birth</label>
             <input
               type="date"
-              {...register("dob")}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              {...register("dob", { required: true })}
+              className="w-full p-3 border border-gray-300 rounded-lg uppercase"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Bio</label>
+            <Textarea
+              placeholder="Enter About Your Self"
+              className="capitalize"
+              {...register("bio", { required: true })}
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Education</label>
+            <select
+              {...register("education", { required: true })}
+              className="w-full p-3 border rounded-md capitalize"
+            >
+              <option value="High School">High School</option>
+              <option value="Bachelors">Bachelors</option>
+              <option value="Masters">Masters</option>
+              <option value="PHD">PHD</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-gray-700 mb-2 capitalize">
+              Stream of Education
+            </label>
+            <Input
+              className="capitalize"
+              placeholder="Stream of Education"
+              {...register("stream_of_education", { required: true })}
             />
           </div>
 
-          <Textarea placeholder="Enter About Your Self" {...register("bio")} />
-          <select
-            {...register("education")}
-            className="w-full p-3 border rounded-md"
-          >
-            <option value="High School">High School</option>
-            <option value="Bachelors">Bachelors</option>
-            <option value="Masters">Masters</option>
-            <option value="PHD">PHD</option>
-          </select>
-          <Input
-            placeholder="Stream of Education"
-            {...register("stream_of_education")}
-          />
-
           <div>
-            <label className="block text-gray-700 mb-2">
+            <label className="block text-gray-700 mb-2 capitalize">
               Language Preference
             </label>
             <select
-              {...register("language_preference")}
+              {...register("language_preference", { required: true })}
               className="w-full p-3 border border-gray-300 rounded-lg"
             >
               <option value="English">English</option>
@@ -146,7 +181,7 @@ export default function DetailsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-gray-700 mb-2 capitalize">
               Resume
             </label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -156,7 +191,7 @@ export default function DetailsPage() {
                   <label className="relative cursor-pointer bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500">
                     <span>Upload a file</span>
                     <input
-                      {...register("resume")}
+                      {...register("resume", { required: false })}
                       type="file"
                       className="sr-only"
                       accept=".pdf,.doc,.docx"

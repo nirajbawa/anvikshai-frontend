@@ -142,21 +142,6 @@ function Login() {
               )}
             </motion.button>
           </form>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-8 text-center text-sm text-gray-600"
-          >
-            Don’t have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-purple-600 hover:text-purple-500 font-medium"
-            >
-              Sign up
-            </Link>
-          </motion.p>
         </div>
       </motion.div>
     </div>
