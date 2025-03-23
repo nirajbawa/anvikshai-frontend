@@ -82,15 +82,6 @@ export default function DetailsPage() {
     }
   }, [file]);
 
-  useEffect(() => {
-    if (userData?.onboarding == true) {
-      navigate("/");
-    }
-    if (token == null) {
-      navigate("/");
-    }
-  }, [userData]);
-
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-0 pb-96 mt-16">
       <div className="w-full md:w-2/5 flex justify-center mb-6 md:mb-0">

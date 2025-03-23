@@ -133,7 +133,7 @@ const Quiz = () => {
           <div className="flex justify-end mt-6">
             <Button
               onClick={handleSubmit}
-              className="px-6 py-2 bg-[#c198ff] text-white font-medium rounded-lg shadow-md hover:bg-blue-600 transition"
+              className="px-6 py-2 bg-[#c198ff] text-white font-medium rounded-lg shadow-md hover:bg-[#b98ff8] transition"
               disabled={submitLoading}
             >
               {submitLoading ? "Submitting..." : "Submit"}
@@ -170,7 +170,7 @@ const Quiz = () => {
 
           <Button
             onClick={() => navigate(-1)}
-            className="px-6 py-2 bg-[#c198ff] text-white rounded-lg shadow-md transition mt-6 hover:bg-blue-600"
+            className="px-6 py-2 bg-[#c198ff] text-white rounded-lg shadow-md transition mt-6 hover:bg-[#b98ff8]"
           >
             Go to Home
           </Button>
