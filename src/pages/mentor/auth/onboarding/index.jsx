@@ -26,7 +26,7 @@ export default function OnboardingPage() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post("/expert/auth/onboarding", {
+      const response = await axiosInstance.post("/mentor/auth/onboarding", {
         first_name: data.first_name,
         last_name: data.last_name,
         password: data.password,
@@ -37,10 +37,9 @@ export default function OnboardingPage() {
         token: decodeURI(token),
       });
       console.log("Form submitted successfully:", response.data);
-
-      toast.success("Onboarding successful!");
       setToken(response.data?.access_token);
-      navigate("/expert/dashboard");
+      toast.success("Onboarding successful!");
+      navigate("/mentor/dashboard");
     } catch (error) {
       console.error("Form submission failed:", error);
       const errorMessage =

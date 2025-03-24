@@ -135,21 +135,21 @@ function Dashboard() {
                 label: "Users",
                 path: "/admin/students",
               },
-              // {
-              //   icon: ShieldUser,
-              //   label: "Mentors",
-              //   path: "",
-              // },
-              // {
-              //   icon: BadgePlus,
-              //   label: "Add Mentor",
-              //   path: "",
-              // },
-              // {
-              //   icon: Network,
-              //   label: "Allocate Mentor",
-              //   path: "",
-              // },
+              {
+                icon: ShieldUser,
+                label: "Mentors",
+                path: "",
+              },
+              {
+                icon: BadgePlus,
+                label: "Add Mentor",
+                path: "/admin/mentor-invitation",
+              },
+              {
+                icon: Network,
+                label: "Allocate Mentor",
+                path: "",
+              },
               {
                 icon: UserCheck,
                 label: "Experts",

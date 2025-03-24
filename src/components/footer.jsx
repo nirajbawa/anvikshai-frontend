@@ -41,9 +41,14 @@ function Footer() {
                       Admin Login
                     </Link>
                   </li>
-                  <li>
+                  <li className="mb-4">
                     <Link to="/expert-login" className="hover:underline">
                       Expert Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/mentor-login" className="hover:underline">
+                      Mentor Login
                     </Link>
                   </li>
                 </ul>

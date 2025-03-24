@@ -15,11 +15,10 @@ import Quiz from "./pages/QuizComp/Quiz";
 import Chat from "./pages/dashboard/chat/chat";
 import VideoPage from "./pages/dashboard/video/VideoPage";
 import Messages from "./pages/message/Messages";
-import MDashboard from "./pages/Mentor/dashboard";
+import MDashboard from "./pages/mentor/dashboard";
 import ADashboard from "./pages/Admin/Dashboard";
 import Alogin from "./pages/Admin/Login";
-import Mlogin from "./pages/Mentor/Login";
-import Mlist from "./pages/Mentor/List";
+import Mlist from "./pages/mentor/List";
 import StudnetsList from "./pages/Admin/StudnetsList";
 import OtpPage from "./pages/otp";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -41,6 +40,10 @@ import ExpertList from "./pages/Admin/expert/ExpertsList";
 import FeedbackList from "./pages/Admin/feedback/FeedbackList";
 import OnboardingPage from "./pages/expert/auth/onboarding";
 import Alist from "./pages/Admin/StudnetsList";
+import MentorInvitationPage from "./pages/Admin/mentor-invitation";
+import MentorOnboardingPage from "./pages/mentor/auth/onboarding";
+import MentorLayout from "./layouts/MentorLayout";
+import MentorLogin from "./pages/mentor/auth/MentorLogin";
 
 const AppRouter = () => {
   return (
@@ -61,7 +64,13 @@ const AppRouter = () => {
           />
           <Route path="/expert-login" element={<ExpertLogin />} />
           <Route path="details" element={<DetailsPage />} />
+          <Route
+            path="/mentor-onboarding/:token"
+            element={<MentorOnboardingPage />}
+          />
+          <Route path="/mentor-login" element={<MentorLogin />} />
         </Route>
+
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
 
@@ -100,14 +109,16 @@ const AppRouter = () => {
           <Route path="expert-invitation" element={<ExpertInvitationPage />} />
           <Route path="expert" element={<ExpertList />} />
           <Route path="feedbacks" element={<FeedbackList />} />
+          <Route path="mentor-invitation" element={<MentorInvitationPage />} />
         </Route>
 
         <Route path="expert" element={<ExpertLayout />}>
           <Route path="dashboard" element={<ExpertDashboardPage />} />
           <Route path="courses" element={<CoursePage />} />
-          <Route path="feedback/:courseId" element={<FeedbackPage />} />
-          <Route path="students" element={<Alist />} />
-          <Route path="expert-invitation" element={<ExpertInvitationPage />} />
+        </Route>
+
+        <Route path="mentor" element={<MentorLayout />}>
+          <Route path="dashboard" element={<MDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
