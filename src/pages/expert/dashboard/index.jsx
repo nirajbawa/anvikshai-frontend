@@ -119,11 +119,11 @@ function ExpertDashboardPage() {
       </div>
 
       <div className="flex-1 flex flex-col min-h-screen">
-        <main className="flex-1 p-6 overflow-y-auto">
+        <main className="flex-1 sm:p-6 overflow-y-auto">
           <div className="max-w-7xl mx-auto">
             <div className="min-h-screen bg-gray-50">
               <div className="container mx-auto px-4 py-8">
-                <h1 className="text-3xl font-bold text-gray-800 mb-8">
+                <h1 className="text-3xl text-center sm:text-left font-bold text-gray-800 mb-8">
                   Dashboard Overview
                 </h1>
                 <div className="w-full p-10 h-full">

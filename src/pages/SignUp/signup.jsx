@@ -11,6 +11,7 @@ function SignUp() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -40,7 +41,6 @@ function SignUp() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden flex"
       >
-        {/* Left side - Form */}
         <div className="w-full md:w-1/2 p-8">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
@@ -122,32 +122,33 @@ function SignUp() {
             </motion.div>
 
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="flex items-start space-x-2"
+              className="space-y-2"
             >
-              <input
-                type="checkbox"
-                {...register("terms", {
-                  required: "You must agree to the terms and conditions",
-                })}
-                className="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-              />
-              <div>
-                <p className="text-sm text-gray-600">
-                  I agree to the{" "}
-                  <a href="#" className="text-purple-600 hover:text-purple-500">
-                    Terms of Service
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-purple-600 hover:text-purple-500">
-                    Privacy Policy
-                  </a>
-                </p>
-                {errors.terms && (
+              <label className="block text-sm font-medium text-gray-700">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="password"
+                  {...register("confirmPassword", {
+                    required: "Please confirm your password",
+                    validate: (value) =>
+                      value === watch("password") || "Passwords do not match",
+                  })}
+                  className={`pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all ${
+                    errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="Confirm your password"
+                />
+                {errors.confirmPassword && (
                   <p className="mt-1 text-sm text-red-500">
-                    {errors.terms.message}
+                    {errors.confirmPassword.message}
                   </p>
                 )}
               </div>
@@ -173,33 +174,7 @@ function SignUp() {
               )}
             </motion.button>
           </form>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-8 text-center text-sm text-gray-600"
-          >
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-purple-600 hover:text-purple-500 font-medium"
-            >
-              Sign in
-            </Link>
-          </motion.p>
         </div>
-
-        {/* Right side - Image */}
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="w-1/2 bg-cover bg-center hidden md:block"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?q=80&w=2340&auto=format&fit=crop')`,
-          }}
-        />
       </motion.div>
     </div>
   );

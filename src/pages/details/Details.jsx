@@ -83,16 +83,16 @@ export default function DetailsPage() {
   }, [file]);
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 mt-0 pb-96 mt-16">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 pb-96 mt-16">
       <div className="w-full md:w-2/5 flex justify-center mb-6 md:mb-0">
         <img
           src={DetailsImage}
           alt="Illustration"
-          className="w-[500px] h-[500px] object-cover"
+          className="w-full h-[400px] sm:w-[500px] sm:h-[500px] sm:object-cover"
         />
       </div>
 
-      <div className="w-full md:w-2/5 p-8 rounded-xl max-w-3xl mx-auto overflow-y-auto">
+      <div className="w-full md:w-2/5 p-2 sm:p-8 rounded-xl max-w-3xl mx-auto overflow-y-auto">
         <h2 className="text-center text-xl font-semibold mb-6 border-2 border-black rounded-2xl p-5">
           Enter your Details
         </h2>
@@ -131,6 +131,7 @@ export default function DetailsPage() {
             <Textarea
               placeholder="Enter About Your Self"
               className="capitalize"
+              minLength={50}
               {...register("bio", { required: true })}
             />
           </div>

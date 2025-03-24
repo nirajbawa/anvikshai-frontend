@@ -132,7 +132,7 @@ function Dashboard() {
             </div>
             <button
               onClick={() => navigate("/dashboard/create-task")}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+              className="justify-center flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
             >
               <Plus className="h-5 w-5" />
               <span>New Course</span>

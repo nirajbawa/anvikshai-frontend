@@ -85,7 +85,7 @@ const CoursePage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 sm:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">

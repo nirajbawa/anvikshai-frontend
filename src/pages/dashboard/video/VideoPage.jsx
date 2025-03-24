@@ -93,7 +93,7 @@ function VideoPage() {
     return (
       <>
         <div className="min-h-screen bg-gray-100 p-4 animate-pulse">
-          <div className="flex mt-3 gap-4">
+          <div className="flex flex-col sm:flex-row mt-3 gap-4">
             <div className="flex-1 bg-white p-4 rounded-lg shadow-lg">
               <div className="border-2 border-purple-400 rounded-lg overflow-hidden">
                 <div className="w-full h-[500px] rounded-lg bg-gray-300"></div>
@@ -126,86 +126,90 @@ function VideoPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-3 md:p-4">
-  <div className="w-full px-3 md:px-5 py-2 md:py-3">
-    <button
-      className="bg-purple-200 flex justify-center items-center pl-3 md:pl-4 py-2 md:py-3 pr-1 md:pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
-      onClick={() => navigate(`/dashboard/task/${taskId}/${dayId}`)}
-    >
-      <ArrowBackIosIcon />
-    </button>
-  </div>
-
-  <div className="flex flex-col md:flex-row mt-3 gap-3 md:gap-4">
-    <div className="flex-1 bg-white p-3 md:p-4 rounded-lg shadow-lg">
-      <div className="border-2 border-purple-400 rounded-lg overflow-hidden">
-        <iframe
-          className="w-full h-[300px] md:h-[500px] rounded-lg"
-          title="Video"
-          frameBorder="0"
-          src={videos[videoPointer]?.link}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
-
-      <div className="flex justify-between mt-3 md:mt-4">
+      <div className="w-full px-3 md:px-5 py-2 md:py-3">
         <button
-          className="px-3 md:px-4 py-1 md:py-2 bg-purple-100 rounded-lg"
-          onClick={previousVideo}
-          disabled={videoPointer === 0}
+          className="bg-purple-200 flex justify-center items-center pl-3 md:pl-4 py-2 md:py-3 pr-1 md:pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
+          onClick={() => navigate(`/dashboard/task/${taskId}/${dayId}`)}
         >
-          ← Previous
-        </button>
-        <button
-          className="px-3 md:px-4 py-1 md:py-2 bg-purple-100 rounded-lg"
-          onClick={nextVideo}
-          disabled={videoPointer === videos.length - 1}
-        >
-          Next →
+          <ArrowBackIosIcon />
         </button>
       </div>
 
-      <div className="bg-purple-100 p-3 md:p-4 rounded-lg mt-4 md:mt-6">
-        <h2 className="text-base md:text-lg font-bold">SUMMARY</h2>
-        <p className="text-gray-600 mt-1 md:mt-2">{videos[videoPointer]?.topic}</p>
-      </div>
-    </div>
-
-    <div className="w-full md:w-[350px] bg-purple-100 p-4 md:p-6 rounded-lg shadow-lg">
-      <h2 className="text-base md:text-lg font-bold mb-3 md:mb-4">Up Next</h2>
-      <div className="space-y-3 md:space-y-5">
-        {videos.map((data, index) => (
-          <div
-            key={index}
-            className="flex items-center cursor-pointer p-2 rounded-lg shadow bg-white"
-          >
-            <div>
-              <h3 className="text-sm font-bold">{data.topic}</h3>
-            </div>
+      <div className="flex flex-col md:flex-row mt-3 gap-3 md:gap-4">
+        <div className="flex-1 bg-white p-3 md:p-4 rounded-lg shadow-lg">
+          <div className="border-2 border-purple-400 rounded-lg overflow-hidden">
+            <iframe
+              className="w-full h-[14rem] sm:h-[300px] md:h-[500px] rounded-lg"
+              title="Video"
+              frameBorder="0"
+              src={videos[videoPointer]?.link}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
-        ))}
-      </div>
-      {videoPointer == videos.length - 1 ? (
-        <button
-          disabled={isSubmitting}
-          onClick={handleSubmitProgress}
-          className="mt-4 md:mt-6 px-3 md:px-4 py-2 bg-green-500 text-white rounded-lg flex items-center justify-center min-w-[120px] md:min-w-[150px]"
-        >
-          {isSubmitting ? (
-            <>
-              <Spinner className="h-4 w-4 md:h-5 md:w-5 mr-2" />
-              Submitting...
-            </>
+
+          <div className="flex justify-between mt-3 md:mt-4">
+            <button
+              className="px-3 md:px-4 py-1 md:py-2 bg-purple-100 rounded-lg"
+              onClick={previousVideo}
+              disabled={videoPointer === 0}
+            >
+              ← Previous
+            </button>
+            <button
+              className="px-3 md:px-4 py-1 md:py-2 bg-purple-100 rounded-lg"
+              onClick={nextVideo}
+              disabled={videoPointer === videos.length - 1}
+            >
+              Next →
+            </button>
+          </div>
+
+          <div className="bg-purple-100 p-3 md:p-4 rounded-lg mt-4 md:mt-6">
+            <h2 className="text-base md:text-lg font-bold">SUMMARY</h2>
+            <p className="text-gray-600 mt-1 md:mt-2">
+              {videos[videoPointer]?.topic}
+            </p>
+          </div>
+        </div>
+
+        <div className="w-full md:w-[350px] bg-purple-100 p-4 md:p-6 rounded-lg shadow-lg">
+          <h2 className="text-base md:text-lg font-bold mb-3 md:mb-4">
+            Up Next
+          </h2>
+          <div className="space-y-3 md:space-y-5">
+            {videos.map((data, index) => (
+              <div
+                key={index}
+                className="flex items-center cursor-pointer p-2 rounded-lg shadow bg-white"
+              >
+                <div>
+                  <h3 className="text-sm font-bold">{data.topic}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+          {videoPointer == videos.length - 1 ? (
+            <button
+              disabled={isSubmitting}
+              onClick={handleSubmitProgress}
+              className="mt-4 md:mt-6 px-3 md:px-4 py-2 bg-green-500 text-white rounded-lg flex items-center justify-center min-w-[120px] md:min-w-[150px]"
+            >
+              {isSubmitting ? (
+                <>
+                  <Spinner className="h-4 w-4 md:h-5 md:w-5 mr-2" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit Progress"
+              )}
+            </button>
           ) : (
-            "Submit Progress"
+            ""
           )}
-        </button>
-      ) : (
-        ""
-      )}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 }
 

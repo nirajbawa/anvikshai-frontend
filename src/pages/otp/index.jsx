@@ -2,6 +2,7 @@ import React from "react";
 import { Input, Typography, Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import useAxios from "../../hook/useAxios";
+import useAuthStore from "../../store/useAuthStore";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 
@@ -12,42 +13,67 @@ export default function OtpPage() {
   let { email } = useParams();
   let navigate = useNavigate();
   let axiosInstance = useAxios();
+  const { setToken } = useAuthStore();
 
   const handleChange = (index, value) => {
     const newOtp = [...otp];
-    newOtp[index] = value.replace(/[^0-9]/g, "");
-    setOtp(newOtp);
+    const sanitizedValue = value.replace(/[^0-9]/g, ""); // Allow only numbers
 
-    if (value && index < inputRefs.current.length - 1) {
-      inputRefs.current[index + 1].focus();
+    if (sanitizedValue) {
+      newOtp[index] = sanitizedValue;
+      setOtp(newOtp);
+
+      // Move focus to the next input box
+      if (index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      }
     }
   };
 
   const handleBackspace = (event, index) => {
-    if (event.key === "Backspace" && !event.target.value && index > 0) {
-      inputRefs.current[index - 1].focus();
+    if (event.key === "Backspace") {
+      const newOtp = [...otp];
+
+      if (otp[index]) {
+        newOtp[index] = ""; // Clear the current box
+      } else if (index > 0) {
+        inputRefs.current[index - 1]?.focus(); // Move to the previous box
+      }
+
+      setOtp(newOtp);
+    }
+  };
+
+  const handlePaste = (event) => {
+    event.preventDefault();
+    const pastedData = event.clipboardData
+      .getData("text")
+      .slice(0, 6)
+      .replace(/[^0-9]/g, "");
+    if (pastedData.length === 6) {
+      setOtp([...pastedData]);
+      inputRefs.current[5]?.focus();
     }
   };
 
   const handleSubmit = async () => {
     const otpValue = otp.join("");
     if (otpValue.length === 6) {
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
-        await axiosInstance.post("/auth/verify", {
-          email: email,
+        const response = await axiosInstance.post("/auth/verify", {
+          email,
           otp: otpValue,
         });
-
+        setToken(response.data?.access_token);
         toast.success("Signup successful!");
-        navigate("/login");
+        navigate("/details");
       } catch (error) {
-        const errorMessage =
-          error.response?.data?.detail || "Signup failed. Please try again.";
-        console.log(error);
-        toast.error(errorMessage);
+        toast.error(
+          error.response?.data?.detail || "Signup failed. Please try again."
+        );
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     } else {
       toast.error("Please enter a complete 6-digit OTP.");
@@ -68,7 +94,10 @@ export default function OtpPage() {
         Enter the 6-digit OTP sent to <span className="font-bold">{email}</span>
       </Typography>
 
-      <div className="flex items-center justify-center gap-3 mb-6">
+      <div
+        className="flex items-center justify-center gap-3 mb-6"
+        onPaste={handlePaste}
+      >
         {otp.map((digit, index) => (
           <React.Fragment key={index}>
             <Input
@@ -78,7 +107,7 @@ export default function OtpPage() {
               value={digit}
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleBackspace(e, index)}
-              inputRef={(el) => (inputRefs.current[index] = el)}
+              ref={(el) => (inputRefs.current[index] = el)}
             />
             {index === 2 && <span className="text-2xl text-gray-500">-</span>}
           </React.Fragment>
@@ -89,7 +118,7 @@ export default function OtpPage() {
         color="blue"
         className="w-full py-2 mb-4 bg-[#020617] text-white"
         onClick={handleSubmit}
-        disabled={loading} // Disable button while loading
+        disabled={loading}
       >
         {loading ? "Verifying..." : "Submit OTP"}
       </Button>

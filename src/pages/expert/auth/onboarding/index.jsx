@@ -112,23 +112,41 @@ export default function OnboardingPage() {
           className="flex flex-col space-y-5 mt-20"
         >
           <label>Email</label>
-          <Input placeholder="Email" disabled {...register("email")} />
+          <Input
+            placeholder="Email"
+            disabled
+            {...register("email", { required: true })}
+          />
 
           <label>Password</label>
-          <Input placeholder="Password" {...register("password")} />
+          <Input
+            placeholder="Password"
+            type="password"
+            {...register("password", { required: true })}
+          />
 
           <label>First Name</label>
-          <Input placeholder="First Name" {...register("first_name")} />
+          <Input
+            placeholder="First Name"
+            {...register("first_name", { required: true })}
+          />
 
           <label>Last Name</label>
-          <Input placeholder="Last Name" {...register("last_name")} />
+          <Input
+            placeholder="Last Name"
+            {...register("last_name", { required: true })}
+          />
 
           <label>About Yourself</label>
-          <Textarea placeholder="Enter About Yourself" {...register("bio")} />
+          <Textarea
+            minLength={50}
+            placeholder="Enter About Yourself"
+            {...register("bio", { required: true })}
+          />
 
           <label>Education</label>
           <select
-            {...register("education")}
+            {...register("education", { required: true })}
             className="w-full p-3 border rounded-md"
           >
             <option value="High School">High School</option>
@@ -140,7 +158,7 @@ export default function OnboardingPage() {
           <label>Stream of Education</label>
           <Input
             placeholder="Stream of Education"
-            {...register("stream_of_education")}
+            {...register("stream_of_education", { required: true })}
           />
 
           <label>Resume</label>

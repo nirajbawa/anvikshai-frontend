@@ -61,8 +61,8 @@ function Chat() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white-200 p-7">
-      <div className="bg-purple-100 p-7 rounded-2xl shadow-2xl w-[70%] max-w-3xl">
+    <div className="flex justify-center items-center min-h-screen bg-white-200 p-0 sm:p-7">
+      <div className="bg-purple-100 p-7 rounded-2xl shadow-2xl sm:w-[70%] max-w-3xl">
         <div className="bg-white p-8 rounded-lg shadow-lg h-full">
           <p className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
             <ReactMarkdown

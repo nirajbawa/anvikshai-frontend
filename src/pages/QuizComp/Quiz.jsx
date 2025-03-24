@@ -62,7 +62,7 @@ const Quiz = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto p-6 px-40">
+      <div className="container mx-auto p-6 sm:px-40">
         <h1 className="text-2xl font-bold text-gray-700 text-center mb-6">
           Quiz
         </h1>

@@ -93,7 +93,7 @@ const Calendar = ({ taskId, createdat }) => {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
         {daysInWeek.map((day) => (
-          <div key={day} className="text-center font-semibold">
+          <div key={day} className="hidden sm:flex text-center font-semibold">
             {day}
           </div>
         ))}

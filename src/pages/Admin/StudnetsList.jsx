@@ -17,7 +17,7 @@ const StudnetsList = () => {
   const [sortDirection, setSortDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [students, setStudents] = useState([]);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const axiosInstance = useAxios();
   const [totalPages, setTotalPages] = useState(0);
   const [model, setModel] = useState(false);

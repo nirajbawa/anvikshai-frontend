@@ -104,10 +104,10 @@ const Article = () => {
           </button>
         </div>
         <div className="w-full">
-          <h1 className=" text-2xl font-bold text-gray-700 text-center mt-10">
+          <h1 className=" text-2xl font-bold text-gray-700 pl-10 sm:pl-0 sm:text-center mt-10">
             Articles
           </h1>
-          <div className="text-center mt-4">
+          <div className="pl-10 sm:pl-0 sm:text-center mt-4">
             <Typography variant="h6">Marks: {score} / 10</Typography>
           </div>
         </div>

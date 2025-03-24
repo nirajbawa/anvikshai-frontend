@@ -18,15 +18,15 @@ const SkeletonBox = ({ className }) => (
 
 const TaskPageSkeleton = () => {
   return (
-    <div className="w-full p-10 px-20 h-full flex flex-col gap-y-20 pb-96">
-      <div className="w-full flex flex-row justify-between">
-        <div className="bg-[#F5EEFF] rounded-md w-[60%] min-h-96 h-full p-10 flex flex-col gap-y-7">
+    <div className="w-full p-10 sm:px-20 h-full flex flex-col  gap-y-20 pb-96">
+      <div className="w-full gap-y-20 flex flex-col sm:flex-row justify-between">
+        <div className="bg-[#F5EEFF] rounded-md w-full sm:w-[60%] min-h-96 h-full p-10 flex flex-col gap-y-7">
           <SkeletonBox className="h-8 w-3/4" />
           <SkeletonBox className="h-6 w-full" />
           <SkeletonBox className="h-6 w-full" />
         </div>
 
-        <div className="w-[35%] min-h-96 h-full">
+        <div className="w-full sm:w-[35%] min-h-96 h-full">
           <SkeletonBox className="h-10 w-3/4 mx-auto mb-5" />
           <div className="w-full px-10 flex flex-col gap-y-5">
             {[...Array(3)].map((_, index) => (
@@ -259,167 +259,167 @@ function TaskPage() {
   return (
     <>
       <div className="w-full pl-5 md:pl-20 pt-10">
-  <button
-    className="bg-purple-200 flex justify-center items-center pl-4 py-3 pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
-    onClick={() => navigate(`/dashboard/roadmap/${taskId}`)}
-  >
-    <ArrowBackIosIcon />
-  </button>
-</div>
-
-<div className="w-full p-5 md:p-10 px-5 md:px-20 h-full flex flex-col gap-y-20 pb-96">
-  <div className="w-full flex flex-col md:flex-row justify-between">
-    <div className="bg-[#F5EEFF] rounded-md w-full md:w-[60%] min-h-96 h-full p-5 md:p-10 flex flex-col gap-y-7">
-      <h1 className="font-bold text-xl font-sans">{day?.topics}</h1>
-      <p className="text-lg">{day?.description}</p>
-    </div>
-
-    <div className="w-full md:w-[35%] min-h-96 h-full">
-      <h1 className="text-2xl font-bold text-center p-5">Sub Topics</h1>
-      <div className="w-full px-5 md:px-10 flex flex-col gap-y-5">
-        {day?.leaning_topics.map((data, index) => (
-          <div
-            key={index}
-            className="w-full flex justify-between gap-x-5 items-center"
-          >
-            <p className="bg-[#F5EEFF] font-bold p-1 rounded-full w-9 flex justify-center items-center">
-              {index + 1}
-            </p>
-            <p className="bg-[#F5EEFF] w-full font-bold p-2 rounded-md">
-              {data}
-            </p>
-          </div>
-        ))}
+        <button
+          className="bg-purple-200 flex justify-center items-center pl-4 py-3 pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
+          onClick={() => navigate(`/dashboard/roadmap/${taskId}`)}
+        >
+          <ArrowBackIosIcon />
+        </button>
       </div>
-    </div>
-  </div>
 
-  <div className="w-full flex flex-col md:flex-row justify-between gap-y-5 gap-x-5 flex-wrap">
-    <div
-      className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
-        video?.all_video_completed ? "bg-green-200" : "bg-[#F5EEFF]"
-      }`}
-    >
-      <button
-        onClick={() => {
-          navigate(`/dashboard/video/${taskId}/${dayId}`);
-        }}
-        className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]"
-      >
-        Video Content <PlayArrowIcon fontSize="medium" />
-      </button>
-      <p>Points : {video?.marks}</p>
-    </div>
+      <div className="w-full p-5 md:p-10 px-5 md:px-20 h-full flex flex-col gap-y-20 pb-96">
+        <div className="w-full flex flex-col md:flex-row justify-between">
+          <div className="bg-[#F5EEFF] rounded-md w-full md:w-[60%] min-h-96 h-full p-5 md:p-10 flex flex-col gap-y-7">
+            <h1 className="font-bold text-xl font-sans">{day?.topics}</h1>
+            <p className="text-lg">{day?.description}</p>
+          </div>
 
-    <div
-      onClick={() => {
-        navigate(`/dashboard/article/${taskId}/${dayId}`);
-      }}
-      className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
-        articles?.all_article_readed ? "bg-green-200" : "bg-[#F5EEFF]"
-      }`}
-    >
-      <button className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]">
-        Articles <FeedIcon fontSize="medium" />
-      </button>
-      <p>Points : {articles?.marks}</p>
-    </div>
-    <div
-      className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
-        quiz?.quiz_completed ? "bg-green-200" : "bg-[#F5EEFF]"
-      }`}
-    >
-      <button
-        onClick={() => {
-          navigate(`/dashboard/quiz/${dayId}`);
-        }}
-        className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]"
-      >
-        Give Quiz <QuestionAnswerIcon fontSize="medium" />
-      </button>
-      <p>Points : {quiz?.marks}</p>
-    </div>
-    <div
-      className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
-        assignment?.assinments_completed ? "bg-green-200" : "bg-[#F5EEFF]"
-      }`}
-    >
-      <button
-        onClick={() => {
-          navigate(`/dashboard/assignment/${dayId}`);
-        }}
-        className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]"
-      >
-        Assignment <AssignmentIcon fontSize="medium" />
-      </button>
-      <p>Points : {assignment?.marks}</p>
-    </div>
-  </div>
-
-  <div className="w-full flex-col gap-y-7">
-    <div className="flex justify-between items-center mb-4">
-      <span className="text-2xl font-bold">Progress</span>
-      <span className="text-xl font-bold">{progress}%</span>
-    </div>
-    <div className="w-full bg-gray-300 rounded-full h-6">
-      <div
-        className="bg-blue-600 h-6 rounded-full transition-all duration-300"
-        style={{ width: `${progress}%` }}
-      ></div>
-    </div>
-  </div>
-  {day != null && day?.feedback != null ? (
-    <div className="flex flex-col gap-y-8">
-      <h1 className="font-bold text-2xl">Feedback</h1>
-      <div className="w-full flex justify-between flex-col min-h-[35rem] h-full bg-[#F5EEFF] p-5 md:p-14 border-4 border-gray-200 rounded-md">
-        <div className="h-full">
-          <div className="w-full flex flex-col gap-5 p-5 bg-[#F5EEFF] rounded-lg overflow-y-auto max-h-[25rem] ">
-            <div className="p-5 bg-white">
-              <ReactMarkdown>{day?.feedback}</ReactMarkdown>
-            </div>
-
-            {feedbackHistory.map((item, index) => (
-              <div key={index} className="mb-5 flex flex-col gap-5">
-                <div className="bg-white p-5 rounded-lg">
-                  <p className="font-bold">You:</p>
-                  <p>{item.question}</p>
+          <div className="w-full md:w-[35%] min-h-96 h-full">
+            <h1 className="text-2xl font-bold text-center p-5">Sub Topics</h1>
+            <div className="w-full px-5 md:px-10 flex flex-col gap-y-5">
+              {day?.leaning_topics.map((data, index) => (
+                <div
+                  key={index}
+                  className="w-full flex justify-between gap-x-5 items-center"
+                >
+                  <p className="bg-[#F5EEFF] font-bold p-1 rounded-full w-9 flex justify-center items-center">
+                    {index + 1}
+                  </p>
+                  <p className="bg-[#F5EEFF] w-full font-bold p-2 rounded-md">
+                    {data}
+                  </p>
                 </div>
-                <div className="bg-white p-5 rounded-lg">
-                  <p className="font-bold mt-3">AI:</p>
-                  <ReactMarkdown>{item.answer}</ReactMarkdown>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col md:flex-row justify-between gap-y-5 gap-x-5 flex-wrap">
+          <div
+            className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
+              video?.all_video_completed ? "bg-green-200" : "bg-[#F5EEFF]"
+            }`}
+          >
+            <button
+              onClick={() => {
+                navigate(`/dashboard/video/${taskId}/${dayId}`);
+              }}
+              className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]"
+            >
+              Video Content <PlayArrowIcon fontSize="medium" />
+            </button>
+            <p>Points : {video?.marks}</p>
+          </div>
+
+          <div
+            onClick={() => {
+              navigate(`/dashboard/article/${taskId}/${dayId}`);
+            }}
+            className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
+              articles?.all_article_readed ? "bg-green-200" : "bg-[#F5EEFF]"
+            }`}
+          >
+            <button className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]">
+              Articles <FeedIcon fontSize="medium" />
+            </button>
+            <p>Points : {articles?.marks}</p>
+          </div>
+          <div
+            className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
+              quiz?.quiz_completed ? "bg-green-200" : "bg-[#F5EEFF]"
+            }`}
+          >
+            <button
+              onClick={() => {
+                navigate(`/dashboard/quiz/${dayId}`);
+              }}
+              className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]"
+            >
+              Give Quiz <QuestionAnswerIcon fontSize="medium" />
+            </button>
+            <p>Points : {quiz?.marks}</p>
+          </div>
+          <div
+            className={`w-full md:w-80 h-72 flex-col gap-y-5 rounded-md flex justify-center items-center ${
+              assignment?.assinments_completed ? "bg-green-200" : "bg-[#F5EEFF]"
+            }`}
+          >
+            <button
+              onClick={() => {
+                navigate(`/dashboard/assignment/${dayId}`);
+              }}
+              className="w-44 bg-[#9F88F0] text-white rounded-xl p-3 font-bold hover:bg-[#8876cc]"
+            >
+              Assignment <AssignmentIcon fontSize="medium" />
+            </button>
+            <p>Points : {assignment?.marks}</p>
+          </div>
+        </div>
+
+        <div className="w-full flex-col gap-y-7">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-2xl font-bold">Progress</span>
+            <span className="text-xl font-bold">{progress}%</span>
+          </div>
+          <div className="w-full bg-gray-300 rounded-full h-6">
+            <div
+              className="bg-blue-600 h-6 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
+        {day != null && day?.feedback != null ? (
+          <div className="flex flex-col gap-y-8">
+            <h1 className="font-bold text-2xl">Feedback</h1>
+            <div className="w-full flex justify-between flex-col min-h-[35rem] h-full bg-[#F5EEFF] p-5 md:p-14 border-4 border-gray-200 rounded-md">
+              <div className="h-full">
+                <div className="w-full flex flex-col gap-5 p-5 bg-[#F5EEFF] rounded-lg overflow-y-auto max-h-[25rem] ">
+                  <div className="p-5 bg-white">
+                    <ReactMarkdown>{day?.feedback}</ReactMarkdown>
+                  </div>
+
+                  {feedbackHistory.map((item, index) => (
+                    <div key={index} className="mb-5 flex flex-col gap-5">
+                      <div className="bg-white p-5 rounded-lg">
+                        <p className="font-bold">You:</p>
+                        <p>{item.question}</p>
+                      </div>
+                      <div className="bg-white p-5 rounded-lg">
+                        <p className="font-bold mt-3">AI:</p>
+                        <ReactMarkdown>{item.answer}</ReactMarkdown>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="w-full flex gap-x-5">
-          <input
-            type="text"
-            className="w-full h-14 px-5 focus:outline-none p-2 bg-white border-4 rounded-xl border-gray-200"
-            placeholder="Ask Something"
-            value={currentQuestion}
-            onChange={(e) => setCurrentQuestion(e.target.value)}
-            disabled={loading}
-          />
-          <button
-            className="text-5xl hover:text-[#2f2f2f] disabled:opacity-50"
-            onClick={handleSendFeedback}
-            disabled={loading}
-          >
-            {loading ? (
-              <Spinner color="info" size="lg" />
-            ) : (
-              <SendIcon fontSize="inherit" />
-            )}
-          </button>
-        </div>
+              <div className="w-full flex gap-x-5">
+                <input
+                  type="text"
+                  className="w-full h-14 px-5 focus:outline-none p-2 bg-white border-4 rounded-xl border-gray-200"
+                  placeholder="Ask Something"
+                  value={currentQuestion}
+                  onChange={(e) => setCurrentQuestion(e.target.value)}
+                  disabled={loading}
+                />
+                <button
+                  className="text-5xl hover:text-[#2f2f2f] disabled:opacity-50"
+                  onClick={handleSendFeedback}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <Spinner color="info" size="lg" />
+                  ) : (
+                    <SendIcon fontSize="inherit" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-    </div>
-  ) : (
-    ""
-  )}
-</div>
     </>
   );
 }
