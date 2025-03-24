@@ -44,6 +44,9 @@ function Dashboard() {
       const tasksWithImages = await Promise.all(
         response.data.data.map(async (task) => {
           const imageUrl = await fetchImage(task.domains[0]);
+
+          // const imageUrl = await fetchImage(task.task_name);
+
           return { ...task, image: imageUrl || "/default-placeholder.jpg" };
         })
       );

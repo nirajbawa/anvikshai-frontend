@@ -78,9 +78,17 @@ function ProfileMenu({ userData }) {
         className="border border-primary p-0.5 lg:ml-auto cursor-pointer"
       />
       <Menu.Content className="z-[200]">
+
+        <Menu.Item>
+          <UserCircle className="mr-2 h-[18px] w-[18px]" /> My Profile
+        </Menu.Item>
+
         <Menu.Item onClick={() => navigate("/")}>
           <Settings className="mr-2 h-[18px] w-[18px]" />
           Home
+        </Menu.Item>
+        <Menu.Item>
+          <HeadsetHelp className="mr-2 h-[18px] w-[18px]" /> Support
         </Menu.Item>
         <hr className="!my-1 -mx-1 border-surface" />
         <Menu.Item

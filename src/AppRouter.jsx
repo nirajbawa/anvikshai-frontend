@@ -31,7 +31,6 @@ import CertificatePage from "./pages/certificate";
 import Questionnaire from "./pages/Dashboard/Questionnaire";
 import AdminLayout from "../src/layouts/AdminLayout";
 import AdminOtpLogin from "./pages/Admin/AdminOtpLogin";
-import OnboardingPage from "./pages/expert/onboarding";
 import ExpertInvitationPage from "./pages/Admin/expert-invitation";
 import ExpertLogin from "./pages/expert/auth/ExpertLogin";
 import ExpertDashboardPage from "./pages/expert/dashboard";
@@ -40,6 +39,8 @@ import CoursePage from "./pages/expert/courses";
 import FeedbackPage from "./pages/expert/courses/feedback";
 import ExpertList from "./pages/Admin/expert/ExpertsList";
 import FeedbackList from "./pages/Admin/feedback/FeedbackList";
+import OnboardingPage from "./pages/expert/auth/onboarding";
+import Alist from "./pages/Admin/StudnetsList";
 
 const AppRouter = () => {
   return (
@@ -94,6 +95,7 @@ const AppRouter = () => {
 
         <Route path="admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<ADashboard />} />
+
           <Route path="students" element={<StudnetsList />} />
           <Route path="expert-invitation" element={<ExpertInvitationPage />} />
           <Route path="expert" element={<ExpertList />} />
@@ -104,6 +106,8 @@ const AppRouter = () => {
           <Route path="dashboard" element={<ExpertDashboardPage />} />
           <Route path="courses" element={<CoursePage />} />
           <Route path="feedback/:courseId" element={<FeedbackPage />} />
+          <Route path="students" element={<Alist />} />
+          <Route path="expert-invitation" element={<ExpertInvitationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

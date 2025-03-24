@@ -28,6 +28,7 @@ export default function BioModel({ model, handler, title, bio }) {
               <Xmark className="h-5 w-5" />
             </IconButton>
           </div>
+
           <div className="mb-6 mt-2 text-foreground">
             <div className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
               <ReactMarkdown
@@ -38,6 +39,7 @@ export default function BioModel({ model, handler, title, bio }) {
               </ReactMarkdown>
             </div>
           </div>
+
           <div className="mb-1 flex items-center justify-end gap-2">
             <Button variant="ghost" color="error" onClick={handler}>
               Cancel
