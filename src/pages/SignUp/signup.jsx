@@ -175,6 +175,15 @@ function SignUp() {
             </motion.button>
           </form>
         </div>
+        <motion.div
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="w-1/2 bg-cover bg-center hidden md:block"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?q=80&w=2340&auto=format&fit=crop')`,
+          }}
+        />
       </motion.div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Check, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
 
 function Pricing() {
   const plans = [
@@ -60,7 +61,7 @@ function Pricing() {
               <div className="pricing-card-price">{plan.price}</div>
 
               <div className="pricing-card-period">{plan.period}</div>
-
+              
               <div className="border-t border-gray-200 my-6 pt-6">
                 {plan.features.map((feature, i) => (
                   <div key={i} className="pricing-feature">
@@ -69,15 +70,16 @@ function Pricing() {
                   </div>
                 ))}
               </div>
-
-              <button
-                className={`mt-auto btn-${
-                  index === 0 ? "secondary" : "primary"
-                }`}
-              >
-                Buy Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </button>
+              <Link to="/signup">
+                <button
+                  className={`mt-auto btn-${
+                    index === 0 ? "secondary" : "primary"
+                  }`}
+                >
+                  Buy Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </Link>
             </div>
           ))}
         </div>

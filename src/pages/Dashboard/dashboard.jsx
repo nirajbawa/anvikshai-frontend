@@ -72,11 +72,11 @@ function Dashboard() {
       )}
 
       <div
-        className={`fixed lg:static lg:translate-x-0 z-20 transition-all duration-300 ease-in-out ${
+        className={`fixed lg:static  lg:translate-x-0 z-20 transition-all duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="w-72 h-screen bg-white border-r border-gray-200 px-6 py-8 pb-36 flex flex-col justify-between">
+        <div className="w-72 h-full bg-white border-r border-gray-200 px-6 py-8 pb-36 flex flex-col justify-between">
           <nav className="flex flex-col">
             {[
               { icon: Home, label: "Home", path: "/dashboard" },
@@ -105,7 +105,7 @@ function Dashboard() {
 
           <button
             onClick={clearToken}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl w-full hover:bg-red-50 text-gray-600 hover:text-red-600 transition-colors group"
+            className="flex items-center  gap-3 px-4 py-3 rounded-xl w-full hover:bg-red-50 text-gray-600 hover:text-red-600 transition-colors group"
           >
             <LogOut className="h-5 w-5 text-gray-400 group-hover:text-red-600" />
             <span className="font-medium">Sign Out</span>

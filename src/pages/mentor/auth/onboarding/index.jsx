@@ -125,17 +125,20 @@ export default function OnboardingPage() {
             placeholder="Password"
             type="password"
             {...register("password", { required: true })}
+            min={6}
           />
 
           <label>First Name</label>
           <Input
             placeholder="First Name"
+            className="capitalize"
             {...register("first_name", { required: true })}
           />
 
           <label>Last Name</label>
           <Input
             placeholder="Last Name"
+            className="capitalize"
             {...register("last_name", { required: true })}
           />
 

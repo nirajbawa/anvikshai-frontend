@@ -171,3 +171,12 @@ body {
 .markdown-content li {
   margin: 0.5rem 0rem; /* Adjust spacing */
 }
+
+.rdmtbg{
+  /* From https://css.glass */
+  background: rgba(73, 68, 68, 0.19);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

@@ -4,6 +4,8 @@ import useAxios from "../../hook/useAxios";
 import Lottie from "react-lottie-player";
 import NotFound from "../../assets/lotties/not-found.json";
 
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+
 function CertificatePage() {
   const [certificate, setCertificate] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +43,10 @@ function CertificatePage() {
               className="w-72 h-72 rounded-lg bg-fuchsia-100 flex-col gap-10 p-10 shadow-md text-center flex justify-center"
             >
               <h1 className="font-bold text-xl">{cert.task_name}</h1>
-              <a href={cert.link} download>
+              <a
+                href={`${baseURL}/task/download-certificate/${cert.link}`}
+                download
+              >
                 <Button className="bg-purple-400 border-none hover:bg-purple-300">
                   Download
                 </Button>

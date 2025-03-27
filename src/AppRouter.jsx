@@ -88,7 +88,7 @@ const AppRouter = () => {
           <Route path="subscription-single" element={<SubscriptionPlans />} />
           <Route path="certificates" element={<CertificatePage />} />
           <Route path="questionnaire/:taskId" element={<Questionnaire />} />
-
+          <Route path="messages/:id" element={<Messages />} />
           {/* <Route path="message" element={<Messages />} />
           <Route path="mdashboard" element={<MDashboard />} />
           <Route path="adashboard" element={<ADashboard />} />
@@ -115,6 +115,7 @@ const AppRouter = () => {
         <Route path="expert" element={<ExpertLayout />}>
           <Route path="dashboard" element={<ExpertDashboardPage />} />
           <Route path="courses" element={<CoursePage />} />
+          <Route path="feedback/:courseId" element={<FeedbackPage />} />
         </Route>
 
         <Route path="mentor" element={<MentorLayout />}>
