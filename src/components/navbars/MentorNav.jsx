@@ -128,7 +128,7 @@ export default function MentorNav() {
   return (
     <Navbar className="sticky top-0 w-full z-[100] rounded-none mx-0 px-5 bg-[#D2B0FD] border-none">
       <div className="flex items-center">
-        <Link to="/expert/dashboard">
+        <Link to="/mentor/dashboard">
           <Typography
             as="h1"
             type="small"

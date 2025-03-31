@@ -17,8 +17,9 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
-import useAxios from "../../hook/useAxios";
+import useAxios from "../../../hook/useAxios";
 import { useNavigate, useParams } from "react-router";
+import CourseModel from "./CourseModel";
 
 // const contacts = [
 //   {
@@ -47,7 +48,7 @@ import { useNavigate, useParams } from "react-router";
 //   },
 // ];
 
-function Messages() {
+function MentorMessages() {
   const [selectedContact, setSelectedContact] = useState();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -55,53 +56,66 @@ function Messages() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [courseData, setCourseData] = useState(null);
+  const [courseData, setCourseData] = useState([]);
   const [mentors, setMentors] = useState([]);
   const messagesEndRef = useRef(null);
   const axiosInstance = useAxios();
-  const { id } = useParams();
   const navigate = useNavigate();
+  const [selectedCourse, setSelectedCourse] = useState();
+  const [model, setModel] = useState(false);
 
-  const fetchMentorData = async (mentorId) => {
-    try {
-      const response = await axiosInstance.get(`/mentor/${mentorId}`);
-      console.log(response);
-      setMentors([
-        {
-          id: response.data?.data.id,
-          name:
-            response.data?.data.first_name +
-            " " +
-            response.data?.data.last_name,
-          avatar: `https://ui-avatars.com/api/?name=${response.data?.data?.first_name}+${response.data?.data?.last_name}?background=random`,
-          status: "online",
-        },
-      ]);
-      setSelectedContact({
-        id: response.data?.data.id,
-        name:
-          response.data?.data.first_name + " " + response.data?.data.last_name,
-        avatar: `https://ui-avatars.com/api/?name=${response.data?.data?.first_name}+${response.data?.data?.last_name}?background=random`,
-        status: "online",
-      });
-    } catch (error) {
-      console.log(error);
-      const errorMessage =
-        error.response?.data?.detail ||
-        "Mentor data fetching failed. Please try again.";
-      toast.error(errorMessage);
-    }
+  const handleModel = () => {
+    setModel((state) => !state);
   };
+
+  // const fetchMentorData = async (mentorId) => {
+  //   try {
+  //     const response = await axiosInstance.get(`/mentor/${mentorId}`);
+  //     console.log(response);
+  //     setMentors([
+  //       {
+  //         id: response.data?.data.id,
+  //         name:
+  //           response.data?.data.first_name +
+  //           " " +
+  //           response.data?.data.last_name,
+  //         avatar: `https://ui-avatars.com/api/?name=${response.data?.data?.first_name}+${response.data?.data?.last_name}?background=random`,
+  //         status: "online",
+  //       },
+  //     ]);
+  //     setSelectedContact({
+  //       id: response.data?.data.id,
+  //       name:
+  //         response.data?.data.first_name + " " + response.data?.data.last_name,
+  //       avatar: `https://ui-avatars.com/api/?name=${response.data?.data?.first_name}+${response.data?.data?.last_name}?background=random`,
+  //       status: "online",
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //     const errorMessage =
+  //       error.response?.data?.detail ||
+  //       "Mentor data fetching failed. Please try again.";
+  //     toast.error(errorMessage);
+  //   }
+  // };
 
   const fetcCourseData = async () => {
     try {
-      const response = await axiosInstance.get(`task/${id}`);
+      const response = await axiosInstance.get(`/mentor/dashboard/courses`);
       console.log(response);
       setCourseData(response.data?.data);
-      if (response.data?.data.mentor == null) {
-        navigate("/");
-      } else {
-        fetchMentorData(response.data?.data.mentor);
+      const data = response.data?.data.map((data) => ({
+        id: data._id,
+        mentor: data.mentor,
+        user: data.user,
+        name: data.user_details.first_name + " " + data.user_details.last_name,
+        avatar: `https://ui-avatars.com/api/?name=${data?.user_details.first_name}+${data?.user_details.last_name}?background=random`,
+        status: "online",
+      }));
+      setMentors(data);
+      if (data.length != 0) {
+        setSelectedContact(data[0]);
+        setSelectedCourse(response.data?.data[0]);
       }
     } catch (error) {
       const errorMessage =
@@ -113,7 +127,9 @@ function Messages() {
 
   const fetchMessages = async () => {
     try {
-      const response = await axiosInstance.get(`/mentor/messages/${id}`);
+      const response = await axiosInstance.get(
+        `/mentor/dashboard/messages/${selectedContact.id}`
+      );
       console.log(response);
       // setCourseData(response.data?.data);
       setMessages(response.data?.data);
@@ -131,7 +147,7 @@ function Messages() {
 
   const connectWebSocket = () => {
     const ws = new WebSocket(
-      `ws://127.0.0.1:8000/mentor/ws/${courseData.user}`
+      `ws://127.0.0.1:8000/mentor/ws/${selectedContact.mentor}`
     );
 
     ws.onmessage = (event) => {
@@ -143,12 +159,12 @@ function Messages() {
   };
 
   const sendMessage = () => {
-    if (socket && mentors[0]?.id && inputMessage) {
+    if (socket && selectedContact.id && inputMessage) {
       const payload = {
-        receiver_id: mentors[0]?.id,
+        receiver_id: selectedContact.user,
         message: inputMessage,
-        sender: "user",
-        course_id: courseData.id,
+        sender: "mentor",
+        course_id: selectedContact.id,
       };
       const messageData = JSON.stringify(payload);
       setMessages((prev) => [...prev, payload]);
@@ -183,7 +199,12 @@ function Messages() {
   };
 
   useEffect(() => {
-    fetchMessages();
+    if (selectedContact != undefined) {
+      fetchMessages();
+    }
+  }, [selectedContact]);
+
+  useEffect(() => {
     fetcCourseData();
   }, []);
 
@@ -193,6 +214,12 @@ function Messages() {
         isDarkMode ? "dark" : ""
       }`}
     >
+      <CourseModel
+        model={model}
+        handler={handleModel}
+        title={"Course Details"}
+        bio={selectedCourse?.generated_roadmap_text}
+      />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -255,6 +282,9 @@ function Messages() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => {
                       setSelectedContact(contact);
+                      setSelectedCourse(
+                        courseData.find((data) => data._id == contact.id)
+                      );
                       setSidebarOpen(false);
                     }}
                     className={`flex items-center p-3 rounded-xl cursor-pointer transition-all duration-200 ${
@@ -325,13 +355,14 @@ function Messages() {
               </div>
             </div>
           </div>
-          {/* <motion.button
+          <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+            onClick={handleModel}
           >
             <Settings size={20} />
-          </motion.button> */}
+          </motion.button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-4">
@@ -447,4 +478,4 @@ function Messages() {
   );
 }
 
-export default Messages;
+export default MentorMessages;

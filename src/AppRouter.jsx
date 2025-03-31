@@ -44,6 +44,8 @@ import MentorInvitationPage from "./pages/Admin/mentor-invitation";
 import MentorOnboardingPage from "./pages/mentor/auth/onboarding";
 import MentorLayout from "./layouts/MentorLayout";
 import MentorLogin from "./pages/mentor/auth/MentorLogin";
+import TestMsg from "./pages/message/TestMsg";
+import MentorMessages from "./pages/mentor/chat/Messages";
 
 const AppRouter = () => {
   return (
@@ -89,6 +91,7 @@ const AppRouter = () => {
           <Route path="certificates" element={<CertificatePage />} />
           <Route path="questionnaire/:taskId" element={<Questionnaire />} />
           <Route path="messages/:id" element={<Messages />} />
+          {/* <Route path="messages/:id" element={<TestMsg />} /> */}
           {/* <Route path="message" element={<Messages />} />
           <Route path="mdashboard" element={<MDashboard />} />
           <Route path="adashboard" element={<ADashboard />} />
@@ -120,6 +123,7 @@ const AppRouter = () => {
 
         <Route path="mentor" element={<MentorLayout />}>
           <Route path="dashboard" element={<MDashboard />} />
+          <Route path="chats" element={<MentorMessages />} />
         </Route>
       </Routes>
     </BrowserRouter>
