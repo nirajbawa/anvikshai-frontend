@@ -32,7 +32,7 @@ const MentorList = () => {
     try {
       setIsLoading(true);
       const response = await axiosInstance.get(
-        `/admin/expert?page=${currentPage}&limit=${itemsPerPage}`
+        `/admin/mentor?page=${currentPage}&limit=${itemsPerPage}`
       );
       setStudents(response.data?.users);
       setTotalPages(response.data?.total_pages);

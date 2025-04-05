@@ -138,7 +138,7 @@ function Dashboard() {
               {
                 icon: ShieldUser,
                 label: "Mentors",
-                path: "",
+                path: "/admin/mentor",
               },
               {
                 icon: BadgePlus,

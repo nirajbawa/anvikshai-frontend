@@ -46,6 +46,7 @@ import MentorLayout from "./layouts/MentorLayout";
 import MentorLogin from "./pages/mentor/auth/MentorLogin";
 import TestMsg from "./pages/message/TestMsg";
 import MentorMessages from "./pages/mentor/chat/Messages";
+import MentorList from "./pages/Admin/mentor/MentorList";
 
 const AppRouter = () => {
   return (
@@ -112,6 +113,7 @@ const AppRouter = () => {
           <Route path="expert-invitation" element={<ExpertInvitationPage />} />
           <Route path="expert" element={<ExpertList />} />
           <Route path="feedbacks" element={<FeedbackList />} />
+          <Route path="mentor" element={<MentorList />} />
           <Route path="mentor-invitation" element={<MentorInvitationPage />} />
         </Route>
 
