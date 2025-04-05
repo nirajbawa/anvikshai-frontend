@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'AnvikshAI',
         short_name: 'AnvikshAI',
-        theme_color: '#ffffff',
+        theme_color: '#d2b0fd',
         icons: [
           {
             src: 'pwa-192x192.png',
