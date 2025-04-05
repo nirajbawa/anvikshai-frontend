@@ -135,7 +135,7 @@ const RootNav = () => {
               <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
                 <button className="btn-primary">Sign Up</button>
               </Link>
-              <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
                 <button className="btn-primary">Sign In</button>
               </Link>
             </>

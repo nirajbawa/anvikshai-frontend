@@ -47,10 +47,12 @@ import MentorLogin from "./pages/mentor/auth/MentorLogin";
 import TestMsg from "./pages/message/TestMsg";
 import MentorMessages from "./pages/mentor/chat/Messages";
 import MentorList from "./pages/Admin/mentor/MentorList";
+import ScrollToTop from "./components/tools/ScrollToTop";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<RootLayout />}>
           <Route path="/" element={<Homepage />} />
@@ -71,7 +73,7 @@ const AppRouter = () => {
             path="/mentor-onboarding/:token"
             element={<MentorOnboardingPage />}
           />
-          <Route path="/mentor-login" elaement={<MentorLogin />} />
+          <Route path="/mentor-login" element={<MentorLogin />} />
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
