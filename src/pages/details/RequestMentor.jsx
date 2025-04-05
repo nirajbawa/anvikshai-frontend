@@ -32,7 +32,7 @@ const RequestMentor = ({ isPremiumUser, courseData }) => {
   return (
     <div className="relative w-full lg:w-2/5">
       <div
-        className={`text-black sm:absolute p-4 md:p-6  inset-0  rounded-lg shadow-lg bg-gradient-to-br from-purple-100 to-indigo-50 ${
+        className={`text-black lg:absolute p-4 md:p-6  inset-0  rounded-lg shadow-lg bg-gradient-to-br from-purple-100 to-indigo-50 ${
           !isPremiumUser ? "blur-[2px]" : ""
         }`}
       >
@@ -50,7 +50,7 @@ const RequestMentor = ({ isPremiumUser, courseData }) => {
           </p>
 
           <div className="h-44 flex justify-center items-center">
-            { courseData?.mentor === null ? (
+            {courseData?.mentor === null ? (
               <button
                 onClick={requestMentor}
                 className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-300

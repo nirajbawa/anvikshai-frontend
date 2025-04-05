@@ -48,6 +48,8 @@ import TestMsg from "./pages/message/TestMsg";
 import MentorMessages from "./pages/mentor/chat/Messages";
 import MentorList from "./pages/Admin/mentor/MentorList";
 import ScrollToTop from "./components/tools/ScrollToTop";
+import UserProfile from "./pages/profile/UserProfile";
+import Badges from "./pages/badges/Badges";
 
 const AppRouter = () => {
   return (
@@ -74,6 +76,7 @@ const AppRouter = () => {
             element={<MentorOnboardingPage />}
           />
           <Route path="/mentor-login" element={<MentorLogin />} />
+          <Route path="/badge/:taskId/" element={<Badges />} />
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
@@ -106,6 +109,7 @@ const AppRouter = () => {
           {/* <Route path="mlist" element={<Mlist />} /> */}
           <Route path="subscription-single" element={<SubscriptionPlans />} />
           <Route path="certificates" element={<CertificatePage />} />
+          <Route path="profile" element={<UserProfile />} />
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>
