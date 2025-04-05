@@ -24,11 +24,20 @@ function VideoPage() {
     try {
       setVideoLoading(true);
       const response = await axiosInstance.get(`/content/video/${dayId}`);
-      const videoList = response?.data?.data.videos_list.map((data) => ({
+      const rawList = response?.data?.data.videos_list.map((data) => ({
         topic: data.topic,
         link: getYouTubeVideoId(data.link),
       }));
-      setVideos(videoList);
+
+      // Remove duplicates based on 'link'
+      const seen = new Set();
+      const filteredList = rawList.filter((video) => {
+        if (seen.has(video.link)) return false;
+        seen.add(video.link);
+        return true;
+      });
+
+      setVideos(filteredList);
     } catch (error) {
       console.error("Error fetching videos:", error);
     } finally {
