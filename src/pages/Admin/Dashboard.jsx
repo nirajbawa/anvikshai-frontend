@@ -146,11 +146,6 @@ function Dashboard() {
                 path: "/admin/mentor-invitation",
               },
               {
-                icon: Network,
-                label: "Allocate Mentor",
-                path: "",
-              },
-              {
                 icon: UserCheck,
                 label: "Experts",
                 path: "/admin/expert",

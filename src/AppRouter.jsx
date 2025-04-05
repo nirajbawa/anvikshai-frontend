@@ -70,7 +70,7 @@ const AppRouter = () => {
             path="/mentor-onboarding/:token"
             element={<MentorOnboardingPage />}
           />
-          <Route path="/mentor-login" element={<MentorLogin />} />
+          <Route path="/mentor-login" elaement={<MentorLogin />} />
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
