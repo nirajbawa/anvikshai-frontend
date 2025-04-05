@@ -118,10 +118,10 @@ function Messages() {
       // setCourseData(response.data?.data);
       setMessages(response.data?.data);
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.detail ||
-        "Course fetching failed. Please try again.";
-      toast.error(errorMessage);
+      // const errorMessage =
+      //   error.response?.data?.detail ||
+      //   "Course fetching failed. Please try again.";
+      // toast.error(errorMessage);
     }
   };
 
