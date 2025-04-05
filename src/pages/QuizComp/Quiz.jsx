@@ -14,6 +14,7 @@ const Quiz = () => {
   const [result, setResult] = useState(null);
   let { dayId } = useParams();
   const axiosInstance = useAxios();
+  const [swithcCount, setSwitchCount] = useState(0);
 
   // Fetch Questions from API
   useEffect(() => {
@@ -60,6 +61,30 @@ const Quiz = () => {
     }
   };
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        alert("Dont switch tabs!");
+        setSwitchCount((prev) => prev + 1);
+        // You can alert, log, or even auto-submit quiz
+      } else {
+        // console.log("User is back on the tab.");
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (swithcCount > 1) {
+      navigate(-1);
+    }
+  }, [swithcCount]);
+
   if (loading) {
     return (
       <div className="container mx-auto p-6 sm:px-40">
@@ -88,7 +113,7 @@ const Quiz = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 px-5 md:px-40">
+    <div className="container mx-auto p-6 px-5 md:px-40 no-select">
       <div className="flex flex-col md:flex-row items-center">
         <div className="px-5 py-3 flex justify-center items-center">
           <button

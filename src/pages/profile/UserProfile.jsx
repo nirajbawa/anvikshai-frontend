@@ -19,6 +19,8 @@ import useUserStore from "../../store/useUserStore";
 import useAxios from "../../hook/useAxios";
 import { Button } from "@material-tailwind/react";
 import * as Icons from "lucide-react";
+import { useNavigate } from "react-router";
+import useData from "rsuite/esm/InputPicker/hooks/useData";
 
 const baseURL = import.meta.env.VITE_FRONTEND_URL;
 
@@ -28,6 +30,7 @@ function UserProfile() {
   const { userData } = useUserStore();
   const axiosInstance = useAxios();
   const [certificates, setCertificates] = useState([]);
+  const navigate = useNavigate();
   //   const gradient = getRandomGradientClass();
 
   const gradientClasses = [
@@ -275,6 +278,17 @@ function UserProfile() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate("/dashboard/subscription")}
+                  className="px-6 py-2 bg-white text-purple-600 rounded-full font-medium hover:shadow-lg transition-shadow duration-300"
+                >
+                  Upgrade Plan
+                </motion.button>
+              ) : new Date(userData.validTill).toLocaleDateString() ==
+                new Date(Date.now()).toLocaleDateString() ? (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate("/dashboard/subscription")}
                   className="px-6 py-2 bg-white text-purple-600 rounded-full font-medium hover:shadow-lg transition-shadow duration-300"
                 >
                   Upgrade Plan
@@ -326,38 +340,41 @@ function UserProfile() {
             ))}
           </div>
         </motion.div>
-
-        <motion.div variants={itemVariants}>
-          <div className="flex items-center mb-8">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <Award className="w-6 h-6 text-purple-600" />
+        {userData.premium_package != "Basic" ? (
+          <motion.div variants={itemVariants}>
+            <div className="flex items-center mb-8">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <Award className="w-6 h-6 text-purple-600" />
+              </div>
+              <h2 className="text-2xl font-semibold ml-3">Earned Badges</h2>
             </div>
-            <h2 className="text-2xl font-semibold ml-3">Earned Badges</h2>
-          </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
-            {certificates.map((badge, index) => {
-              const Icon = badge.icon;
-              return (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05 }}
-                  className="flex flex-col items-center cursor-pointer"
-                  onClick={() => setSelectedBadge(badge)}
-                >
-                  <div
-                    className={`w-24 h-24 rounded-full ${badge.color} p-6 shadow-lg mb-3 flex items-center justify-center`}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+              {certificates.map((badge, index) => {
+                const Icon = badge.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    className="flex flex-col items-center cursor-pointer"
+                    onClick={() => setSelectedBadge(badge)}
                   >
-                    <Icon className="w-12 h-12 text-white" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-700 text-center">
-                    {badge?.task_name}
-                  </span>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+                    <div
+                      className={`w-24 h-24 rounded-full ${badge.color} p-6 shadow-lg mb-3 flex items-center justify-center`}
+                    >
+                      <Icon className="w-12 h-12 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 text-center">
+                      {badge?.task_name}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : (
+          ""
+        )}
       </motion.div>
 
       <AnimatePresence>

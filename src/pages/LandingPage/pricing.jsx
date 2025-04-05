@@ -20,7 +20,13 @@ function Pricing() {
       price: "₹499",
       period: "Per Month",
       color: "from-blue-500 to-blue-700",
-      features: ["Everything in Standard", "20 Task Creation", "No Ads"],
+      features: [
+        "Everything in Standard",
+        "20 Course Creation",
+        "No Ads",
+        "Mentor Support",
+        "Badges",
+      ],
       popular: true,
     },
   ];
@@ -61,7 +67,7 @@ function Pricing() {
               <div className="pricing-card-price">{plan.price}</div>
 
               <div className="pricing-card-period">{plan.period}</div>
-              
+
               <div className="border-t border-gray-200 my-6 pt-6">
                 {plan.features.map((feature, i) => (
                   <div key={i} className="pricing-feature">

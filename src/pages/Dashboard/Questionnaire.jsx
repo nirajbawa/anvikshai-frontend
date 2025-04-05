@@ -17,6 +17,7 @@ function Questionnaire() {
   const navigate = useNavigate();
   const { questions: qs, clearQuestions } = useDetailsQuestionnaireStore();
   const { setTask, clearTask } = useTaskStore();
+  const [swithcCount, setSwitchCount] = useState(0);
 
   const progress = (Object.keys(answers).length / questions.length) * 100;
 
@@ -42,6 +43,30 @@ function Questionnaire() {
     }
     setShowConfirmation(true);
   };
+  
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        alert("Dont switch tabs!");
+        setSwitchCount((prev) => prev + 1);
+        // You can alert, log, or even auto-submit quiz
+      } else {
+        // console.log("User is back on the tab.");
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (swithcCount > 1) {
+      navigate(-1);
+    }
+  }, [swithcCount]);
 
   const confirmSubmit = async () => {
     setSubmitted(true);
@@ -88,7 +113,7 @@ function Questionnaire() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen no-select bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h1 className="text-2xl font-bold text-gray-900 text-center mb-4">
