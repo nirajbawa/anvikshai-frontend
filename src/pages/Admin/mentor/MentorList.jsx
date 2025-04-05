@@ -32,7 +32,7 @@ const MentorList = () => {
     try {
       setIsLoading(true);
       const response = await axiosInstance.get(
-        `/admin/expert?page=${currentPage}&limit=${itemsPerPage}`
+        `/admin/mentor?page=${currentPage}&limit=${itemsPerPage}`
       );
       setStudents(response.data?.users);
       setTotalPages(response.data?.total_pages);
@@ -90,7 +90,7 @@ const MentorList = () => {
           <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">
               <h1 className="text-2xl font-semibold text-black my-5">
-                Experts
+                Mentors
               </h1>
 
               {/* Search Bar
@@ -169,7 +169,7 @@ const MentorList = () => {
                           resume
                         </th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
-                          Review Points
+                          No of Mentoring Students
                         </th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-purple-900">
                           onboarding
@@ -251,7 +251,7 @@ const MentorList = () => {
                               view
                             </td>
                             <td className="px-6 py-4 text-gray-600">
-                              {student.review_points}
+                              {student.mentoring_count}
                             </td>
                             <td className="px-6 py-4 text-gray-600">
                               {student.onboarding ? "completed" : "remaining"}

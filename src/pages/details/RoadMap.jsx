@@ -1,7 +1,7 @@
 import "@material-tailwind/react";
 import "tailwindcss/tailwind.css";
 import { Timeline, Typography } from "@material-tailwind/react";
-import { Learning, DollarCircle, HomeSimple, Lock } from "iconoir-react";
+import { Learning, DollarCircle, HomeSimple, Lock, Bell } from "iconoir-react";
 import React, { useEffect } from "react";
 import {
   BarChart,
@@ -21,6 +21,9 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useNavigate } from "react-router";
 import RequestMentor from "./RequestMentor";
 import useUserStore from "../../store/useUserStore";
+import { Badge, IconButton } from "@material-tailwind/react";
+import FeedbackModel from "./FeedbackModel";
+import { toast } from "react-toastify";
 
 export default function RoadMap() {
   let { id } = useParams();
@@ -39,6 +42,7 @@ export default function RoadMap() {
   const [courseData, setCourseData] = useState();
   const [createdAt, setCreatedAt] = useState(null);
   const { userData } = useUserStore();
+  const [model, setModel] = useState(false);
 
   const fetchTask = async (id) => {
     setIsLoadingTask(true);
@@ -49,6 +53,29 @@ export default function RoadMap() {
       setCreatedAt(response.data.data.created_at);
       setCourseData(response.data?.data);
     } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingTask(false);
+    }
+  };
+
+  const handleModel = () => {
+    setModel((state) => !state);
+  };
+
+  const regenerateCourse = async () => {
+    setIsLoadingTask(true);
+    try {
+      await axiosInstance.post(
+        `/task/regenerate-roadmap-feedback/${courseData.id}`
+      );
+
+      toast.success("Course Regenerated Successfully");
+      fetchTask(id);
+      fetchTaskProgess();
+      handleModel();
+    } catch (error) {
+      toast.error("Error in regenerating course");
       console.log(error);
     } finally {
       setIsLoadingTask(false);
@@ -181,20 +208,64 @@ export default function RoadMap() {
 
   return (
     <>
-      <div className="w-full pl-5 md:pl-10 pt-5 md:pt-10">
+      <FeedbackModel
+        handler={handleModel}
+        model={model}
+        title="Feedback"
+        bio={courseData?.feedback}
+        rating={courseData?.rating}
+        regenerateCourse={regenerateCourse}
+      />
+      <div className="w-full pl-5 md:pl-10 pt-5 md:pt-10 flex justify-between">
         <button
           className="bg-purple-200 flex justify-center items-center pl-3 md:pl-4 py-2 md:py-3 pr-1 md:pr-2 rounded-lg hover:bg-purple-100 duration-300 transition-all text-black"
           onClick={() => navigate(`/dashboard`)}
         >
           <ArrowBackIosIcon />
         </button>
+        {courseData != null && courseData.rating != 0 ? (
+          <Badge className="mr-10">
+            <Badge.Content>
+              <IconButton color="secondary" onClick={handleModel}>
+                <Bell className="h-4 w-4 stroke-2" />
+              </IconButton>
+            </Badge.Content>
+            <Badge.Indicator>1</Badge.Indicator>
+          </Badge>
+        ) : (
+          <Badge className="mr-10">
+            <Badge.Content>
+              <IconButton color="secondary">
+                <Bell className="h-4 w-4 stroke-2" />
+              </IconButton>
+            </Badge.Content>
+            <Badge.Indicator>0</Badge.Indicator>
+          </Badge>
+        )}
       </div>
 
       <div className="flex flex-col items-center px-3 sm:px-6 md:px-8 pt-5 md:py-10 mx-auto w-full mt-5 pb-32 md:pb-96">
         <div className="flex flex-col lg:flex-row justify-between w-full gap-4 md:gap-6">
           <div className="w-full lg:w-1/2 p-4 md:p-5 bg-white shadow-lg rounded-lg">
-            <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-5">
+            <h2 className="text-lg font-bold md:text-xl mb-4 md:mb-5">
               Course View
+            </h2>
+            <h2 className="mb-9 flex gap-2">
+              <b>Expert Verification Status : </b>
+              {courseData != null && courseData?.rating != 0 ? (
+                courseData?.rating > 2 ? (
+                  <p className="font-bold text-green-500">Verified</p>
+                ) : (
+                  <p
+                    className="font-bold text-red-500 cursor-pointer"
+                    onClick={handleModel}
+                  >
+                    Need a Action
+                  </p>
+                )
+              ) : (
+                <p className="font-bold text-yellow-500">Veification Pending</p>
+              )}
             </h2>
             {task && task.length > 0 && (
               <Timeline color="secondary" orientation="vertical">

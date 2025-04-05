@@ -75,7 +75,7 @@ function Dashboard() {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="w-72 h-full bg-white border-r border-gray-200 px-6 py-8 pb-36 flex flex-col justify-between">
+        <div className="w-72 h-screen sm:h-full bg-white border-r border-gray-200 px-6 py-8 pb-36 flex flex-col justify-between">
           <nav className="flex flex-col">
             {[
               { icon: Home, label: "Home", path: "/dashboard" },

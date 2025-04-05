@@ -11,6 +11,42 @@ function CertificatePage() {
   const [loading, setLoading] = useState(true);
   const axiosInstance = useAxios();
 
+  const downloadCertificate = async (id) => {
+    try {
+      const response = await axiosInstance.get(
+        `/task/download-certificate/${id}`,
+        {
+          responseType: "blob", // Important: Get binary data
+        }
+      );
+
+      // Create a URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      // Create a temporary anchor tag
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Set filename (you can get it from response headers if available)
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = "certificate.pdf";
+      if (contentDisposition) {
+        const fileNameMatch = contentDisposition.match(/filename="?(.+)"?/);
+        if (fileNameMatch.length === 2) filename = fileNameMatch[1];
+      }
+
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to download certificate:", err);
+    }
+  };
+
   useEffect(() => {
     axiosInstance
       .get("/content/certificates")
@@ -43,14 +79,13 @@ function CertificatePage() {
               className="w-72 h-72 rounded-lg bg-fuchsia-100 flex-col gap-10 p-10 shadow-md text-center flex justify-center"
             >
               <h1 className="font-bold text-xl">{cert.task_name}</h1>
-              <a
-                href={`${baseURL}/task/download-certificate/${cert.link}`}
-                download
+
+              <Button
+                onClick={() => downloadCertificate(cert.task_id)}
+                className="bg-purple-400 border-none hover:bg-purple-300"
               >
-                <Button className="bg-purple-400 border-none hover:bg-purple-300">
-                  Download
-                </Button>
-              </a>
+                Download
+              </Button>
             </div>
           ))
         ) : (

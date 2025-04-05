@@ -46,10 +46,15 @@ import MentorLayout from "./layouts/MentorLayout";
 import MentorLogin from "./pages/mentor/auth/MentorLogin";
 import TestMsg from "./pages/message/TestMsg";
 import MentorMessages from "./pages/mentor/chat/Messages";
+import MentorList from "./pages/Admin/mentor/MentorList";
+import ScrollToTop from "./components/tools/ScrollToTop";
+import UserProfile from "./pages/profile/UserProfile";
+import Badges from "./pages/badges/Badges";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<RootLayout />}>
           <Route path="/" element={<Homepage />} />
@@ -71,6 +76,9 @@ const AppRouter = () => {
             element={<MentorOnboardingPage />}
           />
           <Route path="/mentor-login" element={<MentorLogin />} />
+
+          <Route path="/badge/:taskId/" element={<Badges />} />
+
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
@@ -101,6 +109,9 @@ const AppRouter = () => {
           <Route path="mlist" element={<Mlist />} /> */}
 
           {/* <Route path="mlist" element={<Mlist />} /> */}
+
+          <Route path="profile" element={<UserProfile />} />
+
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>
@@ -110,6 +121,7 @@ const AppRouter = () => {
           <Route path="expert-invitation" element={<ExpertInvitationPage />} />
           <Route path="expert" element={<ExpertList />} />
           <Route path="feedbacks" element={<FeedbackList />} />
+          <Route path="mentor" element={<MentorList />} />
           <Route path="mentor-invitation" element={<MentorInvitationPage />} />
         </Route>
 
