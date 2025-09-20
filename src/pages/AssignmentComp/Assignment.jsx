@@ -58,6 +58,11 @@ const Assignment = () => {
           response?.data?.marks +
           "/10"
       );
+      toast.success(
+        response?.data?.marks == -1
+          ? "There is a plagarism in assignment"
+          : "There is no plagarism in assignment"
+      );
       navigate(-1);
     } catch (error) {
       console.error("Error uploading file:", error);
