@@ -1,5 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/LandingPage/HomePage";
+import Chatbot from "./pages/Chatbot/Chatbot";
+import AssessmentTests from "./pages/Assessments/AssessmentTests";
+import NewDashboard from "./pages/CarrierLandingPage/carrierDashboard";
 import SignUp from "./pages/SignUp/signup";
 import Login from "./pages/LogIn/login";
 import DetailsPage from "./pages/details/Details";
@@ -50,12 +53,18 @@ import MentorList from "./pages/Admin/mentor/MentorList";
 import ScrollToTop from "./components/tools/ScrollToTop";
 import UserProfile from "./pages/profile/UserProfile";
 import Badges from "./pages/badges/Badges";
+import CarrierHomePage from "./pages/CarrierLandingPage/carrierLanding"
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        <Route path="/carrier" element={<CarrierHomePage />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/assessment-tests" element={<AssessmentTests />} />
+        <Route path="/newdashboard" element={<NewDashboard />} />
+
         <Route element={<RootLayout />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
