@@ -1,0 +1,8 @@
+/* Assessment Tests styles: glass panels and tabs */
+.at-container { background: linear-gradient(180deg, #0b1220, #0b1020 40%, #0b0f1c); }
+.at-glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); }
+.at-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); }
+.at-chip.active { background: linear-gradient(90deg, #22d3ee66, #a855f766); border-color: #22d3eeaa; color: white; }
+.at-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
+.at-btn-primary { background: linear-gradient(90deg, #22d3ee, #a855f7, #ec4899); color: white; }
+.at-btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
