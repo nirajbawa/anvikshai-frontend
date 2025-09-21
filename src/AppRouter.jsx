@@ -21,7 +21,6 @@ import Messages from "./pages/message/Messages";
 import MDashboard from "./pages/mentor/dashboard";
 import ADashboard from "./pages/Admin/Dashboard";
 import Alogin from "./pages/Admin/Login";
-import Mlist from "./pages/mentor/List";
 import StudnetsList from "./pages/Admin/StudnetsList";
 import OtpPage from "./pages/otp";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -42,30 +41,37 @@ import FeedbackPage from "./pages/expert/courses/feedback";
 import ExpertList from "./pages/Admin/expert/ExpertsList";
 import FeedbackList from "./pages/Admin/feedback/FeedbackList";
 import OnboardingPage from "./pages/expert/auth/onboarding";
-import Alist from "./pages/Admin/StudnetsList";
 import MentorInvitationPage from "./pages/Admin/mentor-invitation";
 import MentorOnboardingPage from "./pages/mentor/auth/onboarding";
 import MentorLayout from "./layouts/MentorLayout";
 import MentorLogin from "./pages/mentor/auth/MentorLogin";
-import TestMsg from "./pages/message/TestMsg";
 import MentorMessages from "./pages/mentor/chat/Messages";
 import MentorList from "./pages/Admin/mentor/MentorList";
 import ScrollToTop from "./components/tools/ScrollToTop";
 import UserProfile from "./pages/profile/UserProfile";
 import Badges from "./pages/badges/Badges";
-import CarrierHomePage from "./pages/CarrierLandingPage/carrierLanding"
+import CarrierHomePage from "./pages/CarrierLandingPage/carrierLanding";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+<<<<<<< HEAD
         <Route path="/carrier" element={<CarrierHomePage />} />
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/assessment-tests" element={<AssessmentTests />} />
         <Route path="/newdashboard" element={<NewDashboard />} />
+=======
+        <Route path="/career" element={<CarrierHomePage />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+
+        <Route path="/assessment-tests" element={<AssessmentTests />} />
+        <Route path="/newdashboard" element={<NewDashboard />} />
+        <Route path="chatbot" element={<Chatbot />} />
+
+>>>>>>> c8582eb7eb95638ff1af570911baf76dfb7dfa8f
         <Route element={<RootLayout />}>
-        
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/otp/:email" element={<OtpPage />} />
@@ -74,7 +80,7 @@ const AppRouter = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-sign-in" element={<Alogin />} />
           <Route path="/admin-otp/:email" element={<AdminOtpLogin />} />
-          
+
           <Route
             path="/expert-onboarding/:token"
             element={<OnboardingPage />}
@@ -88,13 +94,12 @@ const AppRouter = () => {
           <Route path="/mentor-login" element={<MentorLogin />} />
 
           <Route path="/badge/:taskId/" element={<Badges />} />
-
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
         
           <Route index element={<Dashboard />} />
-          
+
           <Route path="payment" element={<PaymentPage />} />
           <Route path="subscription" element={<Subscription />} />
           <Route path="roadmap/:id" element={<RoadMap />} />
@@ -110,19 +115,8 @@ const AppRouter = () => {
           <Route path="certificates" element={<CertificatePage />} />
           <Route path="questionnaire/:taskId" element={<Questionnaire />} />
           <Route path="messages/:id" element={<Messages />} />
-          {/* <Route path="messages/:id" element={<TestMsg />} /> */}
-          {/* <Route path="message" element={<Messages />} />
-          <Route path="mdashboard" element={<MDashboard />} />
-          <Route path="adashboard" element={<ADashboard />} />
-          <Route path="alogin" element={<Alogin />} />
-          <Route path="mlogin" element={<Mlogin />} />
-
-          <Route path="mlist" element={<Mlist />} /> */}
-
-          {/* <Route path="mlist" element={<Mlist />} /> */}
 
           <Route path="profile" element={<UserProfile />} />
-
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>
