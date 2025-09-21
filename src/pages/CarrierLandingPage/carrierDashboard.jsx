@@ -133,7 +133,7 @@ function useRoadmap(domain) {
   };
 }
 
-function NewDashboard() {
+function NewDashboard({ embedded = false }) {
   const navigate = useNavigate();
   const [careerProfile, setCareerProfile] = useState(null);
   const [assessmentResults, setAssessmentResults] = useState(null);
@@ -165,105 +165,113 @@ function NewDashboard() {
 
   const careerOptions = roadmap.roles;
 
+  const containerClass = embedded ? 'w-full' : 'min-h-screen at-container relative overflow-hidden';
+  const textPrimary = embedded ? 'text-gray-900' : 'text-white';
+  const textMuted = embedded ? 'text-gray-600' : 'text-white/70';
+  const chipText = embedded ? 'text-gray-700' : 'text-white/90';
+  const panelClass = embedded ? 'bg-white border border-gray-200 rounded-2xl p-6' : 'at-glass rounded-2xl p-6 text-white';
+
   return (
-    <div className="min-h-screen at-container relative overflow-hidden">
-      <header className="px-6 py-4 sticky top-0 z-10 bg-white/10 backdrop-blur-xl border-b border-white/20">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-xl blur opacity-60"></div>
-              <div className="relative w-10 h-10 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Target className="h-6 w-6 text-white" />
+    <div className={containerClass}>
+      {!embedded && (
+        <header className="px-6 py-4 sticky top-0 z-10 bg-white/10 backdrop-blur-xl border-b border-white/20">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-xl blur opacity-60"></div>
+                <div className="relative w-10 h-10 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Target className="h-6 w-6 text-white" />
+                </div>
               </div>
+              <h1 className="text-2xl font-bold text-white">Your Career Dashboard</h1>
             </div>
-            <h1 className="text-2xl font-bold text-white">Your Career Dashboard</h1>
+            <button onClick={() => navigate('/dashboard')} className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-xl blur opacity-70 group-hover:opacity-100 transition"></div>
+              <div className="relative inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20">
+                Go to Dashboard <ArrowRight className="h-4 w-4" />
+              </div>
+            </button>
           </div>
-          <button onClick={() => navigate('/dashboard')} className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-xl blur opacity-70 group-hover:opacity-100 transition"></div>
-            <div className="relative inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-xl hover:bg-white/20">
-              Go to Dashboard <ArrowRight className="h-4 w-4" />
-            </div>
-          </button>
-        </div>
-      </header>
+        </header>
+      )}
 
       <main className="p-6">
         <div className="max-w-7xl mx-auto space-y-6">
           {/* Overview */}
           <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="at-glass rounded-2xl p-6 lg:col-span-2 text-white">
+            <div className={`${panelClass} lg:col-span-2 ${embedded ? '' : ''}`}>
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="h-5 w-5 text-cyan-300" />
-                <h2 className="text-lg font-semibold">Profile Summary</h2>
+                <Sparkles className={`h-5 w-5 ${embedded ? 'text-purple-500' : 'text-cyan-300'}`} />
+                <h2 className={`text-lg font-semibold ${textPrimary}`}>Profile Summary</h2>
               </div>
               {careerProfile ? (
-                <div className="grid sm:grid-cols-2 gap-4 text-white/90">
+                <div className={`grid sm:grid-cols-2 gap-4 ${embedded ? 'text-gray-800' : 'text-white/90'}`}>
                   <div>
-                    <div className="text-sm text-white/60">Interest Area</div>
-                    <div className="font-semibold">{careerProfile.interestArea || '—'}</div>
+                    <div className={`text-sm ${embedded ? 'text-gray-500' : 'text-white/60'}`}>Interest Area</div>
+                    <div className={`font-semibold ${textPrimary}`}>{careerProfile.interestArea || '—'}</div>
                   </div>
                   <div>
-                    <div className="text-sm text-white/60">Key Strengths</div>
-                    <div className="font-semibold">{(careerProfile.strengths || []).join(', ') || '—'}</div>
+                    <div className={`text-sm ${embedded ? 'text-gray-500' : 'text-white/60'}`}>Key Strengths</div>
+                    <div className={`font-semibold ${textPrimary}`}>{(careerProfile.strengths || []).join(', ') || '—'}</div>
                   </div>
                   <div className="sm:col-span-2 mt-2">
-                    <div className="text-sm text-white/60 mb-1">Suggested Paths</div>
+                    <div className={`text-sm mb-1 ${embedded ? 'text-gray-500' : 'text-white/60'}`}>Suggested Paths</div>
                     <div className="flex flex-wrap gap-2">
                       {(careerProfile.suggestions || []).map((s) => (
-                        <span key={s} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm">
-                          <Sparkles className="h-4 w-4 text-cyan-300" /> {s}
+                        <span key={s} className={`inline-flex items-center gap-1 px-3 py-1 rounded-full ${embedded ? 'bg-gray-50 border border-gray-200 text-gray-800' : 'bg-white/10 border border-white/20 text-white/90'} text-sm`}>
+                          <Sparkles className={`h-4 w-4 ${embedded ? 'text-purple-500' : 'text-cyan-300'}`} /> {s}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="text-white/70">Complete the assessment to populate your profile.</div>
+                <div className={`${textMuted}`}>Complete the assessment to populate your profile.</div>
               )}
             </div>
 
-            <div className="at-glass rounded-2xl p-6 text-white">
+            <div className={`${panelClass}`}>
               <div className="flex items-center gap-2 mb-4">
-                <Trophy className="h-5 w-5 text-yellow-300" />
-                <h2 className="text-lg font-semibold">Results</h2>
+                <Trophy className={`h-5 w-5 ${embedded ? 'text-yellow-500' : 'text-yellow-300'}`} />
+                <h2 className={`text-lg font-semibold ${textPrimary}`}>Results</h2>
               </div>
               {assessmentResults ? (
-                <div className="space-y-2 text-sm text-white/90">
-                  <div className="flex items-center justify-between"><span className="text-white/70">IQ</span><span className="font-semibold">{assessmentResults.scoreBy.iq}/{assessmentResults.totalBy.iq}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-white/70">EQ</span><span className="font-semibold">{assessmentResults.scoreBy.eq}/{assessmentResults.totalBy.eq}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-white/70">GK</span><span className="font-semibold">{assessmentResults.scoreBy.gk}/{assessmentResults.totalBy.gk}</span></div>
-                  <div className="pt-2 text-white/80">Direction: <span className="font-semibold text-cyan-300">{assessmentResults.domainSuggestion}</span></div>
+                <div className={`space-y-2 text-sm ${embedded ? 'text-gray-800' : 'text-white/90'}`}>
+                  <div className="flex items-center justify-between"><span className={`${embedded ? 'text-gray-500' : 'text-white/70'}`}>IQ</span><span className={`font-semibold ${textPrimary}`}>{assessmentResults.scoreBy.iq}/{assessmentResults.totalBy.iq}</span></div>
+                  <div className="flex items-center justify-between"><span className={`${embedded ? 'text-gray-500' : 'text-white/70'}`}>EQ</span><span className={`font-semibold ${textPrimary}`}>{assessmentResults.scoreBy.eq}/{assessmentResults.totalBy.eq}</span></div>
+                  <div className="flex items-center justify-between"><span className={`${embedded ? 'text-gray-500' : 'text-white/70'}`}>GK</span><span className={`font-semibold ${textPrimary}`}>{assessmentResults.scoreBy.gk}/{assessmentResults.totalBy.gk}</span></div>
+                  <div className={`pt-2 ${embedded ? 'text-gray-700' : 'text-white/80'}`}>Direction: <span className={`font-semibold ${embedded ? 'text-purple-600' : 'text-cyan-300'}`}>{assessmentResults.domainSuggestion}</span></div>
                 </div>
               ) : (
-                <div className="text-white/70">Take IQ/EQ/GK tests to view your results.</div>
+                <div className={`${textMuted}`}>Take IQ/EQ/GK tests to view your results.</div>
               )}
             </div>
           </section>
 
           {/* Detailed Roadmap */}
-          <section className="at-glass rounded-2xl p-6 text-white">
+          <section className={`${panelClass}`}>
             <div className="flex items-center gap-2 mb-2">
-              <Map className="h-5 w-5 text-teal-300" />
-              <h2 className="text-xl font-semibold">{roadmap.label}</h2>
+              <Map className={`h-5 w-5 ${embedded ? 'text-teal-600' : 'text-teal-300'}`} />
+              <h2 className={`text-xl font-semibold ${textPrimary}`}>{roadmap.label}</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <div className="text-sm text-white/60 mb-1">Core Skills</div>
-                <ul className="list-disc pl-6 text-white/90 space-y-1">
+                <div className={`text-sm mb-1 ${embedded ? 'text-gray-500' : 'text-white/60'}`}>Core Skills</div>
+                <ul className={`list-disc pl-6 ${embedded ? 'text-gray-800' : 'text-white/90'} space-y-1`}>
                   {roadmap.skills.map((s) => (
                     <li key={s}>{s}</li>
                   ))}
                 </ul>
-                <div className="text-sm text-white/60 mt-4 mb-1">Suggested Courses</div>
-                <ul className="list-disc pl-6 text-white/90 space-y-1">
+                <div className={`text-sm mt-4 mb-1 ${embedded ? 'text-gray-500' : 'text-white/60'}`}>Suggested Courses</div>
+                <ul className={`list-disc pl-6 ${embedded ? 'text-gray-800' : 'text-white/90'} space-y-1`}>
                   {roadmap.courses.map((c) => (
                     <li key={c}>{c}</li>
                   ))}
                 </ul>
               </div>
               <div>
-                <div className="text-sm text-white/60 mb-1">Portfolio Projects</div>
-                <ul className="list-disc pl-6 text-white/90 space-y-1">
+                <div className={`text-sm mb-1 ${embedded ? 'text-gray-500' : 'text-white/60'}`}>Portfolio Projects</div>
+                <ul className={`list-disc pl-6 ${embedded ? 'text-gray-800' : 'text-white/90'} space-y-1`}>
                   {roadmap.projects.map((p) => (
                     <li key={p}>{p}</li>
                   ))}
@@ -272,9 +280,9 @@ function NewDashboard() {
             </div>
             <div className="grid md:grid-cols-2 gap-6 mt-6">
               {roadmap.plan.map((phase) => (
-                <div key={phase.title} className="rounded-xl at-card p-4">
-                  <div className="flex items-center gap-2 mb-2"><Layers className="h-4 w-4 text-cyan-300" /><h3 className="font-semibold text-white">{phase.title}</h3></div>
-                  <ul className="list-disc pl-6 text-white/90 space-y-1">
+                <div key={phase.title} className={`rounded-xl p-4 ${embedded ? 'bg-gray-50 border border-gray-200' : 'at-card'}`}>
+                  <div className="flex items-center gap-2 mb-2"><Layers className={`h-4 w-4 ${embedded ? 'text-cyan-700' : 'text-cyan-300'}`} /><h3 className={`font-semibold ${textPrimary}`}>{phase.title}</h3></div>
+                  <ul className={`list-disc pl-6 ${embedded ? 'text-gray-800' : 'text-white/90'} space-y-1`}>
                     {phase.items.map((it) => (<li key={it}>{it}</li>))}
                   </ul>
                 </div>
@@ -284,27 +292,27 @@ function NewDashboard() {
 
           {/* Career Options + Trending */}
           <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="at-glass rounded-2xl p-6 lg:col-span-2 text-white">
+            <div className={`${panelClass} lg:col-span-2 ${embedded ? '' : ''}`}>
               <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="h-5 w-5 text-indigo-300" />
-                <h2 className="text-lg font-semibold">Career Options You Can Choose</h2>
+                <BookOpen className={`h-5 w-5 ${embedded ? 'text-indigo-600' : 'text-indigo-300'}`} />
+                <h2 className={`text-lg font-semibold ${textPrimary}`}>Career Options You Can Choose</h2>
               </div>
               <div className="flex flex-wrap gap-3">
                 {careerOptions.map((c) => (
-                  <span key={c} className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white/90">
-                    <CheckCircle2 className="h-4 w-4 text-cyan-300" /> {c}
+                  <span key={c} className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl ${embedded ? 'bg-gray-50 border border-gray-200 text-gray-800' : 'bg-white/10 border border-white/20 text-white/90'}`}>
+                    <CheckCircle2 className={`h-4 w-4 ${embedded ? 'text-cyan-700' : 'text-cyan-300'}`} /> {c}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="at-glass rounded-2xl p-6 text-white">
+            <div className={`${panelClass}`}>
               <div className="flex items-center gap-2 mb-4">
-                <TrendingUp className="h-5 w-5 text-rose-300" />
-                <h2 className="text-lg font-semibold">Trending Jobs</h2>
+                <TrendingUp className={`h-5 w-5 ${embedded ? 'text-rose-500' : 'text-rose-300'}`} />
+                <h2 className={`text-lg font-semibold ${textPrimary}`}>Trending Jobs</h2>
               </div>
-              <ul className="space-y-3 text-sm text-white/90">
+              <ul className={`space-y-3 text-sm ${embedded ? 'text-gray-800' : 'text-white/90'}`}>
                 {trending.map((t) => (
-                  <li key={t.title} className="flex justify-between"><span>{t.title}</span><span className="font-semibold text-emerald-300">{t.level}</span></li>
+                  <li key={t.title} className="flex justify-between"><span>{t.title}</span><span className={`font-semibold ${embedded ? 'text-emerald-600' : 'text-emerald-300'}`}>{t.level}</span></li>
                 ))}
               </ul>
             </div>
@@ -312,11 +320,13 @@ function NewDashboard() {
 
           {/* CTA */}
           <section className="flex flex-col sm:flex-row justify-between items-center gap-3">
-            <button onClick={() => navigate('/dashboard/create-task')} className="at-btn-primary inline-flex items-center gap-2 px-5 py-3 rounded-xl">
-              Start Roadmap <ArrowRight className="h-4 w-4" />
-            </button>
-            <div className="text-white/70 text-sm flex items-center gap-2">
-              <Clock className="h-4 w-4" /> Save your progress and return anytime
+            {!embedded && (
+              <button onClick={() => navigate('/dashboard/create-task')} className="at-btn-primary inline-flex items-center gap-2 px-5 py-3 rounded-xl">
+                Start Roadmap <ArrowRight className="h-4 w-4" />
+              </button>
+            )}
+            <div className={`${embedded ? 'text-gray-500' : 'text-white/70'} text-sm flex items-center gap-2`}>
+              <Clock className={`h-4 w-4 ${embedded ? 'text-gray-400' : ''}`} /> Save your progress and return anytime
             </div>
           </section>
         </div>

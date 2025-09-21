@@ -61,11 +61,14 @@ const AppRouter = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/carrier" element={<CarrierHomePage />} />
-        <Route path="/chatbot" element={<Chatbot />} />
+        
         <Route path="/assessment-tests" element={<AssessmentTests />} />
         <Route path="/newdashboard" element={<NewDashboard />} />
+        <Route path="chatbot" element={<Chatbot />} />
+        
 
         <Route element={<RootLayout />}>
+        
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/otp/:email" element={<OtpPage />} />
@@ -74,6 +77,7 @@ const AppRouter = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-sign-in" element={<Alogin />} />
           <Route path="/admin-otp/:email" element={<AdminOtpLogin />} />
+          
           <Route
             path="/expert-onboarding/:token"
             element={<OnboardingPage />}
@@ -92,7 +96,7 @@ const AppRouter = () => {
 
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-
+          
           <Route path="payment" element={<PaymentPage />} />
           <Route path="subscription" element={<Subscription />} />
           <Route path="roadmap/:id" element={<RoadMap />} />
