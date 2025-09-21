@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+=======
+import { useState, useEffect } from 'react';
+import './carrierLanding.css';
+import { Link, useNavigate } from 'react-router-dom';
+>>>>>>> cee6e20 (local changes)
 import { 
   Brain, 
   TrendingUp, 
@@ -7,13 +13,10 @@ import {
   Users, 
   BookOpen, 
   Star,
-  ChevronRight,
   Menu,
   X,
   ArrowRight,
   CheckCircle,
-  MapPin,
-  Clock,
   Award,
   Zap,
   Shield,
@@ -96,10 +99,16 @@ function CarrierHomePage() {
                 About
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-purple-600 group-hover:w-full transition-all duration-300"></span>
               </a>
+<<<<<<< HEAD
               <button className="text-purple-700 hover:text-purple-500 transition-all duration-300 font-medium relative group">
+=======
+              <Link to="/login">
+              <button className="text-white/80 hover:text-cyan-300 transition-all duration-300 font-medium relative group">
+>>>>>>> cee6e20 (local changes)
                 Login
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-purple-600 group-hover:w-full transition-all duration-300"></span>
               </button>
+              </Link>
               <button className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
                 <div className="relative bg-gradient-to-r from-purple-500 to-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">
