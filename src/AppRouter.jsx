@@ -21,7 +21,6 @@ import Messages from "./pages/message/Messages";
 import MDashboard from "./pages/mentor/dashboard";
 import ADashboard from "./pages/Admin/Dashboard";
 import Alogin from "./pages/Admin/Login";
-import Mlist from "./pages/mentor/List";
 import StudnetsList from "./pages/Admin/StudnetsList";
 import OtpPage from "./pages/otp";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -42,12 +41,10 @@ import FeedbackPage from "./pages/expert/courses/feedback";
 import ExpertList from "./pages/Admin/expert/ExpertsList";
 import FeedbackList from "./pages/Admin/feedback/FeedbackList";
 import OnboardingPage from "./pages/expert/auth/onboarding";
-import Alist from "./pages/Admin/StudnetsList";
 import MentorInvitationPage from "./pages/Admin/mentor-invitation";
 import MentorOnboardingPage from "./pages/mentor/auth/onboarding";
 import MentorLayout from "./layouts/MentorLayout";
 import MentorLogin from "./pages/mentor/auth/MentorLogin";
-import TestMsg from "./pages/message/TestMsg";
 import MentorMessages from "./pages/mentor/chat/Messages";
 import MentorList from "./pages/Admin/mentor/MentorList";
 import ScrollToTop from "./components/tools/ScrollToTop";
@@ -60,7 +57,7 @@ const AppRouter = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/carrier" element={<CarrierHomePage />} />
+        <Route path="/career" element={<CarrierHomePage />} />
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/assessment-tests" element={<AssessmentTests />} />
         <Route path="/newdashboard" element={<NewDashboard />} />
