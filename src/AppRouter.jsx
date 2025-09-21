@@ -50,7 +50,7 @@ import MentorList from "./pages/Admin/mentor/MentorList";
 import ScrollToTop from "./components/tools/ScrollToTop";
 import UserProfile from "./pages/profile/UserProfile";
 import Badges from "./pages/badges/Badges";
-import CarrierHomePage from "./pages/CarrierLandingPage/carrierLanding"
+import CarrierHomePage from "./pages/CarrierLandingPage/carrierLanding";
 
 const AppRouter = () => {
   return (
@@ -59,8 +59,10 @@ const AppRouter = () => {
       <Routes>
         <Route path="/career" element={<CarrierHomePage />} />
         <Route path="/chatbot" element={<Chatbot />} />
+
         <Route path="/assessment-tests" element={<AssessmentTests />} />
         <Route path="/newdashboard" element={<NewDashboard />} />
+        <Route path="chatbot" element={<Chatbot />} />
 
         <Route element={<RootLayout />}>
           <Route path="/" element={<Homepage />} />
@@ -71,6 +73,7 @@ const AppRouter = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/admin-sign-in" element={<Alogin />} />
           <Route path="/admin-otp/:email" element={<AdminOtpLogin />} />
+
           <Route
             path="/expert-onboarding/:token"
             element={<OnboardingPage />}
@@ -84,7 +87,6 @@ const AppRouter = () => {
           <Route path="/mentor-login" element={<MentorLogin />} />
 
           <Route path="/badge/:taskId/" element={<Badges />} />
-
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
@@ -117,7 +119,6 @@ const AppRouter = () => {
           {/* <Route path="mlist" element={<Mlist />} /> */}
 
           <Route path="profile" element={<UserProfile />} />
-
         </Route>
 
         <Route path="admin" element={<AdminLayout />}>

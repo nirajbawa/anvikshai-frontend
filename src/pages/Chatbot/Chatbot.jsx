@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Send, Sparkles, User, ArrowLeft, Wand2, Lightbulb, Brain, BookOpen } from 'lucide-react';
+import { Send, Sparkles, User, Wand2, Brain } from 'lucide-react';
 import './Chatbot.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const starterPrompts = [
   'Help me find the right career path',
@@ -35,21 +35,56 @@ const questionnaire = [
   },
 ];
 
-function Chatbot() {
+function Chatbot({ embedded = false, showSidebar = true, onToggleSidebar, onStartTests }) {
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Namaste! I'm your Career Assistant. I'll ask a few quick questions to discover your interests and strengths, then suggest paths and a mini-roadmap. Shall we begin?" },
+    { role: 'assistant', content: "Hi! I'm your Career Assistant. Ready to begin?" },
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState({ interestArea: '', strengths: [], workStyle: '', learningPref: '' });
   const [showCTA, setShowCTA] = useState(false);
+  const [sessions, setSessions] = useState([]); // previous chats
+  const [activeSessionId, setActiveSessionId] = useState(null);
+  const [showSidebarLocal, setShowSidebarLocal] = useState(showSidebar);
   const listRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, isTyping]);
+
+  // Load sessions from localStorage
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('chat_sessions');
+      if (raw) setSessions(JSON.parse(raw));
+    } catch (e) { /* no-op */ }
+  }, []);
+
+  const persistSessions = (next) => {
+    try { localStorage.setItem('chat_sessions', JSON.stringify(next)); } catch (e) { /* no-op */ }
+  };
+
+  const startNewChat = () => {
+    const id = Date.now();
+    const newSession = { id, title: 'New Chat', timestamp: id, messages: [
+      { role: 'assistant', content: formatQuestion(questionnaire[0]) },
+    ] };
+    const nextSessions = [{ id, title: 'New Chat', timestamp: id }, ...sessions];
+    setSessions(nextSessions);
+    persistSessions(nextSessions);
+    setActiveSessionId(id);
+    setMessages([{ role: 'assistant', content: "Hi! I'm your Career Assistant. Let's begin." }, { role: 'assistant', content: formatQuestion(questionnaire[0]) }]);
+    setAnswers({ interestArea: '', strengths: [], workStyle: '', learningPref: '' });
+    setStepIndex(0);
+    setShowCTA(false);
+  };
+
+  const openSession = (id) => {
+    // Prototype: just mark active. Real implementation would restore messages per session
+    setActiveSessionId(id);
+  };
 
   const sendUser = (text) => {
     if (!text.trim()) return;
@@ -177,67 +212,68 @@ function Chatbot() {
   };
 
   return (
-    <div className="min-h-screen cb-container relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-10 -left-10 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-[100px] opacity-20"></div>
-        <div className="absolute top-1/3 -right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-[100px] opacity-20"></div>
-        <div className="absolute bottom-0 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-[100px] opacity-20"></div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <Link to="/" className="inline-flex items-center text-white/80 hover:text-cyan-300 transition-colors">
-            <ArrowLeft className="w-5 h-5 mr-2" /> Back
-          </Link>
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full cb-glass cb-glow text-white">
-            <Sparkles className="w-5 h-5 text-cyan-300" />
-            <span className="text-sm">Prototype • Static responses</span>
-          </div>
-        </div>
-
-        {/* Hero panel */}
-        <div className="cb-glass cb-glow rounded-3xl p-6 md:p-8 mb-6">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
-              <Brain className="w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-black text-white">Career Assessment Chat</h1>
-              <p className="text-white/70">Answer a few quick questions. I\'ll suggest paths, skills and a mini-roadmap.</p>
-            </div>
-          </div>
-
-          {/* Show quick options for current question if available */}
-          <div className="flex flex-wrap gap-2">
-            {(questionnaire[stepIndex]?.options || starterPrompts).map((p, i) => (
+    <div className={`${embedded ? 'h-full' : 'min-h-screen'} cb-container`}>
+      <div className={`${embedded ? 'w-full h-full px-4 py-4' : 'w-full px-4 sm:px-6 lg:px-10 py-6'}`}>
+        {/* Top bar */}
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Career Chat</h1>
+          <div className="flex items-center gap-2">
+            {embedded && (
               <button
-                key={i}
-                onClick={() => sendUser(p)}
-                className="cb-badge text-white/85 px-3 py-2 rounded-full text-sm hover:text-white hover:brightness-110"
+                onClick={() => {
+                  const next = !showSidebarLocal;
+                  setShowSidebarLocal(next);
+                  onToggleSidebar && onToggleSidebar(next);
+                }}
+                className="rounded-2xl px-4 py-2 font-semibold shadow-sm border border-gray-200 text-gray-700 hover:bg-gray-50"
               >
-                {p}
+                {showSidebarLocal ? 'Hide History' : 'Show History'}
               </button>
-            ))}
+            )}
+            <button onClick={startNewChat} className="cb-btn-primary rounded-2xl px-4 py-2 font-semibold shadow-lg">Start Chat</button>
           </div>
         </div>
 
-        {/* Chat window */}
-        <div className="cb-glass rounded-3xl grid grid-rows-[1fr_auto] h-[60vh] sm:h-[65vh] cb-glow">
+        {/* Layout: Sidebar + Chat */}
+        <div className={`grid gap-4 ${showSidebarLocal ? 'md:grid-cols-[18rem_1fr]' : 'grid-cols-1'}`}>
+          {/* Sidebar */}
+          {showSidebarLocal && (
+          <aside className="cb-glass rounded-2xl p-4 h-[70vh] md:h-[78vh] overflow-hidden flex flex-col">
+            <div className="text-gray-700 font-semibold mb-3">Previous Chats</div>
+            <div className="overflow-y-auto cb-scroll space-y-2">
+              {sessions.length === 0 && (
+                <div className="text-gray-500 text-sm">No previous chats</div>
+              )}
+              {sessions.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => openSession(s.id)}
+                  className={`w-full text-left px-3 py-2 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 ${activeSessionId === s.id ? 'bg-gray-100' : ''}`}
+                >
+                  <div className="text-sm font-medium truncate">{s.title}</div>
+                  <div className="text-xs text-gray-500">{new Date(s.timestamp).toLocaleString()}</div>
+                </button>
+              ))}
+            </div>
+          </aside>
+          )}
+
+          {/* Chat window */}
+          <div className={`cb-glass rounded-3xl grid grid-rows-[1fr_auto] ${embedded ? 'h-[70vh] md:h-[78vh]' : 'h-[70vh] md:h-[78vh]'} cb-glow`}>
           {/* Messages */}
           <div ref={listRef} className="cb-scroll overflow-y-auto p-4 sm:p-6 space-y-4">
             {messages.map((m, idx) => (
               <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {m.role === 'assistant' && (
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center mr-3 shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-purple-400 text-white flex items-center justify-center mr-3 shrink-0">
                     <Sparkles className="w-5 h-5" />
                   </div>
                 )}
-                <div className={`max-w-[80%] md:max-w-[70%] rounded-2xl px-4 py-3 text-sm leading-relaxed text-white ${m.role === 'user' ? 'cb-msg-user' : 'cb-msg'}`}>
+                <div className={`max-w-[80%] md:max-w-[70%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${m.role === 'user' ? 'cb-msg-user' : 'cb-msg'}`}>
                   {m.content}
                 </div>
                 {m.role === 'user' && (
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-white flex items-center justify-center ml-3 shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-purple-400 text-white flex items-center justify-center ml-3 shrink-0">
                     <User className="w-5 h-5" />
                   </div>
                 )}
@@ -246,10 +282,10 @@ function Chatbot() {
 
             {isTyping && (
               <div className="flex justify-start items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-purple-400 text-white flex items-center justify-center">
                   <Sparkles className="w-5 h-5" />
                 </div>
-                <div className="cb-msg rounded-2xl px-4 py-3 text-sm text-white/80 cb-typing">
+                <div className="cb-msg rounded-2xl px-4 py-3 text-sm text-gray-500 cb-typing">
                   <span>•</span> <span>•</span> <span>•</span>
                 </div>
               </div>
@@ -257,15 +293,15 @@ function Chatbot() {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="p-3 sm:p-4 border-t border-white/10 grid grid-cols-[1fr_auto] gap-2">
+          <form onSubmit={handleSubmit} className="p-3 sm:p-4 border-t border-gray-200 grid grid-cols-[1fr_auto] gap-2">
             <div className="relative">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your response..."
-                className="w-full rounded-2xl bg-white/5 border border-white/10 text-white placeholder-white/40 px-4 py-3 pr-10 focus:outline-none focus:border-cyan-400"
+                className="w-full rounded-2xl bg-white border border-gray-200 text-gray-900 placeholder-gray-400 px-4 py-3 pr-10 focus:outline-none focus:border-purple-500"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40">
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                 <Wand2 className="w-5 h-5" />
               </div>
             </div>
@@ -273,34 +309,19 @@ function Chatbot() {
               <Send className="w-5 h-5" /> Send
             </button>
           </form>
-        </div>
-
-        {showCTA && (
-          <div className="mt-6 flex justify-center">
-            <button
-              onClick={() => navigate('/assessment-tests')}
-              className="cb-btn-primary rounded-2xl px-6 py-3 font-semibold shadow-lg"
-            >
-              Proceed to IQ/EQ Tests
-            </button>
-          </div>
-        )}
-
-        {/* Tips */}
-        <div className="grid sm:grid-cols-3 gap-3 mt-6">
-          <div className="cb-glass rounded-2xl p-4 text-white/80 text-sm flex items-center gap-3">
-            <Lightbulb className="w-5 h-5 text-yellow-300" />
-            You can click a suggested prompt to auto-fill the chat.
-          </div>
-          <div className="cb-glass rounded-2xl p-4 text-white/80 text-sm flex items-center gap-3">
-            <BookOpen className="w-5 h-5 text-cyan-300" />
-            This is a prototype. Responses are static, just for demo.
-          </div>
-          <div className="cb-glass rounded-2xl p-4 text-white/80 text-sm flex items-center gap-3">
-            <Brain className="w-5 h-5 text-purple-300" />
-            We can later plug real AI and scoring logic here.
           </div>
         </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => (onStartTests ? onStartTests() : navigate('/assessment-tests'))}
+            className="cb-btn-primary rounded-2xl px-6 py-3 font-semibold shadow-lg inline-flex items-center gap-2"
+          >
+            <Brain className="w-5 h-5" /> Start EQ/IQ Tests
+          </button>
+        </div>
+        
       </div>
     </div>
   );
