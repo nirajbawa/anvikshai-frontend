@@ -61,12 +61,9 @@ const AppRouter = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/carrier" element={<CarrierHomePage />} />
-        
+        <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/assessment-tests" element={<AssessmentTests />} />
         <Route path="/newdashboard" element={<NewDashboard />} />
-        <Route path="chatbot" element={<Chatbot />} />
-        
-
         <Route element={<RootLayout />}>
         
           <Route path="/" element={<Homepage />} />
@@ -95,6 +92,7 @@ const AppRouter = () => {
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
+        
           <Route index element={<Dashboard />} />
           
           <Route path="payment" element={<PaymentPage />} />

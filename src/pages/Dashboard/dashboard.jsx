@@ -21,7 +21,7 @@ import EQIQTestPanel from "./EQIQTestPanel";
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const { clearToken } = useAuthStore();
-  const [loading, setLoading] = useState(false); // Set to false since we're using static data
+  const [loading, setLoading] = useState(false); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { userData } = useUserStore();
   const [showChat, setShowChat] = useState(false);
@@ -373,7 +373,7 @@ function Dashboard() {
               <div className="flex flex-wrap justify-center gap-4 mt-6">
                 {/* Chatbot Card (Square) */}
                 <button
-                  onClick={() => setShowChat(true)}
+                  onClick={() => navigate("/chatbot")}
                   className="group relative overflow-hidden rounded-2xl p-[2px] aspect-square w-full sm:w-80 md:w-96 bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-pink-500 shadow-[0_16px_32px_-20px_rgba(99,102,241,0.55)] transition-transform duration-300 hover:scale-[1.01] focus:outline-none"
                 >
                   <div className="relative h-full w-full rounded-2xl bg-white p-7 flex flex-col items-start justify-between overflow-hidden">
