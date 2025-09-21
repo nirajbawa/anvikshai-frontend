@@ -107,16 +107,6 @@ const AppRouter = () => {
           <Route path="certificates" element={<CertificatePage />} />
           <Route path="questionnaire/:taskId" element={<Questionnaire />} />
           <Route path="messages/:id" element={<Messages />} />
-          {/* <Route path="messages/:id" element={<TestMsg />} /> */}
-          {/* <Route path="message" element={<Messages />} />
-          <Route path="mdashboard" element={<MDashboard />} />
-          <Route path="adashboard" element={<ADashboard />} />
-          <Route path="alogin" element={<Alogin />} />
-          <Route path="mlogin" element={<Mlogin />} />
-
-          <Route path="mlist" element={<Mlist />} /> */}
-
-          {/* <Route path="mlist" element={<Mlist />} /> */}
 
           <Route path="profile" element={<UserProfile />} />
         </Route>
