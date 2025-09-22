@@ -14,9 +14,6 @@ import { useNavigate } from "react-router-dom";
 import useAxios from "../../hook/useAxios";
 import useAuthStore from "../../store/useAuthStore";
 import useUserStore from "../../store/useUserStore";
-import Chatbot from "../Chatbot/Chatbot";
-import CarrierDashboard from "../CarrierLandingPage/carrierDashboard";
-import EQIQTestPanel from "./EQIQTestPanel";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -225,7 +222,7 @@ function Dashboard() {
           <nav className="flex flex-col">
             {[
               { icon: Home, label: "Home", path: "/dashboard", hidden: false },
-              { icon: Bot, label: "Chatbot", path: null, hidden: false, customOnClick: () => setShowChat(true) },
+              { icon: Bot, label: "Chatbot", path: "/dashboard/chatbot", hidden: false},
               { icon: Rocket, label: "Create Course", path: "/dashboard/create-task", hidden: false },
               {
                 icon: BookOpen,
@@ -359,13 +356,7 @@ function Dashboard() {
                         Close
                       </button>
                     </div>
-                  </div>
-                  <Chatbot
-                    embedded={true}
-                    showSidebar={chatShowSidebar}
-                    onToggleSidebar={setChatShowSidebar}
-                    onStartTests={startEQIQTest}
-                  />
+                  </div>   
                 </div>
               </div>
             ) : (
@@ -373,7 +364,7 @@ function Dashboard() {
               <div className="flex flex-wrap justify-center gap-4 mt-6">
                 {/* Chatbot Card (Square) */}
                 <button
-                  onClick={() => navigate("/chatbot")}
+                  onClick={() => navigate("chatbot")}
                   className="group relative overflow-hidden rounded-2xl p-[2px] aspect-square w-full sm:w-80 md:w-96 bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-pink-500 shadow-[0_16px_32px_-20px_rgba(99,102,241,0.55)] transition-transform duration-300 hover:scale-[1.01] focus:outline-none"
                 >
                   <div className="relative h-full w-full rounded-2xl bg-white p-7 flex flex-col items-start justify-between overflow-hidden">
@@ -427,7 +418,6 @@ function Dashboard() {
               </div>
             )}
 
-            {/* Domain cards removed as requested */}
           </div>
         </main>
       </div>

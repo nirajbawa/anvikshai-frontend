@@ -1,8 +1,56 @@
-/* Assessment Tests styles: glass panels and tabs */
-.at-container { background: linear-gradient(180deg, #0b1220, #0b1020 40%, #0b0f1c); }
-.at-glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); }
-.at-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); }
-.at-chip.active { background: linear-gradient(90deg, #22d3ee66, #a855f766); border-color: #22d3eeaa; color: white; }
-.at-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
-.at-btn-primary { background: linear-gradient(90deg, #22d3ee, #a855f7, #ec4899); color: white; }
-.at-btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
+/* Assessment Tests styles: purple and white theme */
+.at-container { 
+  background: linear-gradient(180deg, #ffffff, #fdfdfd 40%, #e9d5ff); 
+  min-height: 100vh;
+}
+
+.at-glass { 
+  background: rgba(255, 255, 255, 0.9); 
+  backdrop-filter: blur(16px); 
+  border: 1px solid rgba(168, 85, 247, 0.3); 
+  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.1);
+}
+
+.at-chip { 
+  background: rgba(255, 255, 255, 0.8); 
+  border: 1px solid rgba(168, 85, 247, 0.3); 
+  transition: all 0.3s ease;
+}
+
+.at-chip.active { 
+  background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc); 
+  border-color: #8b5cf6; 
+  color: white; 
+  transform: translateY(-2px);
+}
+
+.at-chip:hover:not(.active) {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.at-card { 
+  background: rgba(255, 255, 255, 0.95); 
+  border: 1px solid rgba(168, 85, 247, 0.2); 
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.at-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.1);
+}
+
+.at-btn-primary { 
+  background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc); 
+  color: white; 
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+}
+
+.at-btn-primary:hover { 
+  filter: brightness(1.1); 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}

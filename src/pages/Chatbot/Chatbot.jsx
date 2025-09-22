@@ -10,7 +10,6 @@ const starterPrompts = [
   'Create a quick learning roadmap for me',
 ];
 
-// Guided questionnaire steps to discover interests and strengths
 const questionnaire = [
   {
     key: 'interestArea',
@@ -54,7 +53,6 @@ function Chatbot({ embedded = false, showSidebar = true, onToggleSidebar, onStar
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  // Load sessions from localStorage
   useEffect(() => {
     try {
       const raw = localStorage.getItem('chat_sessions');
@@ -193,7 +191,7 @@ function Chatbot({ embedded = false, showSidebar = true, onToggleSidebar, onStar
 
     const suggestions = suggestCareers(area, strengths);
 
-    return `Here’s your quick summary:\n\n• Interest Area: ${area}\n• Key Strengths: ${strengths}\n• Work Style: ${style}\n• Learning Preference: ${learn}\n\nRecommended Paths: ${suggestions.join(', ')}\n\nNext 4-Week Plan:\n1) Foundations based on ${area}\n2) Build 1 mini project per week\n3) Share on GitHub/LinkedIn\n4) Mock interview + resume review\n\nWant a detailed roadmap or resources next?`;
+    return `Here's your quick summary:\n\n• Interest Area: ${area}\n• Key Strengths: ${strengths}\n• Work Style: ${style}\n• Learning Preference: ${learn}\n\nRecommended Paths: ${suggestions.join(', ')}\n\nNext 4-Week Plan:\n1) Foundations based on ${area}\n2) Build 1 mini project per week\n3) Share on GitHub/LinkedIn\n4) Mock interview + resume review\n\nWant a detailed roadmap or resources next?`;
   };
 
   const suggestCareers = (area, strengths) => {
@@ -213,12 +211,14 @@ function Chatbot({ embedded = false, showSidebar = true, onToggleSidebar, onStar
 
   return (
     <div className={`${embedded ? 'h-full' : 'min-h-screen'} cb-container`}>
+      
       <div className={`${embedded ? 'w-full h-full px-4 py-4' : 'w-full px-4 sm:px-6 lg:px-10 py-6'}`}>
+        
         {/* Top bar */}
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Career Chat</h1>
           <div className="flex items-center gap-2">
-            {embedded && (
+            {(
               <button
                 onClick={() => {
                   const next = !showSidebarLocal;
@@ -315,7 +315,7 @@ function Chatbot({ embedded = false, showSidebar = true, onToggleSidebar, onStar
         {/* Bottom CTA */}
         <div className="mt-6 flex justify-center">
           <button
-            onClick={() => (onStartTests ? onStartTests() : navigate('/assessment-tests'))}
+            onClick={() => (onStartTests ? onStartTests() : navigate('/dashboard/assessment-tests'))}
             className="cb-btn-primary rounded-2xl px-6 py-3 font-semibold shadow-lg inline-flex items-center gap-2"
           >
             <Brain className="w-5 h-5" /> Start EQ/IQ Tests
