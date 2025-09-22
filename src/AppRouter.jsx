@@ -58,13 +58,13 @@ const AppRouter = () => {
       <ScrollToTop />
       <Routes>
 
-        <Route path="/carrier" element={<CarrierHomePage />} />
         
         
-
+        
+         
         <Route element={<RootLayout />}>
-
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<CarrierHomePage />} />
+          <Route path="/anvikshai" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/otp/:email" element={<OtpPage />} />
           <Route path="/login" element={<Login />} />
