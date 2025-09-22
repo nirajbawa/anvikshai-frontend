@@ -561,7 +561,7 @@ function CarrierHomePage() {
               </span>
             </h2>
             <p className="text-xl text-purple-700 max-w-4xl mx-auto leading-relaxed">
-              See how CareerGuru AI has <span className="text-purple-600 font-semibold">transformed career journeys</span> across India
+              See how AnvikshAI has <span className="text-purple-600 font-semibold">transformed career journeys</span> across India
             </p>
           </div>
           
@@ -575,7 +575,7 @@ function CarrierHomePage() {
                   ))}
                 </div>
                 <p className="text-purple-700 mb-8 text-lg leading-relaxed italic group-hover:text-purple-800 transition-colors">
-                  "CareerGuru AI helped me discover my passion for data science. The personalized 
+                  "AnvikshAI helped me discover my passion for data science. The personalized 
                   roadmap was exactly what I needed to transition from engineering to my dream career."
                 </p>
                 <div className="flex items-center space-x-4">
@@ -629,7 +629,7 @@ function CarrierHomePage() {
                   ))}
                 </div>
                 <p className="text-purple-700 mb-8 text-lg leading-relaxed italic group-hover:text-purple-800 transition-colors">
-                  "As a first-generation college student, I had no guidance. CareerGuru AI became 
+                  "As a first-generation college student, I had no guidance. AnvikshAI became 
                   my mentor and helped me land a job at a top tech company."
                 </p>
                 <div className="flex items-center space-x-4">
@@ -796,7 +796,7 @@ function CarrierHomePage() {
           <div className="border-t border-purple-100 mt-12 pt-8">
             <div className="bg-white backdrop-blur-md border border-purple-100 rounded-2xl p-6 text-center">
               <p className="text-purple-700 text-lg">
-                2025 <span className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent font-bold">CareerGuru AI</span>. All rights reserved. 
+                2025 <span className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent font-bold">AnvikshAI</span>. All rights reserved. 
                 <br className="sm:hidden" />
                 <span className="text-purple-600">Proudly made in India for Indian students.</span> 
               </p>
