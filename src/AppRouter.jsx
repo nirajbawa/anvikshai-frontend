@@ -57,12 +57,6 @@ const AppRouter = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-<<<<<<< HEAD
-        <Route path="/carrier" element={<CarrierHomePage />} />
-        <Route path="/chatbot" element={<Chatbot />} />
-        <Route path="/assessment-tests" element={<AssessmentTests />} />
-        <Route path="/newdashboard" element={<NewDashboard />} />
-=======
         <Route path="/career" element={<CarrierHomePage />} />
         <Route path="/chatbot" element={<Chatbot />} />
 
@@ -70,7 +64,6 @@ const AppRouter = () => {
         <Route path="/newdashboard" element={<NewDashboard />} />
         <Route path="chatbot" element={<Chatbot />} />
 
->>>>>>> c8582eb7eb95638ff1af570911baf76dfb7dfa8f
         <Route element={<RootLayout />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
@@ -97,7 +90,6 @@ const AppRouter = () => {
         </Route>
 
         <Route path="dashboard" element={<DashboardLayout />}>
-        
           <Route index element={<Dashboard />} />
 
           <Route path="payment" element={<PaymentPage />} />
@@ -115,6 +107,7 @@ const AppRouter = () => {
           <Route path="certificates" element={<CertificatePage />} />
           <Route path="questionnaire/:taskId" element={<Questionnaire />} />
           <Route path="messages/:id" element={<Messages />} />
+
 
           <Route path="profile" element={<UserProfile />} />
         </Route>
