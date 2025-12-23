@@ -28,13 +28,13 @@ export default function ContactUs() {
               href="mailto:shankhapalakash@gmail.com"
               className="text-[#D2B0FD] font-medium mt-4 block transition duration-300 hover:text-[#B494E8] hover:underline"
             >
-              contact@yourcompany.com
+              shankhapalakash@gmail.com
             </a>
             <a
               href="tel:+918208912469"
               className="text-gray-800 font-medium mt-2 block transition duration-300  hover:underline"
             >
-              +91 98765 43210
+              +91 82089 12469
             </a>
           </div>
 
