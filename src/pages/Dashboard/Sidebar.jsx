@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Home, Bot, Rocket, BookOpen, Award, LogOut, ChevronRight, X, TvMinimal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/useAuthStore";
@@ -8,6 +8,11 @@ function Sidebar({ isOpen, onClose, onNavigate }) {
   const navigate = useNavigate();
   const { clearToken } = useAuthStore();
   const { userData } = useUserStore();
+
+  // Debug: Log when isOpen changes
+  useEffect(() => {
+    console.log('Sidebar isOpen:', isOpen);
+  }, [isOpen]);
 
   const menuItems = [
     { 
@@ -77,8 +82,12 @@ function Sidebar({ isOpen, onClose, onNavigate }) {
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
         `}
+        style={{ 
+          backgroundColor: 'white', // Force background color
+          width: '18rem' // Ensure width is set
+        }}
       >
-        <div className="w-72 h-full bg-white border-r border-gray-200 flex flex-col">
+        <div className="w-full h-full bg-white border-r border-gray-200 flex flex-col">
           {/* Header with close button for mobile */}
           <div className="flex items-center justify-between p-4 lg:hidden border-b border-gray-200">
             <span className="font-semibold text-gray-900">Menu</span>

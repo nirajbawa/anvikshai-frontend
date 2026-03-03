@@ -9,15 +9,18 @@ import Home from "./Home";
 import Chat from "./Chat";
 import Test from "./Test";
 import Results from "./Results";
+import useSidebarStore from "../../store/useSidebarStore";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const { clearToken } = useAuthStore();
   const [loading, setLoading] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const { userData } = useUserStore();
   const [testPlan, setTestPlan] = useState(null);
   const [loadingTest, setLoadingTest] = useState(false);
+
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebarStore();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -236,7 +239,7 @@ function Dashboard() {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-h-screen lg:ml-0 transition-all duration-300">
-        <Header onMenuClick={() => setIsSidebarOpen(true)} />
+        {/* <Header onMenuClick={() => setIsSidebarOpen()} /> */}
         
         <main className="flex-1 p-4 md:p-6 overflow-y-auto">
           <div className="max-w-7xl mx-auto">
