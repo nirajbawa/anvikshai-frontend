@@ -10,7 +10,7 @@ import PaymentPage from "./pages/details/PaymentPage";
 import Subscription from "./pages/details/Subscription";
 import RoadMap from "./pages/details/RoadMap";
 import RootLayout from "./layouts/RootLayout";
-import Dashboard from "./pages/Dashboard/dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import CreateTask from "./pages/Dashboard/createtask";
 import Assignment from "./pages/AssignmentComp/Assignment"; // Import the new page
 import Article from "./pages/ArticleComp/Article";
@@ -51,6 +51,8 @@ import ScrollToTop from "./components/tools/ScrollToTop";
 import UserProfile from "./pages/profile/UserProfile";
 import Badges from "./pages/badges/Badges";
 import CarrierHomePage from "./pages/CarrierLandingPage/carrierLanding";
+import ChatGuide from "./pages/Dashboard/Chat";
+import Courses from "./pages/Dashboard/Courses";
 
 const AppRouter = () => {
   return (
@@ -91,6 +93,10 @@ const AppRouter = () => {
 
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
+
+          
+          <Route path="chat" element={<ChatGuide />} />
+          <Route path="Courses" element={<Courses />} />
 
           <Route path="payment" element={<PaymentPage />} />
           <Route path="subscription" element={<Subscription />} />
