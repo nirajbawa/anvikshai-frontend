@@ -24,7 +24,7 @@ function Sidebar({ isOpen, onClose, onNavigate }) {
     { 
       icon: Bot, 
       label: "Chatbot", 
-      path: "/dashboard/chat", 
+      path: "/dashboard/gchat", 
       hidden: false 
     },
     { 

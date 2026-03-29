@@ -95,7 +95,7 @@ const AppRouter = () => {
           <Route index element={<Dashboard />} />
 
           
-          <Route path="chat" element={<ChatGuide />} />
+          <Route path="gchat" element={<ChatGuide />} />
           <Route path="Courses" element={<Courses />} />
 
           <Route path="payment" element={<PaymentPage />} />
