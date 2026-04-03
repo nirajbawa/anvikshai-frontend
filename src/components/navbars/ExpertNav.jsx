@@ -126,15 +126,15 @@ export default function ExpertNav() {
   });
 
   return (
-    <Navbar className="sticky top-0 w-full z-[100] rounded-none mx-0 px-5 bg-[#D2B0FD] border-none">
+    <Navbar className="sticky top-0 w-full z-[100] rounded-none mx-0 px-5 bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800 transition-colors">
       <div className="flex items-center">
         <Link to="/expert/dashboard">
           <Typography
             as="h1"
             type="small"
-            className="ml-2 mr-2 text-xl block py-1 font-bold"
+            className="ml-2 mr-2 text-xl block py-1 font-bold text-gray-900 dark:text-white transition-colors"
           >
-            Admin Dashboard
+            Expert Dashboard
           </Typography>
         </Link>
         <IconButton
@@ -142,7 +142,7 @@ export default function ExpertNav() {
           variant="ghost"
           color="secondary"
           onClick={() => setOpenNav(!openNav)}
-          className="ml-auto mr-2 grid lg:hidden"
+          className="ml-auto mr-2 grid lg:hidden text-gray-800 dark:text-white"
         >
           {openNav ? (
             <Xmark className="h-4 w-4" />
