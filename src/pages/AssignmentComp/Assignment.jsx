@@ -1,0 +1,129 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import useAxios from "../../hook/useAxios";
+import { toast } from "react-toastify";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+
+const Assignment = () => {
+  const navigate = useNavigate();
+  let { dayId } = useParams();
+  const axiosInstance = useAxios();
+
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [assignment, setAssignment] = useState(null);
+  const [file, setFile] = useState(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get(`/content/assignment/${dayId}`);
+      setAssignment(response.data?.data || []);
+    } catch (error) {
+      console.error("Error fetching day:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    if (!file) {
+      toast.warning("Please upload a file before submitting.");
+      return;
+    }
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("dayId", dayId);
+
+    try {
+      const response = await axiosInstance.post(
+        `/content/assignment/${dayId}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      toast.success(
+        "Assignment uploaded successfully! Your Assignment Score is : " +
+          response?.data?.marks +
+          "/10"
+      );
+      toast.success(
+        response?.data?.marks == -1
+          ? "There is a plagarism in assignment"
+          : "There is no plagarism in assignment"
+      );
+      navigate(-1);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      toast.error("Failed to upload assignment.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <>
+      <div className="w-full p-10">
+        <button
+          className="bg-purple-200 dark:bg-purple-900/40 flex justify-center items-center pl-4 py-3 pr-2 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-800 duration-300 transition-colors text-gray-900 dark:text-white border border-purple-300 dark:border-purple-700"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowBackIosIcon />
+        </button>
+      </div>
+      <div className="flex flex-col items-center justify-start min-h-screen p-4">
+        <h1 className="text-2xl font-bold text-gray-700 dark:text-white mb-6 transition-colors">Assignment</h1>
+
+        {loading ? (
+          <div className="w-full max-w-3xl space-y-6">
+            <div className="w-full h-[30vh] bg-[#F9F5FF] dark:bg-gray-800 animate-pulse rounded-2xl transition-colors" />
+            <div className="w-full h-[10vh] bg-[#F9F5FF] dark:bg-gray-800 animate-pulse rounded-2xl transition-colors" />
+          </div>
+        ) : (
+          <>
+            <div className="w-full max-w-3xl p-7 h-full bg-[#F9F5FF] dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-2xl mb-6 transition-colors">
+              {assignment?.assinments_question}
+            </div>
+
+            <div className="w-full max-w-3xl h-[10vh] bg-[#F9F5FF] dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl flex items-center justify-center mb-6 transition-colors">
+              <input
+                type="file"
+                onChange={handleFileChange}
+                accept="application/pdf"
+                className="w-full max-w-2xl h-[4vh] bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              />
+            </div>
+
+            <div className="flex gap-4">
+              <button
+                onClick={handleSubmit}
+                disabled={uploading}
+                className={`px-4 py-2 font-medium rounded-lg shadow-md transition ${
+                  uploading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#c198ff] text-white hover:bg-[#d5bcfc] "
+                }`}
+              >
+                {uploading ? "Uploading..." : "Submit"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default Assignment;
+AssignmentComp
