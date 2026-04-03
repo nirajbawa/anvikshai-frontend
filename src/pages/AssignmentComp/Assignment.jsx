@@ -126,4 +126,3 @@ const Assignment = () => {
 };
 
 export default Assignment;
-AssignmentComp
