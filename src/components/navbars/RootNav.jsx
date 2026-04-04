@@ -52,8 +52,8 @@ const RootNav = () => {
 
   return (
     <nav
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white dark:bg-gray-900 shadow-md py-3" : "bg-transparent py-5"
+      className={`fixed w-full top-0 z-[100] transition-colors duration-300 ${
+        isScrolled ? "bg-white dark:bg-[#121212] shadow-sm py-3" : "bg-white dark:bg-[#121212] py-3"
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
@@ -142,7 +142,7 @@ const RootNav = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg absolute top-full left-0 w-full py-4 px-6 flex flex-col space-y-4 text-gray-800 dark:text-gray-200">
+        <div className="md:hidden bg-white dark:bg-[#121212] shadow-lg absolute top-full left-0 w-full py-4 px-6 flex flex-col space-y-4 text-gray-800 dark:text-gray-200 border-b border-gray-100 dark:border-purple-900/40">
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
