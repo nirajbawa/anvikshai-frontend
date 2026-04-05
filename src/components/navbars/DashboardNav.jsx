@@ -159,7 +159,7 @@ export default function DashboardNav() {
   }, []);
 
   return (
-    <Navbar className="sticky top-0 w-full max-w-full z-[100] rounded-none mx-0 px-6 py-3 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-100 dark:border-gray-800 transition-colors">
+    <Navbar className="sticky top-0 w-full max-w-full z-[100] rounded-none mx-0 px-6 py-3 bg-white dark:bg-[#121212] shadow-sm transition-colors">
       <div className="flex items-center justify-between w-full">
         <Link to="/dashboard">
           <div className="flex items-center space-x-2">

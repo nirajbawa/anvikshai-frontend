@@ -17,7 +17,7 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  @apply text-gray-800;
+  @apply text-gray-800 bg-white dark:bg-[#0a0a0a] antialiased transition-colors duration-300;
 }
 
 .hero-gradient {
@@ -49,13 +49,13 @@ body {
 }
 
 .feature-card {
-  @apply bg-white p-8 rounded-2xl shadow-md transition-all duration-300 
-  hover:shadow-xl hover:-translate-y-2 border border-gray-100;
+  @apply bg-white dark:bg-[#121212] p-8 rounded-2xl shadow-md transition-all duration-300 
+  hover:shadow-xl hover:-translate-y-2 border border-gray-100 dark:border-gray-800;
 }
 
 .pricing-card {
-  @apply bg-white p-8 rounded-2xl shadow-md transition-all duration-300 
-  hover:shadow-xl hover:-translate-y-2 border border-gray-100 flex flex-col;
+  @apply bg-white dark:bg-[#121212] p-8 rounded-2xl shadow-md transition-all duration-300 
+  hover:shadow-xl hover:-translate-y-2 border border-gray-100 dark:border-gray-800 flex flex-col;
 }
 
 .pricing-card-header {
@@ -63,15 +63,15 @@ body {
 }
 
 .pricing-card-price {
-  @apply text-4xl font-bold mb-1;
+  @apply text-4xl font-bold mb-1 text-gray-900 dark:text-white transition-colors;
 }
 
 .pricing-card-period {
-  @apply text-gray-500 mb-6;
+  @apply text-gray-500 dark:text-gray-400 mb-6 transition-colors;
 }
 
 .pricing-feature {
-  @apply flex items-center space-x-3 py-2;
+  @apply flex items-center space-x-3 py-2 text-gray-700 dark:text-gray-300 transition-colors;
 }
 
 .changing-text::before {
