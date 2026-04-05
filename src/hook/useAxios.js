@@ -9,7 +9,6 @@ import useAuthStore from "../store/useAuthStore";
 const useAxios = () => {
   const navigate = useNavigate();
   const { clearToken } = useAuthStore.getState();
-  const token = useAuthStore((state) => state.token);
 
   const axiosInstance = useMemo(() => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "");
@@ -38,8 +37,10 @@ const useAxios = () => {
           }
         }
 
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        // 3. Attach current token from store state (dynamically fetched for every request)
+        const currentToken = useAuthStore.getState().token;
+        if (currentToken) {
+          config.headers.Authorization = `Bearer ${currentToken}`;
         }
         return config;
       },
@@ -62,7 +63,7 @@ const useAxios = () => {
     );
 
     return instance;
-  }, [clearToken, navigate, token]);
+  }, [navigate]);
 
   return axiosInstance;
 };

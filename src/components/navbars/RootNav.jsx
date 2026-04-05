@@ -11,11 +11,16 @@ const RootNav = () => {
   const [decodedToken, setDecodedToken] = useState(null);
 
   const decode = () => {
+    if (!token || typeof token !== "string") {
+      setDecodedToken(null);
+      return;
+    }
     try {
       const dt = jwtDecode(token);
       setDecodedToken(dt);
     } catch (e) {
-      console.log(e);
+      console.error("Token decoding failed:", e);
+      setDecodedToken(null);
     }
   };
 
@@ -48,7 +53,7 @@ const RootNav = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [token]);
 
   return (
     <nav

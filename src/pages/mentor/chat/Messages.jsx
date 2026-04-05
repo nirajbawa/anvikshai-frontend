@@ -147,8 +147,9 @@ function MentorMessages() {
   };
 
   const connectWebSocket = () => {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const ws = new WebSocket(
-      `ws://127.0.0.1:8000/mentor/ws/${selectedContact.mentor}`
+      `${protocol}//${import.meta.env.VITE_BACKEND_SOCKET}/mentor/ws/${selectedContact.mentor}`
     );
 
     ws.onmessage = (event) => {

@@ -27,9 +27,10 @@ function ExpertLogin() {
         formData.append(key, value);
       });
 
-      const response = await axiosInstance.post("/expert/auth/sign-in", {
-        email: data.username,
-        password: data.password,
+      const response = await axiosInstance.post("/expert/auth/sign-in", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       setToken(response.data?.access_token);

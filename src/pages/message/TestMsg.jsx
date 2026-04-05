@@ -14,7 +14,7 @@ const TestMsg = () => {
       alert("Enter your client ID!");
       return;
     }
-    const ws = new WebSocket(`ws://127.0.0.1:8000/mentor/ws/${clientId}`);
+    const ws = new WebSocket(`ws://${import.meta.env.VITE_BACKEND_SOCKET}/mentor/ws/${clientId}`);
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
