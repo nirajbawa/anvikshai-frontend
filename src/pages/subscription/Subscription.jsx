@@ -25,7 +25,7 @@ export default function SubscriptionPlans() {
       "1-on-1 Expert mentoring",
       "Advanced AI chatbot capabilities",
     ],
-    price: "₹199",
+    price: "₹499",
     slashedPrice: "₹399",
     period: "/ month",
   };
@@ -33,7 +33,7 @@ export default function SubscriptionPlans() {
   const createOrder = async () => {
     try {
       const response = await axiosInstance.get(
-        "/payment/premium-subscription-order"
+        "/payment/premium-subscription-order",
       );
       return response.data.data;
     } catch (error) {
@@ -46,7 +46,7 @@ export default function SubscriptionPlans() {
       await axiosInstance.post("/payment/premium-subscription-order", {
         razorpay_order_id: data,
       });
-      
+
       // Fetch updated user data to sync premium status
       const userRes = await axiosInstance.get("/auth/get-current-user");
       if (userRes.data) {
@@ -103,7 +103,9 @@ export default function SubscriptionPlans() {
 
   return (
     <div className="min-h-screen flex flex-col items-center p-8 bg-transparent transition-colors">
-      <h2 className="text-5xl font-bold mt-10 mb-6 text-gray-900 dark:text-white transition-colors">Subscription Plans</h2>
+      <h2 className="text-5xl font-bold mt-10 mb-6 text-gray-900 dark:text-white transition-colors">
+        Subscription Plans
+      </h2>
 
       <div className="flex flex-col md:flex-row gap-20 mt-10">
         <div
@@ -113,8 +115,12 @@ export default function SubscriptionPlans() {
           {isPremium ? (
             <div className="flex flex-col items-center justify-center h-full py-10">
               <CheckCircle className="w-20 h-20 text-green-500 mb-6" />
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Premium Active</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-8">You are already enjoying the best of Anviksh AI!</p>
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Premium Active
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-8">
+                You are already enjoying the best of Anviksh AI!
+              </p>
               <button
                 onClick={() => navigate("/dashboard")}
                 className="bg-purple-600 text-white py-3 px-8 rounded-xl font-bold hover:bg-purple-700 transition-all shadow-lg"
@@ -143,10 +149,14 @@ export default function SubscriptionPlans() {
               </h3>
 
               <div className="mt-8 ml-10 flex flex-col justify-center space-y-3 text-left">
-                <p className="font-semibold text-lg text-gray-900 dark:text-white transition-colors">Features:</p>
+                <p className="font-semibold text-lg text-gray-900 dark:text-white transition-colors">
+                  Features:
+                </p>
                 <ul className="text-md text-gray-700 dark:text-gray-300 font-bold transition-colors">
                   {premiumPlan.features.map((feature, i) => (
-                    <li key={i} className={i === 0 ? "mt-4" : ""}>• {feature}</li>
+                    <li key={i} className={i === 0 ? "mt-4" : ""}>
+                      • {feature}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -156,9 +166,13 @@ export default function SubscriptionPlans() {
                   <p className="text-gray-500 text-xl line-through font-bold transition-colors">
                     {premiumPlan.slashedPrice}
                   </p>
-                  <p className="text-red-600 text-2xl font-bold">{premiumPlan.price}</p>
+                  <p className="text-red-600 text-2xl font-bold">
+                    {premiumPlan.price}
+                  </p>
                 </div>
-                <p className="text-xs text-gray-400 mt-1 italic">{premiumPlan.period}</p>
+                <p className="text-xs text-gray-400 mt-1 italic">
+                  {premiumPlan.period}
+                </p>
               </div>
 
               <button
