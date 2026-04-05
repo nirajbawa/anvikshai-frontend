@@ -4,7 +4,7 @@ import useAxios from "../../hook/useAxios";
 import Lottie from "react-lottie-player";
 import NotFound from "../../assets/lotties/not-found.json";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
+
 
 function CertificatePage() {
   const [certificate, setCertificate] = useState([]);

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuthStore from "../store/useAuthStore";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
+
 
 const useAxios = () => {
   const navigate = useNavigate();
@@ -12,6 +12,10 @@ const useAxios = () => {
   const token = useAuthStore((state) => state.token);
 
   const axiosInstance = useMemo(() => {
+    const rawBaseURL = import.meta.env.VITE_BACKEND_URL;
+    const baseURL = rawBaseURL?.replace(/^http:\/\//, "https://"); // Explicitly force HTTPS
+    console.log("Axios Instance BaseURL:", baseURL);
+
     const instance = axios.create({
       baseURL: baseURL,
       headers: {
