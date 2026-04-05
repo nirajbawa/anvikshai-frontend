@@ -12,20 +12,25 @@ const useAxios = () => {
   const token = useAuthStore((state) => state.token);
 
   const axiosInstance = useMemo(() => {
-    const rawBaseURL = import.meta.env.VITE_BACKEND_URL;
-    const baseURL = rawBaseURL?.replace(/^http:\/\//, "https://"); // Explicitly force HTTPS
-    console.log("Axios Instance BaseURL:", baseURL);
-
+    console.log("url", import.meta.env.VITE_BACKEND_URL)
     const instance = axios.create({
-      baseURL: baseURL,
+      baseURL: import.meta.env.VITE_BACKEND_URL,
       headers: {
         "ngrok-skip-browser-warning": "69420"
       }
     });
 
-    // Request interceptor to attach the token
+    // Request interceptor to attach the token and normalize URL
     instance.interceptors.request.use(
       (config) => {
+        // Automatically append trailing slash if missing (avoids redirect protocol downgrade)
+        if (config.url && !config.url.includes('.') && !config.url.endsWith('/')) {
+          const [url, search] = config.url.split('?');
+          if (url && !url.endsWith('/')) {
+            config.url = `${url}/${search ? '?' + search : ''}`;
+          }
+        }
+
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
