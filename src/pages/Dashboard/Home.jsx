@@ -6,7 +6,7 @@ function Home({ onStartTest, showResults }) {
   const navigate = useNavigate();
 
   const handleChatNavigation = () => {
-    navigate("/dashboard/chat");
+    navigate("/dashboard/gchat");
   };
 
   const handleCreateCourse = () => {
