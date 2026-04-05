@@ -12,9 +12,11 @@ const useAxios = () => {
   const token = useAuthStore((state) => state.token);
 
   const axiosInstance = useMemo(() => {
-    console.log("url", import.meta.env.VITE_BACKEND_URL)
+    const backendUrl = import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "");
+    console.log("Original backend URL:", import.meta.env.VITE_BACKEND_URL);
+
     const instance = axios.create({
-      baseURL: import.meta.env.VITE_BACKEND_URL,
+      baseURL: backendUrl,
       headers: {
         "ngrok-skip-browser-warning": "69420"
       }
@@ -23,11 +25,17 @@ const useAxios = () => {
     // Request interceptor to attach the token and normalize URL
     instance.interceptors.request.use(
       (config) => {
-        // Automatically append trailing slash if missing (avoids redirect protocol downgrade)
+        // 1. Force HTTPS if the frontend is on HTTPS (prevents Mixed Content errors)
+        if (window.location.protocol === 'https:' && config.baseURL?.startsWith('http:')) {
+          config.baseURL = config.baseURL.replace('http:', 'https:');
+        }
+
+        // 2. Automatically append trailing slash if missing (avoids redirect protocol downgrade)
+        // Only append for simple path-like URLs, excluding files (with dots)
         if (config.url && !config.url.includes('.') && !config.url.endsWith('/')) {
-          const [url, search] = config.url.split('?');
-          if (url && !url.endsWith('/')) {
-            config.url = `${url}/${search ? '?' + search : ''}`;
+          const [path, search] = config.url.split('?');
+          if (path && !path.endsWith('/')) {
+            config.url = `${path}/${search ? '?' + search : ''}`;
           }
         }
 

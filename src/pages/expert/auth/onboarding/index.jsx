@@ -90,10 +90,22 @@ export default function OnboardingPage() {
   }, [email]);
 
   useEffect(() => {
-    const decodedToken = jwtDecode(token);
-    console.log(decodedToken);
-    setEmail(decodedToken.email);
-  }, []);
+    if (!token || typeof token !== "string") {
+      toast.error("Invalid or missing onboarding token.");
+      navigate("/");
+      return;
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      console.log("Decoded Token:", decodedToken);
+      setEmail(decodedToken.email);
+    } catch (error) {
+      console.error("Invalid token specified:", error);
+      toast.error("Invalid onboarding link.");
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center p-2 sm:p-6 mt-20 sm:mt-0 pb-96">
