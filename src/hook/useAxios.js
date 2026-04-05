@@ -30,12 +30,11 @@ const useAxios = () => {
           config.baseURL = config.baseURL.replace('http:', 'https:');
         }
 
-        // 2. Automatically append trailing slash if missing (avoids redirect protocol downgrade)
-        // Only append for simple path-like URLs, excluding files (with dots)
-        if (config.url && !config.url.includes('.') && !config.url.endsWith('/')) {
+        // 2. Automatically remove trailing slash if present (prevents unnecessary redirects)
+        if (config.url && config.url.endsWith('/') && !config.url.includes('.')) {
           const [path, search] = config.url.split('?');
-          if (path && !path.endsWith('/')) {
-            config.url = `${path}/${search ? '?' + search : ''}`;
+          if (path && path.endsWith('/')) {
+            config.url = `${path.slice(0, -1)}${search ? '?' + search : ''}`;
           }
         }
 

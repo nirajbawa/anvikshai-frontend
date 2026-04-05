@@ -94,7 +94,7 @@ function Dashboard() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axiosInstance.get(`/mentor/dashboard/`);
+        const response = await axiosInstance.get(`/mentor/dashboard`);
         console.log(response);
         // response.data?.data
         setStats({

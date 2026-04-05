@@ -97,7 +97,7 @@ function Messages() {
   const fetchAllTasks = async () => {
     setIsLoadingHistory(true);
     try {
-      const response = await axiosInstance.get("/task/");
+      const response = await axiosInstance.get("/task");
       // Filter tasks that have a mentor assigned
       const mentoredTasks = response.data.data.filter(t => t.mentor !== null);
       setAllTasks(mentoredTasks);

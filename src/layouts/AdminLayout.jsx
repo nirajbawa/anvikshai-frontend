@@ -12,7 +12,7 @@ const AdminLayout = () => {
   const axiosInstance = useAxios();
 
   const setUser = async () => {
-    const response = await axiosInstance.get("/admin/get-current-user/");
+    const response = await axiosInstance.get("/admin/get-current-user");
     setUserData(response.data);
   };
 
