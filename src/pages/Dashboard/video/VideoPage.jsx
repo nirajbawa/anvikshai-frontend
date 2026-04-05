@@ -14,6 +14,7 @@ function VideoPage() {
   const [videoPointer, setVideoPointer] = useState(0);
   const [points, setPoints] = useState(1);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
+  const [isVideoMarkedAsViewed, setIsVideoMarkedAsViewed] = useState(false);
   const playerRef = useRef(null);
 
   const { dayId, taskId } = useParams();
@@ -54,26 +55,47 @@ function VideoPage() {
 
   const onVideoEnd = () => {
     setIsVideoEnded(true);
+    setIsVideoMarkedAsViewed(true);
+    setPoints((prev) => (prev < videos.length ? Math.max(prev, videoPointer + 2) : prev));
   };
 
   const onPlayerReady = (event) => {
     playerRef.current = event.target;
     setIsVideoEnded(false);
+    setIsVideoMarkedAsViewed(false);
+  };
+
+  const handleMarkAsViewed = () => {
+    setIsVideoMarkedAsViewed(true);
+    setPoints((prev) => (prev < videos.length ? Math.max(prev, videoPointer + 2) : prev));
+  };
+
+  const jumpToVideo = (index) => {
+    if (index === videoPointer) return;
+    setVideoPointer(index);
+    setPoints((prev) => Math.max(prev, index + 1));
+    setIsVideoEnded(false);
+    setIsVideoMarkedAsViewed(false);
   };
 
   const nextVideo = () => {
-    if (videoPointer < videos.length - 1 && isVideoEnded) {
-      setVideoPointer((prev) => prev + 1);
-      setPoints((prev) => (prev < videos.length ? prev + 1 : prev));
-      setIsVideoEnded(false);
-    } else {
-      toast.warning("Please watch the full video to proceed.");
+    if (videoPointer < videos.length - 1) {
+      if (isVideoEnded || isVideoMarkedAsViewed) {
+        setVideoPointer((prev) => prev + 1);
+        setPoints((prev) => (prev < videos.length ? Math.max(prev, videoPointer + 2) : prev));
+        setIsVideoEnded(false);
+        setIsVideoMarkedAsViewed(false);
+      } else {
+        toast.info("Please mark the video as viewed or finish watching it to proceed.");
+      }
     }
   };
 
   const previousVideo = () => {
     if (videoPointer > 0) {
       setVideoPointer((prev) => prev - 1);
+      setIsVideoEnded(false);
+      setIsVideoMarkedAsViewed(false);
     }
   };
 
@@ -145,6 +167,20 @@ function VideoPage() {
             )}
           </div>
 
+          <div className="mt-4 flex items-center justify-center">
+            <button
+              onClick={handleMarkAsViewed}
+              disabled={isVideoEnded || isVideoMarkedAsViewed}
+              className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
+                isVideoEnded || isVideoMarkedAsViewed
+                  ? "bg-green-100 text-green-600 cursor-default opacity-80"
+                  : "bg-purple-600 text-white hover:bg-purple-700 shadow-md hover:shadow-purple-500/20 active:scale-95"
+              }`}
+            >
+              {isVideoEnded || isVideoMarkedAsViewed ? "✓ Video Viewed" : "Mark as Viewed"}
+            </button>
+          </div>
+
           <div className="flex justify-between mt-3 md:mt-4">
             <button
               className="px-3 md:px-4 py-1 md:py-2 bg-purple-100 dark:bg-purple-900/40 text-gray-900 dark:text-white rounded-lg transition-colors disabled:opacity-50 hover:bg-purple-200 dark:hover:bg-purple-800"
@@ -156,7 +192,7 @@ function VideoPage() {
             <button
               className="px-3 md:px-4 py-1 md:py-2 bg-purple-100 dark:bg-purple-900/40 text-gray-900 dark:text-white rounded-lg transition-colors disabled:opacity-50 hover:bg-purple-200 dark:hover:bg-purple-800"
               onClick={nextVideo}
-              disabled={!isVideoEnded || videoPointer === videos.length - 1}
+              disabled={videoPointer === videos.length - 1 || !(isVideoEnded || isVideoMarkedAsViewed)}
             >
               Next →
             </button>
@@ -178,16 +214,23 @@ function VideoPage() {
             {videos.map((data, index) => (
               <div
                 key={index}
-                className="flex items-center cursor-pointer p-2 rounded-lg shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                onClick={() => jumpToVideo(index)}
+                className={`flex items-center cursor-pointer p-2 rounded-lg shadow-sm border transition-colors ${
+                  videoPointer === index
+                    ? "bg-purple-50 dark:bg-purple-900/40 border-purple-300 dark:border-purple-700"
+                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                }`}
               >
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white transition-colors">{data.topic}</h3>
+                  <h3 className={`text-sm font-bold transition-colors ${
+                    videoPointer === index ? "text-purple-700 dark:text-purple-300" : "text-gray-900 dark:text-white"
+                  }`}>{data.topic}</h3>
                 </div>
               </div>
             ))}
           </div>
 
-          {videoPointer === videos.length - 1 && isVideoEnded && (
+          {videoPointer === videos.length - 1 && (isVideoEnded || isVideoMarkedAsViewed) && (
             <button
               disabled={isSubmitting}
               onClick={handleSubmitProgress}

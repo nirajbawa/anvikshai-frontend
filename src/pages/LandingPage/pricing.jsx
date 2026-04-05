@@ -1,35 +1,9 @@
-import React from "react";
+import { SUBSCRIPTION_PLANS } from "../../constants/subscriptionPlans";
 import { Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 
 function Pricing() {
-  const plans = [
-    {
-      name: "Standard",
-      price: "₹0",
-      period: "Per Month",
-      color: "from-orange-400 to-orange-600",
-      features: [
-        "4 Task Creation",
-        "Progress Analytics",
-        "AI-Powered Task Prioritization",
-      ],
-    },
-    {
-      name: "Premium",
-      price: "₹499",
-      period: "Per Month",
-      color: "from-blue-500 to-blue-700",
-      features: [
-        "Everything in Standard",
-        "20 Course Creation",
-        "No Ads",
-        "Mentor Support",
-        "Badges",
-      ],
-      popular: true,
-    },
-  ];
+  const plans = SUBSCRIPTION_PLANS;
 
   return (
     <section id="pricing" className="md:ml-20 md:mr-20 py-20 bg-transparent transition-colors">

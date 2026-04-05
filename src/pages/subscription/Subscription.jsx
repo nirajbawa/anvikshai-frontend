@@ -126,25 +126,26 @@ export default function SubscriptionPlans() {
                     d="M13 2L3 14h8l-2 8 10-12h-8l2-8z"
                   />
                 </svg>
-                Premium Package
+                {premiumPlan.name}
               </h3>
 
               <div className="mt-8 ml-10 flex flex-col justify-center space-y-3 text-left">
                 <p className="font-semibold text-lg text-gray-900 dark:text-white transition-colors">Features:</p>
                 <ul className="text-md text-gray-700 dark:text-gray-300 font-bold transition-colors">
-                  <li className="mt-4">• 10 tasks per month</li>
-                  <li>• No Ads</li>
+                  {premiumPlan.features.map((feature, i) => (
+                    <li key={i} className={i === 0 ? "mt-4" : ""}>• {feature}</li>
+                  ))}
                 </ul>
               </div>
 
               <div className="mt-auto mb-6">
                 <div className="flex items-center justify-center gap-3">
                   <p className="text-gray-500 text-xl line-through font-bold transition-colors">
-                    &#8377;1000
+                    {premiumPlan.slashedPrice}
                   </p>
-                  <p className="text-red-600 text-2xl font-bold">&#8377;500</p>
+                  <p className="text-red-600 text-2xl font-bold">{premiumPlan.price}</p>
                 </div>
-                <p className="text-xs text-gray-400 mt-1 italic">Valid for 1 year</p>
+                <p className="text-xs text-gray-400 mt-1 italic">{premiumPlan.period}</p>
               </div>
 
               <button
