@@ -116,32 +116,32 @@ const Article = () => {
       <div className="flex flex-wrap justify-center gap-12 mt-10">
         {articles.length > 0 ? (
           articles.map((article, index) => (
-            <Card key={index} className="w-80 shadow-sm p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 transition-colors">
+            <Card key={index} className="w-80 shadow-sm p-4 bg-white dark:bg-gray-900 rdmtbg border border-gray-100 dark:border-purple-900/20 transition-all duration-300 hover:-translate-y-1 group">
               <CardBody>
-                <Typography variant="h5" color="blue-gray" className="mb-2 dark:text-white transition-colors">
+                <Typography variant="h5" color="blue-gray" className="mb-2 dark:text-white transition-colors font-bold">
                   {article.topic}
                 </Typography>
-                <Typography className="line-clamp-3 text-gray-700 dark:text-gray-300 transition-colors">
+                <Typography className="line-clamp-3 text-gray-700 dark:text-gray-300 transition-colors text-sm">
                   Click "Read More" to explore the full content.
                 </Typography>
               </CardBody>
-              <CardFooter className="flex justify-between pt-0">
+              <CardFooter className="flex justify-between pt-0 gap-3">
                 <Button
-                  className="border border-blue-gray-500 text-blue-gray-500 bg-transparent shadow-none hover:bg-blue-gray-100"
+                  className="flex-1 py-3 rounded-xl border border-purple-200 dark:border-purple-900/40 text-purple-600 dark:text-purple-400 bg-white dark:bg-purple-900/10 shadow-none hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white dark:hover:text-white transition-all duration-300 normal-case font-bold text-sm hover:shadow-lg hover:shadow-purple-500/20 active:scale-95"
                   onClick={() => handleReadArticle(article.link, index)}
                   disabled={readArticles.has(index)}
                 >
                   {readArticles.has(index) ? "Completed" : "Read More"}
                 </Button>
                 <Button
-                  className={
+                  className={`flex-1 py-3 rounded-xl transition-all duration-300 normal-case font-bold text-sm shadow-none border ${
                     readArticles.has(index)
-                      ? "bg-green-500 text-white shadow-md hover:bg-green-600"
-                      : "bg-[#EADAFF] dark:bg-purple-900/30 text-gray-900 dark:text-white shadow-sm hover:bg-purple-300 dark:hover:bg-purple-800 transition-colors"
-                  }
+                      ? "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20"
+                      : "bg-gray-100 dark:bg-gray-800/40 text-gray-500 dark:text-gray-400 border-transparent"
+                  }`}
                   disabled={true}
                 >
-                  {readArticles.has(index) ? "Completed" : "Remaining"}
+                  {readArticles.has(index) ? "Done" : "Remaining"}
                 </Button>
               </CardFooter>
             </Card>

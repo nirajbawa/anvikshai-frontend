@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router";
+import { Outlet, Navigate, useLocation } from "react-router";
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import useAuthStore from "../store/useAuthStore";
@@ -9,6 +9,8 @@ import useSidebarStore from "../store/useSidebarStore";
 const DashboardLayout = () => {
   const { token } = useAuthStore();
   const { isSidebarOpen, setIsSidebarOpen, closeSidebar } = useSidebarStore();
+  const location = useLocation();
+  const isMessagesPage = location.pathname.includes('/dashboard/messages');
 
   // Handle window resize to auto-close sidebar on mobile
   useEffect(() => {
@@ -36,12 +38,14 @@ const DashboardLayout = () => {
       <DashboardNav />
       
       <div className="flex flex-1 w-full">
-        {/* Sidebar - Now uncommented and properly integrated */}
-        <Sidebar
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-          onNavigate={() => setIsSidebarOpen(false)}
-        />
+        {/* Sidebar - Now hidden on messages page */}
+        {!isMessagesPage && (
+          <Sidebar
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
+            onNavigate={() => setIsSidebarOpen(false)}
+          />
+        )}
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-screen w-full lg:ml-0">
@@ -59,7 +63,7 @@ const DashboardLayout = () => {
             </div>
           </header>
 
-          <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+          <main className={`flex-1 overflow-y-auto ${isMessagesPage ? 'p-0' : 'p-4 md:p-6'}`}>
             <Outlet />
             <ToastContainer position="bottom-left" />
           </main>

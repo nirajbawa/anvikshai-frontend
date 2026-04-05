@@ -151,13 +151,13 @@ export default function RoadMap() {
       <div className="flex flex-col items-center px-4 sm:px-8 py-10 mx-auto w-full mt-5 pb-96 animate-pulse">
         <div className="flex flex-col lg:flex-row justify-between w-full gap-6">
           {/* Roadmap View Skeleton */}
-          <div className="w-full lg:w-1/2 p-5 bg-white dark:bg-[#121212] rounded-lg transition-colors border border-gray-200 dark:border-purple-900/40 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)]">
+          <div className="w-full lg:w-1/2 p-5 rdmtbg transition-colors border border-gray-200 dark:border-purple-900/40 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)]">
             <div className="h-6 bg-gray-300 dark:bg-gray-800 rounded w-1/3 mb-5 mt-2"></div>
             <div className="space-y-4">
               {Array(4)
                 .fill()
                 .map((_, index) => (
-                  <div key={index} className="p-3 bg-gray-200 dark:bg-gray-800 rounded">
+                  <div key={index} className="p-3 bg-gray-200/50 dark:bg-gray-800/50 rounded">
                     <div className="h-4 bg-gray-400 dark:bg-gray-700 rounded mb-2"></div>
                     <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded"></div>
                   </div>
@@ -166,7 +166,7 @@ export default function RoadMap() {
           </div>
 
           {/* Notifications Skeleton */}
-          <div className="w-full lg:w-2/5 p-6 rounded-lg shadow-sm bg-purple-100 dark:bg-purple-900/30 transition-colors border border-purple-200 dark:border-purple-800">
+          <div className="w-full lg:w-2/5 p-6 rounded-lg shadow-sm rdmtbg transition-colors border border-purple-200 dark:border-purple-800">
             <div className="h-6 bg-gray-300 rounded w-1/2 mb-4"></div>
             <div className="space-y-3">
               {Array(1)
@@ -182,12 +182,12 @@ export default function RoadMap() {
         </div>
 
         {/* Calendar Skeleton */}
-        <div className="w-full mt-10 p-6 bg-purple-100 dark:bg-purple-900/30 rounded-lg shadow-sm transition-colors border border-purple-200 dark:border-purple-800">
-          <div className="h-64 bg-purple-200 dark:bg-purple-800/50 rounded"></div>
+        <div className="w-full mt-10 p-6 rdmtbg rounded-lg shadow-sm transition-colors border border-purple-200 dark:border-purple-800">
+          <div className="h-64 bg-purple-200/20 dark:bg-purple-800/30 rounded"></div>
         </div>
 
         {/* Course Analytics Skeleton */}
-        <div className="flex flex-col items-center w-full p-6 bg-white dark:bg-[#121212] rounded-lg shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)] mt-20 transition-colors border border-gray-200 dark:border-purple-900/40">
+        <div className="flex flex-col items-center w-full p-6 rdmtbg rounded-lg shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)] mt-20 transition-colors border border-gray-200 dark:border-purple-900/40">
           <div className="h-6 bg-gray-300 dark:bg-gray-800 rounded w-1/3 mb-10"></div>
           <div className="w-full max-w-5xl h-[400px] bg-gray-200 dark:bg-gray-800 rounded"></div>
         </div>
@@ -246,7 +246,7 @@ export default function RoadMap() {
 
       <div className="flex flex-col items-center px-3 sm:px-6 md:px-8 pt-5 md:py-10 mx-auto w-full mt-5 pb-32 md:pb-96">
         <div className="flex flex-col lg:flex-row justify-between w-full gap-4 md:gap-6">
-          <div className="w-full lg:w-1/2 p-4 md:p-5 bg-white dark:bg-[#121212] rounded-lg transition-colors border border-gray-200 dark:border-purple-900/40 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)]">
+          <div className="w-full lg:w-1/2 p-4 md:p-5 rdmtbg transition-colors border border-gray-100 dark:border-purple-900/20 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.1)]">
             <h2 className="text-lg font-bold md:text-xl mb-4 md:mb-5 text-gray-900 dark:text-white transition-colors">
               Course View
             </h2>
@@ -272,8 +272,10 @@ export default function RoadMap() {
                 {task.map((data, index) => (
                   <Timeline.Item key={index}>
                     <Timeline.Header>
-                      <Timeline.Separator />
-                      <Timeline.Icon>{index + 1}</Timeline.Icon>
+                      <Timeline.Separator className="dark:bg-purple-900/40" />
+                      <Timeline.Icon className="bg-purple-600 dark:bg-purple-500 text-white shadow-lg shadow-purple-500/30 border-2 border-white dark:border-[#0a0a0a] transition-all duration-300 hover:scale-110 flex items-center justify-center font-bold">
+                        {index + 1}
+                      </Timeline.Icon>
                     </Timeline.Header>
                     <Timeline.Body>
                       <Typography color="default" className="font-bold text-gray-900 dark:text-white transition-colors">
@@ -317,7 +319,7 @@ export default function RoadMap() {
 
         <Calendar taskId={id} createdat={createdAt} />
 
-        <div className="flex flex-col items-center w-full p-4 md:p-6 bg-white dark:bg-[#121212] rounded-lg mt-10 md:mt-20 transition-colors border border-gray-200 dark:border-purple-900/40 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)]">
+        <div className="flex flex-col items-center w-full p-4 md:p-6 rdmtbg rounded-lg mt-10 md:mt-20 transition-colors border border-gray-100 dark:border-purple-900/20 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.1)]">
           <h2 className="text-xl md:text-2xl font-semibold mb-10 md:mb-20 text-gray-900 dark:text-white transition-colors">
             Course Analytics
           </h2>

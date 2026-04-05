@@ -61,10 +61,10 @@ function Chat() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white-200 p-0 sm:p-7">
-      <div className="bg-purple-100 p-7 rounded-2xl shadow-2xl sm:w-[70%] max-w-3xl">
-        <div className="bg-white p-8 rounded-lg shadow-lg h-full">
-          <p className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-[#0a0a0a] p-0 sm:p-7 transition-colors">
+      <div className="bg-purple-100 dark:bg-purple-900/20 p-7 rounded-2xl shadow-2xl sm:w-[70%] max-w-3xl border border-purple-200 dark:border-purple-800/50">
+        <div className="bg-white dark:bg-[#121212] p-8 rounded-lg shadow-lg h-full border border-gray-100 dark:border-gray-800">
+          <p className="text-gray-900 dark:text-gray-200 prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeHighlight]}
@@ -74,8 +74,8 @@ function Chat() {
           </p>
         </div>
         {modifiedResponse != null ? (
-          <div className="bg-white p-8 rounded-lg shadow-lg h-full mt-10">
-            <p className="text-black prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
+          <div className="bg-white dark:bg-[#121212] p-8 rounded-lg shadow-lg h-full mt-10 border border-gray-100 dark:border-gray-800">
+            <p className="text-gray-900 dark:text-gray-200 prose max-w-full prose-lg prose-gray dark:prose-invert markdown-content">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
@@ -101,14 +101,14 @@ function Chat() {
           <div className="flex justify-between w-full">
             <input
               type="text"
-              className="w-full h-14 px-5 focus:outline-none p-2 bg-white border-4 rounded-xl border-gray-200"
+              className="w-full h-14 px-5 focus:outline-none p-2 bg-white dark:bg-gray-800 border-4 rounded-xl border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200"
               placeholder="Ask Something"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               disabled={loading}
             />
             <button
-              className="text-5xl hover:text-[#2f2f2f] disabled:opacity-50"
+              className="text-5xl hover:text-[#2f2f2f] dark:hover:text-white text-gray-700 dark:text-gray-400 disabled:opacity-50"
               onClick={modifyTask}
               disabled={loading}
             >

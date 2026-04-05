@@ -32,7 +32,7 @@ const RequestMentor = ({ isPremiumUser, courseData }) => {
   return (
     <div className="relative w-full lg:w-2/5">
       <div
-        className={`lg:absolute p-4 md:p-6 inset-0 rounded-lg bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.2)] transition-colors text-gray-900 dark:text-white ${
+        className={`lg:absolute p-4 md:p-6 inset-0 rdmtbg border border-purple-200 dark:border-purple-800/50 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.1)] transition-colors text-gray-900 dark:text-white ${
           !isPremiumUser ? "blur-[2px]" : ""
         }`}
       >

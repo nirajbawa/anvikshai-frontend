@@ -67,7 +67,7 @@ const Calendar = ({ taskId, createdat }) => {
   }
 
   return (
-    <div className="w-full bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800 p-6 rounded-lg shadow-sm mt-20 transition-colors text-gray-900 dark:text-white">
+    <div className="w-full rdmtbg border border-purple-200 dark:border-purple-800/50 p-6 shadow-xl dark:shadow-[0_8px_30px_-15px_rgba(147,51,234,0.1)] mt-20 transition-colors text-gray-900 dark:text-white">
       <h2 className="text-2xl font-bold mb-4">Task Calendar</h2>
       <div className="flex justify-between mb-4">
         <button
