@@ -25,7 +25,7 @@ export const SUBSCRIPTION_PLANS = [
     period: "Per Month",
     color: "from-purple-500 to-purple-700",
     features: [
-      "Create 20 Course Per Month",
+      "Create 10 Course Per Month",
       "Ad-Free Career Dashboard",
       "Get Mentor Support",
       "Get Unlimited Expert Support",
