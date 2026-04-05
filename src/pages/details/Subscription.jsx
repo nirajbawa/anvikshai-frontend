@@ -13,6 +13,34 @@ export default function SubscriptionPlans() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const axiosInstance = useAxios();
 
+  const freePlan = {
+    name: "Free Plan",
+    features: [
+      "Basic career roadmaps",
+      "Standard assessment tests",
+      "Basic AI chatbot support",
+    ],
+    price: "₹0",
+    slashedPrice: "",
+    buttonText: "Start for Free",
+    path: "/dashboard",
+  };
+
+  const premiumPlan = {
+    name: "Premium Plan",
+    features: [
+      "Detailed step-by-step roadmaps",
+      "Full access to premium assessments",
+      "1-on-1 Expert mentoring",
+      "Advanced AI chatbot capabilities",
+    ],
+    price: "₹199",
+    slashedPrice: "₹399",
+    period: "/ month",
+    buttonText: "UPGRADE NOW",
+    popular: true,
+  };
+
   const createOrder = async () => {
     try {
       const response = await axiosInstance.get(

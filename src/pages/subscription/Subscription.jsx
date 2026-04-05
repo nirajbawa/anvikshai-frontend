@@ -17,6 +17,19 @@ export default function SubscriptionPlans() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const axiosInstance = useAxios();
 
+  const premiumPlan = {
+    name: "Premium Plan",
+    features: [
+      "Detailed step-by-step roadmaps",
+      "Full access to premium assessments",
+      "1-on-1 Expert mentoring",
+      "Advanced AI chatbot capabilities",
+    ],
+    price: "₹199",
+    slashedPrice: "₹399",
+    period: "/ month",
+  };
+
   const createOrder = async () => {
     try {
       const response = await axiosInstance.get(

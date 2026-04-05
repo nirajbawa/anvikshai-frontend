@@ -212,7 +212,7 @@ function MentorMessages() {
 
   return (
     <div
-      className={`h-[95vh] sm:h-[43rem] flex overflow-hidden ${
+      className={`h-[92vh] w-full flex overflow-hidden bg-gray-50 dark:bg-gray-900 ${
         isDarkMode ? "dark" : ""
       }`}
     >
@@ -222,21 +222,28 @@ function MentorMessages() {
         title={"Course Details"}
         bio={selectedCourse?.generated_roadmap_text}
       />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="fixed inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-blue-900 -z-10"
-      >
-        <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10"></div>
-      </motion.div>
+
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.div
-            initial={{ x: -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-            className="fixed inset-y-0 left-0 w-full md:w-80 lg:w-96 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-r border-gray-200 dark:border-gray-700 z-50"
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+            className="fixed inset-y-0 left-0 w-[85vw] md:w-80 lg:w-96 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-50 md:relative flex-shrink-0 shadow-2xl md:shadow-none"
           >
             <div className="p-4 h-full flex flex-col">
               <div className="flex items-center justify-between mb-8">
@@ -330,7 +337,7 @@ function MentorMessages() {
         )}
       </AnimatePresence>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0 bg-gray-50/50 dark:bg-gray-900/50">
         <div className="h-16 flex items-center justify-between px-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
             <motion.button
@@ -381,11 +388,11 @@ function MentorMessages() {
               >
                 <div className="relative group">
                   <div
-                    className={`max-w-[85%] sm:max-w-[70%] w-44 sm:min-w-52 p-3 sm:p-4 rounded-2xl ${
+                    className={`max-w-[85%] md:max-w-[75%] lg:max-w-[65%] w-auto p-3 sm:p-4 rounded-2xl break-words ${
                       message.sender !== "user"
-                        ? "bg-white dark:bg-gray-800 rounded-tl-none"
-                        : "bg-purple-500 dark:bg-purple-600 text-white rounded-tr-none"
-                    } shadow-sm`}
+                        ? "bg-white dark:bg-gray-800 rounded-tl-none border border-gray-100 dark:border-gray-700 shadow-sm"
+                        : "bg-purple-600 dark:bg-purple-500 text-white rounded-tr-none shadow-md"
+                    }`}
                   >
                     {message.sender !== "user" && (
                       <p className="text-xs font-semibold text-purple-600 dark:text-purple-400 mb-1">
