@@ -159,7 +159,7 @@ function MentorMessages() {
 
     setSocket(ws);
   };
-
+  // messaging window
   const sendMessage = () => {
     if (socket && selectedContact.id && inputMessage) {
       const payload = {
