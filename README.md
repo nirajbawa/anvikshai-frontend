@@ -61,10 +61,3 @@ npm run build
 npm run lint
 ```
 
-- **Testing:**
-
-```bash
-npm test
-```
-
----
