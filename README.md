@@ -4,7 +4,7 @@ This guide will help you set up and run a React project.
 
 ## Prerequisites
 
-Make sure you have the following installed:
+Make sure you have the following :
 
 - [Node.js](https://nodejs.org/) (v22.14.0 version recommended)
 - [npm](https://www.npmjs.com/) (10.9.2 version recommended)
